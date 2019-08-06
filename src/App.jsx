@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserHistory } from "history";
+import { createHashHistory } from "history";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch, Redirect } from "react-router";
@@ -18,7 +18,7 @@ import Settings from "./routes/Settings";
 
 function App() {
   const initialState = {};
-  const history = createBrowserHistory({});
+  const history = createHashHistory({});
 
   const rootSaga = createRootSaga();
   const store = configureStore(initialState, rootSaga, history);
