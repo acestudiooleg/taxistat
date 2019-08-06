@@ -31,7 +31,7 @@ function App() {
       danger: "orange"
     }
   });
-  const isFirstVisit = true;
+  const isFirstVisit = false;
 
   const redirectToRoot = () => (
     <Redirect to={isFirstVisit ? routes.settings : routes.home} />
