@@ -15,6 +15,7 @@ import createRootSaga from "./sagas";
 import routes from "./router";
 import Home from "./routes/Home";
 import Settings from "./routes/Settings";
+import Init from "./routes/Init";
 
 function App() {
   const initialState = {};
@@ -31,10 +32,10 @@ function App() {
       danger: "orange"
     }
   });
-  const isFirstVisit = false;
+  const isFirstVisit = true;
 
   const redirectToRoot = () => (
-    <Redirect to={isFirstVisit ? routes.settings : routes.home} />
+    <Redirect to={isFirstVisit ? routes.init : routes.home} />
   );
   return (
     <Provider store={store}>
@@ -45,6 +46,7 @@ function App() {
               <Route exact path={routes.root} render={redirectToRoot} />
               <Route exact path={routes.home} component={Home} />
               <Route exact path={routes.settings} component={Settings} />
+              <Route exact path={routes.init} component={Init} />
             </Switch>
           </ConnectedRouter>
         </MuiPickersUtilsProvider>

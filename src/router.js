@@ -1,5 +1,6 @@
 export default {
-  root: '/',
-  settings: '/settings',
-  home: '/home',
+  root: "/",
+  settings: "/settings",
+  home: "/home",
+  init: "/init"
 };

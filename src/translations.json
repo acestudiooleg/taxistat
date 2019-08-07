@@ -1,0 +1,16 @@
+{
+  "fuel-consumption-label": "Топливо",
+  "fuel-consumption-title": "Расход топлива",
+  "fuel-consumption-desc": "Укажите расход топлива на 100км и стоимость топлива за 1л",
+  "taxi-services-label": "Такси",
+  "taxi-services-title": "Службы Такси",
+  "taxi-services-desc": "Создайте список служб и их комиссии",
+  "expenses-label": "Расходы",
+  "expenses-title": "Ваши Расходы",
+  "expenses-desc": "Создайте список ваших расходов",
+  "next": "Вперед",
+  "back": "Назад",
+  "save": "Сохранить",
+  "liters-per-hundred-km": "Литров на 100км",
+  "fuel-price-per-liter": "Стоимость топлива за 1л"
+}
