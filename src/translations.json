@@ -19,5 +19,7 @@
   "setup": "Установка параметров приложения",
   "remove-service": "Удалить сервис",
   "remove-service-confirmation": "Вы уверенны что хотите удалить службу - {name}",
-  "remove-service-success": "Cлужба {name} удалена. Вы всегда можете добавить новую службу"
+  "remove-service-success": "Cлужба {name} удалена. Вы всегда можете добавить новую службу",
+  "service-name": "Имя службы такси",
+  "new-service-name": "Новая служба такси"
 }

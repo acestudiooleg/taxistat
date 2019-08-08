@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import omit from "lodash/omit";
 import { makeStyles } from "@material-ui/core/styles";
 import Accordion from "@material-ui/core/ExpansionPanel";
 import AccBody from "@material-ui/core/ExpansionPanelDetails";
@@ -14,7 +15,10 @@ import words from "../translations.json";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%"
+    width: "100%",
+    overflow: "auto",
+    height: "calc(100vh - 240px)",
+    borderBottom: `1px solid ${theme.palette.grey[500]}`
   },
   input: {
     width: "100%"
@@ -32,7 +36,9 @@ export default function TaxiService() {
 
   const [_services, setState] = useState(services);
 
-  const showAddButton = _services.every(el => el.name !== expanded);
+  const showAddButton = _services.every(
+    el => el.name !== expanded && !el.isNew
+  );
 
   const handleService = serviceName => serviceData => {
     const newServices = _services.map(el => {
@@ -46,6 +52,39 @@ export default function TaxiService() {
 
   const handleAccordionChange = panel => (event, isExpanded) =>
     setExpanded(isExpanded ? panel : false);
+
+  const addService = () => {
+    const newServices = [
+      ..._services,
+      {
+        isNew: true,
+        name: words["new-service-name"],
+        newName: words["service-name"],
+        rideFee: 10,
+        weekFee: {
+          value: 0,
+          enabled: false
+        },
+        cardFee: {
+          value: 0,
+          enabled: false
+        }
+      }
+    ];
+    setState(newServices);
+    setExpanded(words["new-service-name"]);
+  };
+
+  const saveNewService = () => {
+    setState(
+      _services.map(el => {
+        if (el.isNew) {
+          return omit({ ...el, name: el.newName }, ["isNew", "newName"]);
+        }
+        return el;
+      })
+    );
+  };
 
   const removeService = name => () => {
     const isDelete = window.confirm(
@@ -73,13 +112,14 @@ export default function TaxiService() {
               fees={el}
               onChange={handleService(el.name)}
               onRemove={removeService(el.name)}
+              onSave={saveNewService}
             />
           </AccBody>
         </Accordion>
       ))}
       {showAddButton && (
         <Container justify="flex-end">
-          <Fab className={classes.fab} color="secondary">
+          <Fab onClick={addService} className={classes.fab} color="primary">
             <Add />
           </Fab>
         </Container>
