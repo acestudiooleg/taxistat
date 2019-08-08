@@ -4,10 +4,13 @@ import Accordion from "@material-ui/core/ExpansionPanel";
 import AccBody from "@material-ui/core/ExpansionPanelDetails";
 import AccHead from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Add from "@material-ui/icons/Add";
+import Fab from "@material-ui/core/Fab";
 
-import { P } from "../MyHTML";
-import { predefinedServices } from "../constants";
 import TaxiServiceFees from "./TaxiServiceFees";
+import { Container, P } from "../MyHTML";
+import { predefinedServices } from "../constants";
+import words from "../translations.json";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,6 +18,9 @@ const useStyles = makeStyles(theme => ({
   },
   input: {
     width: "100%"
+  },
+  fab: {
+    margin: 20
   }
 }));
 
@@ -25,6 +31,8 @@ export default function TaxiService() {
   const services = [...predefinedServices];
 
   const [_services, setState] = useState(services);
+
+  const showAddButton = _services.every(el => el.name !== expanded);
 
   const handleService = serviceName => serviceData => {
     const newServices = _services.map(el => {
@@ -39,6 +47,16 @@ export default function TaxiService() {
   const handleAccordionChange = panel => (event, isExpanded) =>
     setExpanded(isExpanded ? panel : false);
 
+  const removeService = name => () => {
+    const isDelete = window.confirm(
+      words["remove-service-confirmation"].replace("{name}", name)
+    );
+    if (isDelete) {
+      alert(words["remove-service-success"].replace("{name}", name));
+      setState(services.filter(el => el.name !== name));
+    }
+  };
+
   return (
     <div className={classes.root}>
       {_services.map(el => (
@@ -51,10 +69,21 @@ export default function TaxiService() {
             <P className={classes.heading}>{el.name}</P>
           </AccHead>
           <AccBody>
-            <TaxiServiceFees fees={el} onChange={handleService(el.name)} />
+            <TaxiServiceFees
+              fees={el}
+              onChange={handleService(el.name)}
+              onRemove={removeService(el.name)}
+            />
           </AccBody>
         </Accordion>
       ))}
+      {showAddButton && (
+        <Container justify="flex-end">
+          <Fab className={classes.fab} color="secondary">
+            <Add />
+          </Fab>
+        </Container>
+      )}
     </div>
   );
 }

@@ -7,8 +7,8 @@ import { MuiPickersUtilsProvider } from "material-ui-pickers";
 import MomentUtils from "@date-io/moment";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
-import purple from "@material-ui/core/colors/purple";
-import green from "@material-ui/core/colors/green";
+import teal from "@material-ui/core/colors/teal";
+import blue from "@material-ui/core/colors/blue";
 import configureStore from "./configureStore";
 import createRootSaga from "./sagas";
 
@@ -25,8 +25,8 @@ function App() {
   const store = configureStore(initialState, rootSaga, history);
   const theme = createMuiTheme({
     palette: {
-      primary: purple,
-      secondary: green
+      primary: teal,
+      secondary: blue
     },
     status: {
       danger: "orange"

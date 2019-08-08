@@ -1,8 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Input from "@material-ui/core/TextField";
 import Switch from "@material-ui/core/Switch";
+import Delete from "@material-ui/icons/Delete";
+import Fab from "@material-ui/core/Fab";
 
 import words from "../translations.json";
 import { Container, D12 } from "../MyHTML";
@@ -10,10 +12,23 @@ import { Container, D12 } from "../MyHTML";
 const useStyles = makeStyles(theme => ({
   input: {
     width: "100%"
+  },
+  removeButton: {
+    backgroundColor: theme.palette.red
   }
 }));
 
-export default ({ fees, onChange }) => {
+const RemoveButton = withStyles(theme => ({
+  root: {
+    color: theme.palette.getContrastText(theme.palette.error.main),
+    backgroundColor: theme.palette.error.main,
+    "&:hover": {
+      backgroundColor: theme.palette.error.dark
+    }
+  }
+}))(Fab);
+
+export default ({ fees, onChange, onRemove }) => {
   const classes = useStyles();
 
   const handleInputChange = name => ({ target: { value } }) => {
@@ -89,6 +104,13 @@ export default ({ fees, onChange }) => {
             )
           }}
         />
+      </D12>
+      <D12>
+        <Container justify="flex-end">
+          <RemoveButton onClick={onRemove}>
+            <Delete />
+          </RemoveButton>
+        </Container>
       </D12>
     </Container>
   );

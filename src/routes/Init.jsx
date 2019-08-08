@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 
-import { Container, D12 } from "../MyHTML";
+import { Container, H6, D12 } from "../MyHTML";
 import InitSteps from "../components/InitSteps";
 import FuelConsumption from "../components/FuelConsumption";
 import TaxiServices from "../components/TaxiServices";
@@ -54,23 +56,30 @@ const Init = () => {
   const CurrentStepContent = steps[activeStep].component;
 
   return (
-    <Container>
-      <D12>
-        <InitSteps {...{ steps, activeStep }} />
-      </D12>
-      <CurrentStepContent
-        onBack={onBack}
-        onChange={saveState(stepNames[activeStep])}
-      />
-      <D12>
-        <InitNavButtons
+    <div>
+      <AppBar position="static" color="primary">
+        <Toolbar>
+          <H6>{words["setup"]}</H6>
+        </Toolbar>
+      </AppBar>
+      <Container>
+        <D12>
+          <InitSteps {...{ steps, activeStep }} />
+        </D12>
+        <CurrentStepContent
           onBack={onBack}
-          onNext={save}
-          activeStep={activeStep}
-          stepsLen={steps.length}
+          onChange={saveState(stepNames[activeStep])}
         />
-      </D12>
-    </Container>
+        <D12>
+          <InitNavButtons
+            onBack={onBack}
+            onNext={save}
+            activeStep={activeStep}
+            stepsLen={steps.length}
+          />
+        </D12>
+      </Container>
+    </div>
   );
 };
 
