@@ -39,6 +39,13 @@ const steps = [
 
 const stepNames = ["fuel", "services", "expenses"];
 
+const checkUnsavedService = state => {
+  if (!state.unsavedService) {
+    return false;
+  }
+  return !window.confirm(words["reset-unsaved-service-confirmation"]);
+};
+
 const Init = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [state, setState] = useState({
@@ -47,11 +54,25 @@ const Init = () => {
     expenses: {}
   });
 
-  const saveState = name => data => setState({ ...state, [name]: data });
+  const saveState = (name, data) => setState({ ...state, [name]: data });
 
-  const save = () => setActiveStep(step => step + 1);
+  const onNext = () => {
+    const isKeepUnsavedService = checkUnsavedService(state);
+    if (isKeepUnsavedService) {
+      return;
+    }
+    setState({ ...state, unsavedService: false });
+    setActiveStep(step => step + 1);
+  };
 
-  const onBack = () => () => setActiveStep(step => step - 1);
+  const onBack = () => {
+    const isKeepUnsavedService = checkUnsavedService(state);
+    if (isKeepUnsavedService) {
+      return;
+    }
+    setState({ ...state, unsavedService: false });
+    setActiveStep(step => step - 1);
+  };
 
   const CurrentStepContent = steps[activeStep].component;
 
@@ -67,13 +88,13 @@ const Init = () => {
           <InitSteps {...{ steps, activeStep }} />
         </D12>
         <CurrentStepContent
-          onBack={onBack}
-          onChange={saveState(stepNames[activeStep])}
+          stepName={stepNames[activeStep]}
+          onChange={saveState}
         />
         <D12>
           <InitNavButtons
             onBack={onBack}
-            onNext={save}
+            onNext={onNext}
             activeStep={activeStep}
             stepsLen={steps.length}
           />

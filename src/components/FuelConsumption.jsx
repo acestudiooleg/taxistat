@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default ({ onChange }) => {
+export default ({ stepName, onChange }) => {
   const classes = useStyles();
   const [values, setValues] = React.useState({
     liters: 9.5,
@@ -30,7 +30,7 @@ export default ({ onChange }) => {
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
-    onChange(values);
+    onChange(stepName, values);
   };
 
   return (

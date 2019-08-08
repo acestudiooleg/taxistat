@@ -1,4 +1,5 @@
 {
+  "app-title": "TaxiStat - сколько ты зарабатываешь в такси?",
   "fuel-consumption-label": "Топливо",
   "fuel-consumption-title": "Расход топлива",
   "fuel-consumption-desc": "Укажите расход топлива на 100км и стоимость топлива за 1л",
@@ -16,10 +17,11 @@
   "service-fee-per-ride": "Коммисия службы за заказ",
   "service-fee-per-week": "Абонплата в неделю",
   "card-fee": "Коммисия за вывод с карты",
-  "setup": "Установка параметров приложения",
+  "setup": "Установка параметров",
   "remove-service": "Удалить сервис",
   "remove-service-confirmation": "Вы уверенны что хотите удалить службу - {name}",
   "remove-service-success": "Cлужба {name} удалена. Вы всегда можете добавить новую службу",
   "service-name": "Имя службы такси",
-  "new-service-name": "Новая служба такси"
+  "new-service-name": "Новая служба такси",
+  "reset-unsaved-service-confirmation": "У вас есть не сохраненная служба такси. Вы уверенны что хотите уйти со страницы?"
 }

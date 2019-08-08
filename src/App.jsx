@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { createHashHistory } from "history";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
@@ -16,6 +17,7 @@ import routes from "./router";
 import Home from "./routes/Home";
 import Settings from "./routes/Settings";
 import Init from "./routes/Init";
+import words from "./translations.json";
 
 function App() {
   const initialState = {};
@@ -42,6 +44,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <MuiPickersUtilsProvider utils={MomentUtils} locale="ru">
           <ConnectedRouter history={history}>
+            <Helmet>
+              <title>{words["app-title"]}</title>
+            </Helmet>
             <Switch>
               <Route exact path={routes.root} render={redirectToRoot} />
               <Route exact path={routes.home} component={Home} />

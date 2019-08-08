@@ -24,7 +24,7 @@ export default ({ onBack, onNext, activeStep, stepsLen }) => {
   return (
     <Container className={classes.buttons}>
       <D6 className={classes.container}>
-        <Button fullWidth onClick={onBack}>
+        <Button fullWidth disabled={activeStep === 0} onClick={onBack}>
           {words["back"]}
         </Button>
       </D6>

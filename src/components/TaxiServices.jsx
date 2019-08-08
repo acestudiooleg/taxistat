@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import omit from "lodash/omit";
 import { makeStyles } from "@material-ui/core/styles";
 import Accordion from "@material-ui/core/ExpansionPanel";
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function TaxiService() {
+export default function TaxiService({ stepName, onChange }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -39,6 +39,12 @@ export default function TaxiService() {
   const showAddButton = _services.every(
     el => el.name !== expanded && !el.isNew
   );
+
+  useEffect(() => {
+    if (stepName && stepName !== "services") {
+      setState(_services.filter(el => !el.isNew));
+    }
+  }, [stepName, _services]);
 
   const handleService = serviceName => serviceData => {
     const newServices = _services.map(el => {
@@ -73,6 +79,8 @@ export default function TaxiService() {
     ];
     setState(newServices);
     setExpanded(words["new-service-name"]);
+    onChange("unsavedService", true);
+    onChange("services", newServices);
   };
 
   const saveNewService = () => {
@@ -92,7 +100,7 @@ export default function TaxiService() {
     );
     if (isDelete) {
       alert(words["remove-service-success"].replace("{name}", name));
-      setState(services.filter(el => el.name !== name));
+      setState(_services.filter(el => el.name !== name));
     }
   };
 
