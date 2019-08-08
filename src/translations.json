@@ -12,5 +12,8 @@
   "back": "Назад",
   "save": "Сохранить",
   "liters-per-hundred-km": "Литров на 100км",
-  "fuel-price-per-liter": "Стоимость топлива за 1л"
+  "fuel-price-per-liter": "Стоимость топлива за 1л",
+  "service-fee-per-ride": "Коммисия службы за заказ",
+  "service-fee-per-week": "Абонплата в неделю",
+  "card-fee": "Коммисия за вывод с карты"
 }

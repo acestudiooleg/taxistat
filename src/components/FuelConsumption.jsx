@@ -40,7 +40,7 @@ export default ({ onChange }) => {
         <P align="center">{words["fuel-consumption-desc"]}</P>
       </D12>
       <form noValidate autoComplete="off">
-        <D12 className={classes.container} alignItems="center">
+        <D12 className={classes.container}>
           <Input
             id="liters"
             label={words["liters-per-hundred-km"]}
@@ -59,7 +59,6 @@ export default ({ onChange }) => {
             value={values.price}
             className={classes.input}
             type="number"
-            length
             onChange={handleChange("price")}
             margin="normal"
             variant="outlined"

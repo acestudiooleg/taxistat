@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Container, D12 } from "../MyHTML";
 import InitSteps from "../components/InitSteps";
 import FuelConsumption from "../components/FuelConsumption";
+import TaxiServices from "../components/TaxiServices";
 import InitNavButtons from "../components/InitNavButtons";
 
 import words from "../translations.json";
@@ -17,14 +18,24 @@ const mapDispatchToProps = {
 };
 
 const steps = [
-  words["fuel-consumption-label"],
-  words["taxi-services-label"],
-  words["expenses-label"]
+  {
+    name: "fuel",
+    label: words["fuel-consumption-label"],
+    component: TaxiServices
+  },
+  {
+    name: "services",
+    label: words["taxi-services-label"],
+    component: TaxiServices
+  },
+  {
+    name: "expenses",
+    label: words["expenses-label"],
+    component: FuelConsumption
+  }
 ];
 
 const stepNames = ["fuel", "services", "expenses"];
-
-const makeSteps = (...steps) => index => steps[index];
 
 const Init = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -34,18 +45,13 @@ const Init = () => {
     expenses: {}
   });
 
-  const saveState = name => data => {
-    setState({ ...state, [name]: data });
-  };
+  const saveState = name => data => setState({ ...state, [name]: data });
 
-  const save = () => setActiveStep(prevActiveStep => prevActiveStep + 1);
+  const save = () => setActiveStep(step => step + 1);
 
-  const onBack = () => () =>
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  const onBack = () => () => setActiveStep(step => step - 1);
 
-  const getSteps = makeSteps(FuelConsumption);
-
-  const CurrentStepContent = getSteps(activeStep);
+  const CurrentStepContent = steps[activeStep].component;
 
   return (
     <Container>
@@ -57,7 +63,12 @@ const Init = () => {
         onChange={saveState(stepNames[activeStep])}
       />
       <D12>
-        <InitNavButtons onBack={onBack} onNext={save} />
+        <InitNavButtons
+          onBack={onBack}
+          onNext={save}
+          activeStep={activeStep}
+          stepsLen={steps.length}
+        />
       </D12>
     </Container>
   );

@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default ({ onBack, onNext, activeStep, steps }) => {
+export default ({ onBack, onNext, activeStep, stepsLen }) => {
   const classes = useStyles();
   return (
     <Container className={classes.buttons}>
@@ -30,7 +30,7 @@ export default ({ onBack, onNext, activeStep, steps }) => {
       </D6>
       <D6 className={classes.container}>
         <Button fullWidth color="primary" onClick={onNext}>
-          {activeStep === steps - 1 ? words["save"] : words["next"]}
+          {activeStep === stepsLen - 1 ? words["save"] : words["next"]}
         </Button>
       </D6>
     </Container>

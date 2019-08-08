@@ -5,9 +5,9 @@ import StepLabel from "@material-ui/core/StepLabel";
 
 export default ({ steps, activeStep }) => (
   <Stepper activeStep={activeStep} alternativeLabel>
-    {steps.map(label => (
-      <Step key={label}>
-        <StepLabel>{label}</StepLabel>
+    {steps.map(el => (
+      <Step key={el.label}>
+        <StepLabel>{el.label}</StepLabel>
       </Step>
     ))}
   </Stepper>
