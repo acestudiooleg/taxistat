@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import { useTranslation } from 'react-i18next';
@@ -34,20 +34,20 @@ const TaxiService = ({ stepName, onChange }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
-  const services = [...predefinedServices];
+  const savedServices = [...predefinedServices];
 
-  const [_services, setState] = useState(services);
+  const [servicesState, setState] = useState(savedServices);
 
-  const showAddButton = _services.every(el => el.name !== expanded && !el.isNew);
+  let services = servicesState;
 
-  useEffect(() => {
-    if (stepName && stepName !== 'services') {
-      setState(_services.filter(el => !el.isNew));
-    }
-  }, [stepName, _services]);
+  const showAddButton = services.every(el => el.name !== expanded && !el.isNew);
+
+  if (stepName && stepName !== 'services') {
+    services = services.filter(el => !el.isNew);
+  }
 
   const handleService = serviceName => (serviceData) => {
-    const newServices = _services.map((el) => {
+    const newServices = services.map((el) => {
       if (el.name === serviceName) {
         return serviceData;
       }
@@ -60,7 +60,7 @@ const TaxiService = ({ stepName, onChange }) => {
 
   const addService = () => {
     const newServices = [
-      ..._services,
+      ...services,
       {
         isNew: true,
         name: t('new-service-name'),
@@ -78,13 +78,12 @@ const TaxiService = ({ stepName, onChange }) => {
     ];
     setState(newServices);
     setExpanded(t('new-service-name'));
-    onChange('unsavedService', true);
     onChange('services', newServices);
   };
 
   const saveNewService = () => {
     setState(
-      _services.map((el) => {
+      services.map((el) => {
         if (el.isNew) {
           return omit({ ...el, name: el.newName }, ['isNew', 'newName']);
         }
@@ -97,13 +96,13 @@ const TaxiService = ({ stepName, onChange }) => {
     const isDelete = window.confirm(t('remove-service-confirmation').replace('{name}', name));
     if (isDelete) {
       alert(t('remove-service-success').replace('{name}', name));
-      setState(_services.filter(el => el.name !== name));
+      setState(services.filter(el => el.name !== name));
     }
   };
 
   return (
     <div className={classes.root}>
-      {_services.map(el => (
+      {services.map(el => (
         <Accordion key={el.name} expanded={expanded === el.name} onChange={handleAccordionChange(el.name)}>
           <AccHead expandIcon={<ExpandMoreIcon />}>
             <P className={classes.heading}>{el.name}</P>

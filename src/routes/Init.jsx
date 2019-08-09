@@ -38,13 +38,6 @@ const steps = [
 
 const stepNames = ['fuel', 'services', 'expenses'];
 
-const checkUnsavedService = (state, t) => {
-  if (!state.unsavedService) {
-    return false;
-  }
-  return !window.confirm(t('reset-unsaved-service-confirmation'));
-};
-
 const Init = () => {
   const { t } = useTranslation();
   const [activeStep, setActiveStep] = useState(0);
@@ -57,19 +50,11 @@ const Init = () => {
   const saveState = (name, data) => setState({ ...state, [name]: data });
 
   const onNext = () => {
-    const isKeepUnsavedService = checkUnsavedService(state, t);
-    if (isKeepUnsavedService) {
-      return;
-    }
     setState({ ...state, unsavedService: false });
     setActiveStep(step => step + 1);
   };
 
   const onBack = () => {
-    const isKeepUnsavedService = checkUnsavedService(state, t);
-    if (isKeepUnsavedService) {
-      return;
-    }
     setState({ ...state, unsavedService: false });
     setActiveStep(step => step - 1);
   };
