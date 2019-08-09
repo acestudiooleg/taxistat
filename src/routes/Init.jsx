@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,19 +11,23 @@ import FuelConsumption from '../components/FuelConsumption';
 import TaxiServices from '../components/TaxiServices';
 import InitNavButtons from '../components/InitNavButtons';
 
+import actions from '../actions/settings';
+
+import { getSettings } from '../reducers/settings';
+
 const mapStateToProps = state => ({
-  a: state,
+  settings: getSettings(state),
 });
 
 const mapDispatchToProps = {
-  save: () => 1,
+  save: actions.save,
 };
 
 const steps = [
   {
     name: 'fuel',
     label: 'fuel-consumption-label',
-    component: TaxiServices,
+    component: FuelConsumption,
   },
   {
     name: 'services',
@@ -38,25 +43,19 @@ const steps = [
 
 const stepNames = ['fuel', 'services', 'expenses'];
 
-const Init = () => {
+const Init = ({ settings, save }) => {
   const { t } = useTranslation();
-  const [activeStep, setActiveStep] = useState(0);
-  const [state, setState] = useState({
-    fuel: {},
-    services: {},
-    expenses: {},
-  });
+  const [state, setState] = useState(settings);
+  const { activeStep } = state;
 
   const saveState = (name, data) => setState({ ...state, [name]: data });
 
   const onNext = () => {
-    setState({ ...state, unsavedService: false });
-    setActiveStep(step => step + 1);
+    save({ ...state, activeStep: activeStep + 1 });
   };
 
   const onBack = () => {
-    setState({ ...state, unsavedService: false });
-    setActiveStep(step => step - 1);
+    save({ ...state, activeStep: activeStep - 1 });
   };
 
   const CurrentStepContent = steps[activeStep].component;
@@ -79,6 +78,15 @@ const Init = () => {
       </Container>
     </div>
   );
+};
+
+Init.propTypes = {
+  save: PropTypes.func.isRequired,
+  settings: PropTypes.shape({
+    fuel: PropTypes.object.isRequired,
+    services: PropTypes.object.isRequired,
+    expenses: PropTypes.object.isRequired,
+  }).isRequired,
 };
 
 export default connect(

@@ -1,8 +1,8 @@
 import { all } from 'redux-saga/effects';
-import counter from './counter';
+import settings from './settings';
 
 export default function createRootSaga() {
-  const sagas = [counter()];
+  const sagas = [settings()];
 
   return function* rootSaga() {
     yield all(sagas);
