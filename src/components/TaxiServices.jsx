@@ -1,34 +1,35 @@
-import React, { useState, useEffect } from "react";
-import omit from "lodash/omit";
-import { makeStyles } from "@material-ui/core/styles";
-import Accordion from "@material-ui/core/ExpansionPanel";
-import AccBody from "@material-ui/core/ExpansionPanelDetails";
-import AccHead from "@material-ui/core/ExpansionPanelSummary";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Add from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import omit from 'lodash/omit';
+import { makeStyles } from '@material-ui/core/styles';
+import Accordion from '@material-ui/core/ExpansionPanel';
+import AccBody from '@material-ui/core/ExpansionPanelDetails';
+import AccHead from '@material-ui/core/ExpansionPanelSummary';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Add from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
 
-import TaxiServiceFees from "./TaxiServiceFees";
-import { Container, P } from "../MyHTML";
-import { predefinedServices } from "../constants";
-import words from "../translations.json";
+import TaxiServiceFees from './TaxiServiceFees';
+import { Container, P } from '../MyHTML';
+import { predefinedServices } from '../constants';
+import words from '../translations.json';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%",
-    overflow: "auto",
-    height: "calc(100vh - 240px)",
-    borderBottom: `1px solid ${theme.palette.grey[500]}`
+    width: '100%',
+    overflow: 'auto',
+    height: 'calc(100vh - 240px)',
+    borderBottom: `1px solid ${theme.palette.grey[500]}`,
   },
   input: {
-    width: "100%"
+    width: '100%',
   },
   fab: {
-    margin: 20
-  }
+    margin: 20,
+  },
 }));
 
-export default function TaxiService({ stepName, onChange }) {
+const TaxiService = ({ stepName, onChange }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -36,18 +37,16 @@ export default function TaxiService({ stepName, onChange }) {
 
   const [_services, setState] = useState(services);
 
-  const showAddButton = _services.every(
-    el => el.name !== expanded && !el.isNew
-  );
+  const showAddButton = _services.every(el => el.name !== expanded && !el.isNew);
 
   useEffect(() => {
-    if (stepName && stepName !== "services") {
+    if (stepName && stepName !== 'services') {
       setState(_services.filter(el => !el.isNew));
     }
   }, [stepName, _services]);
 
-  const handleService = serviceName => serviceData => {
-    const newServices = _services.map(el => {
+  const handleService = serviceName => (serviceData) => {
+    const newServices = _services.map((el) => {
       if (el.name === serviceName) {
         return serviceData;
       }
@@ -56,50 +55,47 @@ export default function TaxiService({ stepName, onChange }) {
     setState(newServices);
   };
 
-  const handleAccordionChange = panel => (event, isExpanded) =>
-    setExpanded(isExpanded ? panel : false);
+  const handleAccordionChange = panel => (event, isExpanded) => setExpanded(isExpanded ? panel : false);
 
   const addService = () => {
     const newServices = [
       ..._services,
       {
         isNew: true,
-        name: words["new-service-name"],
-        newName: words["service-name"],
+        name: words['new-service-name'],
+        newName: words['service-name'],
         rideFee: 10,
         weekFee: {
           value: 0,
-          enabled: false
+          enabled: false,
         },
         cardFee: {
           value: 0,
-          enabled: false
-        }
-      }
+          enabled: false,
+        },
+      },
     ];
     setState(newServices);
-    setExpanded(words["new-service-name"]);
-    onChange("unsavedService", true);
-    onChange("services", newServices);
+    setExpanded(words['new-service-name']);
+    onChange('unsavedService', true);
+    onChange('services', newServices);
   };
 
   const saveNewService = () => {
     setState(
-      _services.map(el => {
+      _services.map((el) => {
         if (el.isNew) {
-          return omit({ ...el, name: el.newName }, ["isNew", "newName"]);
+          return omit({ ...el, name: el.newName }, ['isNew', 'newName']);
         }
         return el;
-      })
+      }),
     );
   };
 
   const removeService = name => () => {
-    const isDelete = window.confirm(
-      words["remove-service-confirmation"].replace("{name}", name)
-    );
+    const isDelete = window.confirm(words['remove-service-confirmation'].replace('{name}', name));
     if (isDelete) {
-      alert(words["remove-service-success"].replace("{name}", name));
+      alert(words['remove-service-success'].replace('{name}', name));
       setState(_services.filter(el => el.name !== name));
     }
   };
@@ -107,11 +103,7 @@ export default function TaxiService({ stepName, onChange }) {
   return (
     <div className={classes.root}>
       {_services.map(el => (
-        <Accordion
-          key={el.name}
-          expanded={expanded === el.name}
-          onChange={handleAccordionChange(el.name)}
-        >
+        <Accordion key={el.name} expanded={expanded === el.name} onChange={handleAccordionChange(el.name)}>
           <AccHead expandIcon={<ExpandMoreIcon />}>
             <P className={classes.heading}>{el.name}</P>
           </AccHead>
@@ -134,4 +126,15 @@ export default function TaxiService({ stepName, onChange }) {
       )}
     </div>
   );
-}
+};
+
+TaxiService.defaultProps = {
+  stepName: null,
+};
+
+TaxiService.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  stepName: PropTypes.string,
+};
+
+export default TaxiService;

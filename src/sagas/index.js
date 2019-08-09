@@ -1,5 +1,5 @@
-import { all } from "redux-saga/effects";
-import counter from "./counter";
+import { all } from 'redux-saga/effects';
+import counter from './counter';
 
 export default function createRootSaga() {
   const sagas = [counter()];

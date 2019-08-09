@@ -1,16 +1,16 @@
-import { createReducer } from "../helpers";
+import { createReducer } from '../helpers';
 import {
   INCREMENT,
   DECREMENT,
   ASYNC_INC,
   ASYNC_DEC,
   ASYNC_INC_SUCCESS,
-  ASYNC_DEC_SUCCESS
-} from "../actions/counter";
+  ASYNC_DEC_SUCCESS,
+} from '../actions/counter';
 
 const initialState = {
   value: 0,
-  loading: false
+  loading: false,
 };
 
 export const getCounter = ({ counter }) => counter;
@@ -24,5 +24,5 @@ export default createReducer(initialState, {
   [ASYNC_INC]: loading,
   [ASYNC_DEC]: loading,
   [ASYNC_INC_SUCCESS]: success,
-  [ASYNC_DEC_SUCCESS]: success
+  [ASYNC_DEC_SUCCESS]: success,
 });
