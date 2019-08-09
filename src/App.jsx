@@ -19,6 +19,8 @@ import Settings from './routes/Settings';
 import Init from './routes/Init';
 import words from './translations.json';
 
+import './i18n';
+
 function App() {
   const initialState = {};
   const history = createHashHistory({});
