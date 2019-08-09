@@ -46,7 +46,7 @@ const stepNames = ['fuel', 'services', 'expenses'];
 const Init = ({ settings, save }) => {
   const { t } = useTranslation();
   const [state, setState] = useState(settings);
-  const { activeStep } = state;
+  const { activeStep } = settings;
 
   const saveState = (name, data) => setState({ ...state, [name]: data });
 
@@ -83,6 +83,7 @@ const Init = ({ settings, save }) => {
 Init.propTypes = {
   save: PropTypes.func.isRequired,
   settings: PropTypes.shape({
+    activeStep: PropTypes.number.isRequired,
     fuel: PropTypes.object.isRequired,
     services: PropTypes.object.isRequired,
     expenses: PropTypes.object.isRequired,
