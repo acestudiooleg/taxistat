@@ -2,7 +2,7 @@ import { createReducer } from '../helpers';
 import { SAVE, SAVE_SUCCESS, SAVE_FAILURE } from '../actions/settings';
 
 const initialState = {
-  init: false,
+  initialized: false,
   loading: false,
   activeStep: 0,
   fuel: {},
