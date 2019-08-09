@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
+import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/ExpansionPanel';
 import AccBody from '@material-ui/core/ExpansionPanelDetails';
@@ -12,7 +13,6 @@ import Fab from '@material-ui/core/Fab';
 import TaxiServiceFees from './TaxiServiceFees';
 import { Container, P } from '../MyHTML';
 import { predefinedServices } from '../constants';
-import words from '../translations.json';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const TaxiService = ({ stepName, onChange }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -62,8 +63,8 @@ const TaxiService = ({ stepName, onChange }) => {
       ..._services,
       {
         isNew: true,
-        name: words['new-service-name'],
-        newName: words['service-name'],
+        name: t('new-service-name'),
+        newName: t('service-name'),
         rideFee: 10,
         weekFee: {
           value: 0,
@@ -76,7 +77,7 @@ const TaxiService = ({ stepName, onChange }) => {
       },
     ];
     setState(newServices);
-    setExpanded(words['new-service-name']);
+    setExpanded(t('new-service-name'));
     onChange('unsavedService', true);
     onChange('services', newServices);
   };
@@ -93,9 +94,9 @@ const TaxiService = ({ stepName, onChange }) => {
   };
 
   const removeService = name => () => {
-    const isDelete = window.confirm(words['remove-service-confirmation'].replace('{name}', name));
+    const isDelete = window.confirm(t('remove-service-confirmation').replace('{name}', name));
     if (isDelete) {
-      alert(words['remove-service-success'].replace('{name}', name));
+      alert(t('remove-service-success').replace('{name}', name));
       setState(_services.filter(el => el.name !== name));
     }
   };

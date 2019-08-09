@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Input from '@material-ui/core/TextField';
@@ -8,7 +9,6 @@ import Delete from '@material-ui/icons/Delete';
 import Save from '@material-ui/icons/Save';
 import Fab from '@material-ui/core/Fab';
 
-import words from '../translations.json';
 import { Container, D12, D6 } from '../MyHTML';
 
 const useStyles = makeStyles(theme => ({
@@ -33,6 +33,7 @@ const RemoveButton = withStyles(theme => ({
 const TaxiServiceFees = ({
   fees, onChange, onRemove, onSave,
 }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   const handleInputChange = name => ({ target: { value } }) => {
@@ -48,7 +49,7 @@ const TaxiServiceFees = ({
       {fees.isNew && (
         <D12>
           <Input
-            label={words['service-name']}
+            label={t('service-name')}
             defaultValue={fees.newName}
             className={classes.input}
             onChange={handleInputChange('newName')}
@@ -59,7 +60,7 @@ const TaxiServiceFees = ({
       )}
       <D12>
         <Input
-          label={words['service-fee-per-ride']}
+          label={t('service-fee-per-ride')}
           value={fees.rideFee}
           className={classes.input}
           type="number"
@@ -73,7 +74,7 @@ const TaxiServiceFees = ({
       </D12>
       <D12>
         <Input
-          label={words['service-fee-per-week']}
+          label={t('service-fee-per-week')}
           value={fees.weekFee.value}
           disabled={!fees.weekFee.enabled}
           className={classes.input}
@@ -97,7 +98,7 @@ const TaxiServiceFees = ({
       </D12>
       <D12>
         <Input
-          label={words['card-fee']}
+          label={t('card-fee')}
           value={fees.cardFee.value}
           disabled={!fees.cardFee.enabled}
           className={classes.input}

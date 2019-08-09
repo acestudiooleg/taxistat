@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import Input from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { H5, P, D12 } from '../MyHTML';
-import words from '../translations.json';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,6 +23,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const FuelConsumption = ({ stepName, onChange }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
   const [values, setValues] = React.useState({
     liters: 9.5,
@@ -37,14 +38,14 @@ const FuelConsumption = ({ stepName, onChange }) => {
   return (
     <div>
       <D12>
-        <H5 align="center">{words['fuel-consumption-title']}</H5>
-        <P align="center">{words['fuel-consumption-desc']}</P>
+        <H5 align="center">{t('fuel-consumption-title')}</H5>
+        <P align="center">{t('fuel-consumption-desc')}</P>
       </D12>
       <form noValidate autoComplete="off">
         <D12 className={classes.container}>
           <Input
             id="liters"
-            label={words['liters-per-hundred-km']}
+            label={t('liters-per-hundred-km')}
             value={values.liters}
             className={classes.input}
             type="number"
@@ -56,7 +57,7 @@ const FuelConsumption = ({ stepName, onChange }) => {
         <D12 className={classes.container}>
           <Input
             id="price"
-            label={words['fuel-price-per-liter']}
+            label={t('fuel-price-per-liter')}
             value={values.price}
             className={classes.input}
             type="number"
