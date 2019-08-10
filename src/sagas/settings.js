@@ -3,30 +3,42 @@ import actions, { SAVE, INIT } from '../actions/settings';
 import { predefinedServices, predefinedExpenses, predefinedFuel } from '../constants';
 import db from '../db';
 
+function* readSettings() {
+  const [settings] = yield db.settings.read();
+  const services = yield db.services.read();
+  const expenses = yield db.expenses.read();
+  return {
+    ...settings,
+    services,
+    expenses,
+  };
+}
 function* saveSettings({
   payload: {
-    init, expenses, fuel, services, activeStep,
+    expenses, fuelPrice, fuelConsumption, services, activeStep,
   },
 }) {
   try {
-    const data = yield db.settings.read();
-    console.log(data);
-    // yield db.settings.create({
-    //   init: false,
-    //   expenses,
-    //   fuel,
-    //   services,
-    //   activeStep,
-    // });
-    yield put(
-      actions.saveSuccess({
-        init,
-        expenses,
-        fuel,
-        services,
-        activeStep,
-      }),
-    );
+    const settings = yield readSettings();
+    yield put(actions.saveSuccess(settings));
+    const data = {
+      fuelPrice,
+      expenses,
+      fuelConsumption,
+      services,
+      activeStep,
+    };
+
+    yield db.settings.update({
+      ID: 1,
+      fuelPrice,
+      fuelConsumption,
+      activeStep,
+    });
+    yield db.services.update(services);
+    yield db.expenses.update(expenses);
+
+    yield put(actions.saveSuccess(data));
   } catch (err) {
     yield put(actions.saveFailure({ error: 'error' }));
   }
@@ -54,15 +66,8 @@ function* initSettings() {
         }),
       );
     } else {
-      const services = yield db.services.read();
-      const expenses = yield db.expenses.read();
-      yield put(
-        actions.saveSuccess({
-          ...maybeSettings,
-          services,
-          expenses,
-        }),
-      );
+      const settings = yield readSettings();
+      yield put(actions.saveSuccess(settings));
     }
   } catch (error) {
     yield put(actions.saveFailure({ error }));
