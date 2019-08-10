@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import MUIButton from '@material-ui/core/Button';
@@ -44,9 +45,7 @@ export const H6 = ({ children, ...props }) => (
     {children}
   </Typography>
 );
-export const P = ({ children, ...props }) => (
-  <Typography {...props}>{children}</Typography>
-);
+export const P = ({ children, ...props }) => <Typography {...props}>{children}</Typography>;
 
 export const Container = ({ children, ...props }) => (
   <Grid container {...props}>

@@ -1,4 +1,7 @@
 {
+  "welcome": "Welcome",
+  "welcome-title": "Welcome",
+  "welcome-desc": "welcome to taxi statistics",
   "app-title": "TaxiStat - how much do you earn in taxi?",
   "fuel-consumption-label": "Fuel",
   "fuel-consumption-title": "Fuel Consumption",

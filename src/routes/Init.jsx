@@ -6,6 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import { Container, H6, D12 } from '../MyHTML';
+import Welcome from '../components/Welcome';
 import InitSteps from '../components/InitSteps';
 import FuelConsumption from '../components/FuelConsumption';
 import TaxiServices from '../components/TaxiServices';
@@ -24,6 +25,11 @@ const mapDispatchToProps = {
 };
 
 const steps = [
+  {
+    name: 'welcome',
+    label: 'welcome',
+    component: Welcome,
+  },
   {
     name: 'fuel',
     label: 'fuel-consumption-label',
