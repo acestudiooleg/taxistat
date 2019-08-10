@@ -66,14 +66,10 @@ const TaxiService = ({ stepName, onChange }) => {
         name: t('new-service-name'),
         newName: t('service-name'),
         rideFee: 10,
-        weekFee: {
-          value: 0,
-          enabled: false,
-        },
-        cardFee: {
-          value: 0,
-          enabled: false,
-        },
+        weekFee: 0,
+        weekFeeEnabled: false,
+        cardFee: 0,
+        cardFeeEnabled: false,
       },
     ];
     setState(newServices);

@@ -37,11 +37,11 @@ const TaxiServiceFees = ({
   const classes = useStyles();
 
   const handleInputChange = name => ({ target: { value } }) => {
-    const newState = { ...fees, [name]: { ...fees[name], value } };
+    const newState = { ...fees, [name]: value };
     onChange(newState);
   };
   const handleCheckboxChange = name => (a, enabled) => {
-    const newState = { ...fees, [name]: { ...fees[name], enabled } };
+    const newState = { ...fees, [name]: enabled };
     onChange(newState);
   };
   return (
@@ -75,8 +75,8 @@ const TaxiServiceFees = ({
       <D12>
         <Input
           label={t('service-fee-per-week')}
-          value={fees.weekFee.value}
-          disabled={!fees.weekFee.enabled}
+          value={fees.weekFee}
+          disabled={!fees.weekFeeEnabled}
           className={classes.input}
           type="number"
           onChange={handleInputChange('weekFee')}
@@ -87,9 +87,9 @@ const TaxiServiceFees = ({
             endAdornment: (
               <InputAdornment position="end">
                 <Switch
-                  checked={fees.weekFee.enabled}
-                  onChange={handleCheckboxChange('weekFee')}
-                  value={fees.weekFee.enabled}
+                  checked={fees.weekFeeEnabled}
+                  onChange={handleCheckboxChange('weekFeeEnabled')}
+                  value={fees.weekFeeEnabled}
                 />
               </InputAdornment>
             ),
@@ -111,9 +111,9 @@ const TaxiServiceFees = ({
             endAdornment: (
               <InputAdornment position="end">
                 <Switch
-                  checked={fees.cardFee.enabled}
-                  onChange={handleCheckboxChange('cardFee')}
-                  value={fees.cardFee.enabled}
+                  checked={fees.cardFeeEnabled}
+                  onChange={handleCheckboxChange('cardFeeEnabled')}
+                  value={fees.cardFeeEnabled}
                 />
               </InputAdornment>
             ),
@@ -151,17 +151,14 @@ const TaxiServiceFees = ({
   );
 };
 
-const FeeShape = PropTypes.shape({
-  value: PropTypes.number.isRequired,
-  enabled: PropTypes.bool.isRequired,
-});
-
 const Fee = PropTypes.shape({
   name: PropTypes.string.isRequired,
   isNew: PropTypes.bool,
   rideFee: PropTypes.number.isRequired,
-  weekFee: FeeShape.isRequired,
-  cardFee: FeeShape.isRequired,
+  weekFee: PropTypes.number.isRequired,
+  weekFeeEnabled: PropTypes.bool.isRequired,
+  cardFee: PropTypes.number.isRequired,
+  cardFeeEnabled: PropTypes.bool.isRequired,
 });
 
 TaxiServiceFees.propTypes = {

@@ -22,17 +22,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const FuelConsumption = ({ stepName, onChange }) => {
+const FuelConsumption = ({ fuelConsumption, fuelPrice, onChange }) => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const [values, setValues] = React.useState({
-    liters: 9.5,
-    price: 30,
-  });
 
   const handleChange = name => (event) => {
-    setValues({ ...values, [name]: event.target.value });
-    onChange(stepName, values);
+    const newValues = { fuelConsumption, fuelPrice, [name]: event.target.value };
+    onChange(newValues);
   };
 
   return (
@@ -46,10 +42,10 @@ const FuelConsumption = ({ stepName, onChange }) => {
           <Input
             id="liters"
             label={t('liters-per-hundred-km')}
-            value={values.liters}
+            value={fuelConsumption}
             className={classes.input}
             type="number"
-            onChange={handleChange('liters')}
+            onChange={handleChange('fuelConsumption')}
             margin="normal"
             variant="outlined"
           />
@@ -58,10 +54,10 @@ const FuelConsumption = ({ stepName, onChange }) => {
           <Input
             id="price"
             label={t('fuel-price-per-liter')}
-            value={values.price}
+            value={fuelPrice}
             className={classes.input}
             type="number"
-            onChange={handleChange('price')}
+            onChange={handleChange('fuelPrice')}
             margin="normal"
             variant="outlined"
           />
@@ -74,7 +70,8 @@ const FuelConsumption = ({ stepName, onChange }) => {
 
 FuelConsumption.propTypes = {
   onChange: PropTypes.func.isRequired,
-  stepName: PropTypes.string.isRequired,
+  fuelPrice: PropTypes.number.isRequired,
+  fuelConsumption: PropTypes.number.isRequired,
 };
 
 export default FuelConsumption;

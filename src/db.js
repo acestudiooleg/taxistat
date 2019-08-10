@@ -1,9 +1,9 @@
 import LocalStorageDB from 'localstoragedb';
-import settings from './model/settings';
+import Model from './Model';
 
 const taxistat = new LocalStorageDB('taxistat', localStorage);
 
-const settingsModel = ['initialized', 'fuelConsumption', 'fuelCost', 'lang'];
+const settingsModel = ['initialized', 'done', 'fuelConsumption', 'fuelPrice', 'lang', 'activeStep'];
 const servicesModel = ['name', 'rideFee', 'weekFee', 'weekFeeEnabled', 'cardFee', 'cardFeeEnabled'];
 const expensesModel = ['name'];
 
@@ -16,5 +16,7 @@ if (taxistat.isNew()) {
 
 export default {
   db: taxistat,
-  settings: settings(taxistat),
+  settings: new Model('settings', taxistat),
+  services: new Model('services', taxistat),
+  expenses: new Model('expenses', taxistat),
 };

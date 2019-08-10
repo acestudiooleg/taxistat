@@ -71,7 +71,12 @@ const Init = ({ settings, save }) => {
         <D12>
           <InitSteps steps={steps.map(el => ({ ...el, label: t(el.label) }))} activeStep={activeStep} />
         </D12>
-        <CurrentStepContent stepName={stepNames[activeStep]} onChange={saveState} />
+        <CurrentStepContent
+          stepName={stepNames[activeStep]}
+          fuelPrice={settings.fuelPrice}
+          fuelConsumption={settings.fuelConsumption}
+          onChange={saveState}
+        />
         <D12>
           <InitNavButtons onBack={onBack} onNext={onNext} activeStep={activeStep} stepsLen={steps.length} />
         </D12>
@@ -84,7 +89,8 @@ Init.propTypes = {
   save: PropTypes.func.isRequired,
   settings: PropTypes.shape({
     activeStep: PropTypes.number.isRequired,
-    fuel: PropTypes.object.isRequired,
+    fuelConsumption: PropTypes.number.isRequired,
+    fuelPrice: PropTypes.number.isRequired,
     services: PropTypes.object.isRequired,
     expenses: PropTypes.object.isRequired,
   }).isRequired,

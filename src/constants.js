@@ -25,4 +25,8 @@ export const predefinedServices = [
   },
 ];
 
-export const predefinedServicesExpenses = ['fuel', 'insurance', 'parkint', 'tech-service'];
+export const predefinedExpenses = ['fuel', 'insurance', 'parkint', 'tech-service'];
+export const predefinedFuel = {
+  consumption: 9.5,
+  price: 30,
+};

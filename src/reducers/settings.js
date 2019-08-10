@@ -3,9 +3,11 @@ import { SAVE, SAVE_SUCCESS, SAVE_FAILURE } from '../actions/settings';
 
 const initialState = {
   initialized: false,
+  done: false,
   loading: false,
   activeStep: 0,
-  fuel: {},
+  fuelConsumption: 0,
+  fuelPrice: 0,
   services: {},
   expenses: {},
   error: null,

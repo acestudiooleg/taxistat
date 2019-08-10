@@ -27,13 +27,15 @@ const mapDispatchToProps = {
   init: actions.init,
 };
 
-function App({ settings }) {
+function App({ settings, init }) {
   const history = createHashHistory({});
   const { t } = useTranslation();
 
-  const isFirstVisit = !settings.initialized;
+  if (!settings.initialized) {
+    init();
+  }
 
-  const redirectToRoot = () => <Redirect to={isFirstVisit ? routes.init : routes.home} />;
+  const redirectToRoot = () => <Redirect to={!settings.done ? routes.init : routes.home} />;
   return (
     <ConnectedRouter history={history}>
       <Helmet>
@@ -52,7 +54,9 @@ function App({ settings }) {
 App.propTypes = {
   settings: PropTypes.shape({
     initialized: PropTypes.bool.isRequired,
+    done: PropTypes.bool.isRequired,
   }).isRequired,
+  init: PropTypes.func.isRequired,
 };
 
 export default connect(
