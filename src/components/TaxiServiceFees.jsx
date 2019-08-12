@@ -151,7 +151,7 @@ const TaxiServiceFees = ({
   );
 };
 
-const Fee = PropTypes.shape({
+export const ServiceType = PropTypes.shape({
   name: PropTypes.string.isRequired,
   isNew: PropTypes.bool,
   rideFee: PropTypes.number.isRequired,
@@ -162,7 +162,7 @@ const Fee = PropTypes.shape({
 });
 
 TaxiServiceFees.propTypes = {
-  fees: Fee.isRequired,
+  fees: ServiceType.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,

@@ -10,6 +10,7 @@ import Welcome from '../components/Welcome';
 import InitSteps from '../components/InitSteps';
 import FuelConsumption from '../components/FuelConsumption';
 import TaxiServices from '../components/TaxiServices';
+import { ServiceType } from '../components/TaxiServiceFees';
 import InitNavButtons from '../components/InitNavButtons';
 
 import actions from '../actions/settings';
@@ -17,7 +18,7 @@ import actions from '../actions/settings';
 import { getSettings } from '../reducers/settings';
 
 const mapStateToProps = state => ({
-  settings: getSettings(state),
+  ...getSettings(state),
 });
 
 const mapDispatchToProps = {
@@ -49,10 +50,20 @@ const steps = [
 
 const stepNames = ['fuel', 'services', 'expenses'];
 
-const Init = ({ settings, save }) => {
+const Init = ({
+  fuelConsumption, fuelPrice, services, expenses, activeStep, save,
+}) => {
   const { t } = useTranslation();
+  const settings = {
+    fuelConsumption,
+    fuelPrice,
+    services,
+    expenses,
+    activeStep,
+  };
   const [state, setState] = useState(settings);
-  const { activeStep } = settings;
+
+  console.log(state);
 
   const saveState = (name, data) => setState({ ...state, [name]: data });
 
@@ -93,13 +104,19 @@ const Init = ({ settings, save }) => {
 
 Init.propTypes = {
   save: PropTypes.func.isRequired,
-  settings: PropTypes.shape({
-    activeStep: PropTypes.number.isRequired,
-    fuelConsumption: PropTypes.number.isRequired,
-    fuelPrice: PropTypes.number.isRequired,
-    services: PropTypes.object.isRequired,
-    expenses: PropTypes.object.isRequired,
-  }).isRequired,
+  fuelConsumption: PropTypes.number.isRequired,
+  fuelPrice: PropTypes.number.isRequired,
+  services: PropTypes.arrayOf(
+    PropTypes.shape({
+      ServiceType,
+    }),
+  ).isRequired,
+  expenses: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+    }),
+  ).isRequired,
+  activeStep: PropTypes.number.isRequired,
 };
 
 export default connect(
