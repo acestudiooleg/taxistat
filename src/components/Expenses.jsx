@@ -10,7 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Add from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 
-import ServiceForm, { ServiceType } from './ServiceForm';
+import ExpenseForm from './ExpenseForm';
 import { Container, P } from '../MyHTML';
 
 const useStyles = makeStyles(theme => ({
@@ -28,23 +28,23 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TaxiService = ({ stepName, onChange, services: savedServices }) => {
+const Expenses = ({ stepName, onChange, expenses: savedExpenses }) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
-  const [servicesState, setState] = useState(savedServices);
+  const [expensesState, setState] = useState(savedExpenses);
 
-  let services = servicesState;
+  let expenses = expensesState;
 
-  const showAddButton = services.every(el => el.name !== expanded && !el.isNew);
+  const showAddButton = expenses.every(el => el.name !== expanded && !el.isNew);
 
-  if (stepName && stepName !== 'services') {
-    services = services.filter(el => !el.isNew);
+  if (stepName && stepName !== 'expenses') {
+    expenses = expenses.filter(el => !el.isNew);
   }
 
   const handleService = serviceName => (serviceData) => {
-    const newServices = services.map((el) => {
+    const newServices = expenses.map((el) => {
       if (el.name === serviceName) {
         return serviceData;
       }
@@ -55,28 +55,23 @@ const TaxiService = ({ stepName, onChange, services: savedServices }) => {
 
   const handleAccordionChange = panel => (event, isExpanded) => setExpanded(isExpanded ? panel : false);
 
-  const addService = () => {
+  const addExpenses = () => {
     const newServices = [
-      ...services,
+      ...expenses,
       {
-        isNew: true,
-        name: t('new-service-name'),
-        newName: t('service-name'),
-        rideFee: 10,
-        weekFee: 0,
-        weekFeeEnabled: false,
-        cardFee: 0,
-        cardFeeEnabled: false,
+        name: t('new-expense-name'),
+        newName: t('expense-name'),
+        commentsEnabled: false,
       },
     ];
     setState(newServices);
-    setExpanded(t('new-service-name'));
+    setExpanded(t('new-expenses-name'));
     onChange('services', newServices);
   };
 
-  const saveNewService = () => {
+  const saveNewExpenses = () => {
     setState(
-      services.map((el) => {
+      expenses.map((el) => {
         if (el.isNew) {
           return omit({ ...el, name: el.newName }, ['isNew', 'newName']);
         }
@@ -85,34 +80,34 @@ const TaxiService = ({ stepName, onChange, services: savedServices }) => {
     );
   };
 
-  const removeService = name => () => {
-    const isDelete = window.confirm(t('remove-service-confirmation').replace('{name}', name));
+  const removeExpenses = name => () => {
+    const isDelete = window.confirm(t('remove-expense-confirmation', { name }));
     if (isDelete) {
-      alert(t('remove-service-success').replace('{name}', name));
-      setState(services.filter(el => el.name !== name));
+      alert(t('remove-expense-success', { name }));
+      setState(expenses.filter(el => el.name !== name));
     }
   };
 
   return (
     <div className={classes.root}>
-      {services.map(el => (
+      {expenses.map(el => (
         <Accordion key={el.name} expanded={expanded === el.name} onChange={handleAccordionChange(el.name)}>
           <AccHead expandIcon={<ExpandMoreIcon />}>
             <P className={classes.heading}>{el.name}</P>
           </AccHead>
           <AccBody>
-            <ServiceForm
-              fees={el}
+            <ExpenseForm
+              expense={el}
               onChange={handleService(el.name)}
-              onRemove={removeService(el.name)}
-              onSave={saveNewService}
+              onRemove={removeExpenses(el.name)}
+              onSave={saveNewExpenses}
             />
           </AccBody>
         </Accordion>
       ))}
       {showAddButton && (
         <Container justify="flex-end">
-          <Fab onClick={addService} className={classes.fab} color="primary">
+          <Fab onClick={addExpenses} className={classes.fab} color="primary">
             <Add />
           </Fab>
         </Container>
@@ -121,14 +116,18 @@ const TaxiService = ({ stepName, onChange, services: savedServices }) => {
   );
 };
 
-TaxiService.defaultProps = {
+Expenses.defaultProps = {
   stepName: null,
 };
 
-TaxiService.propTypes = {
-  services: PropTypes.arrayOf(ServiceType).isRequired,
+Expenses.propTypes = {
+  expenses: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
   onChange: PropTypes.func.isRequired,
   stepName: PropTypes.string,
 };
 
-export default TaxiService;
+export default Expenses;

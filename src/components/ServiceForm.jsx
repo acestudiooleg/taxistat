@@ -30,7 +30,7 @@ const RemoveButton = withStyles(theme => ({
   },
 }))(Fab);
 
-const TaxiServiceFees = ({
+const ServiceForm = ({
   fees, onChange, onRemove, onSave,
 }) => {
   const { t } = useTranslation();
@@ -161,11 +161,11 @@ export const ServiceType = PropTypes.shape({
   cardFeeEnabled: PropTypes.bool.isRequired,
 });
 
-TaxiServiceFees.propTypes = {
+ServiceForm.propTypes = {
   fees: ServiceType.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
 };
 
-export default TaxiServiceFees;
+export default ServiceForm;

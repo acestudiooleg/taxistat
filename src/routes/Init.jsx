@@ -10,7 +10,8 @@ import Welcome from '../components/Welcome';
 import InitSteps from '../components/InitSteps';
 import FuelConsumption from '../components/FuelConsumption';
 import TaxiServices from '../components/TaxiServices';
-import { ServiceType } from '../components/TaxiServiceFees';
+import Expenses from '../components/Expenses';
+import { ServiceType } from '../components/ServiceForm';
 import InitNavButtons from '../components/InitNavButtons';
 
 import actions from '../actions/settings';
@@ -29,26 +30,20 @@ const steps = [
   {
     name: 'welcome',
     label: 'welcome',
-    component: Welcome,
   },
   {
     name: 'fuel',
-    label: 'fuel-consumption-label',
-    component: FuelConsumption,
+    label: 'fuel',
   },
   {
     name: 'services',
     label: 'taxi-services-label',
-    component: TaxiServices,
   },
   {
     name: 'expenses',
     label: 'expenses-label',
-    component: FuelConsumption,
   },
 ];
-
-const stepNames = ['fuel', 'services', 'expenses'];
 
 const Init = ({
   fuelConsumption, fuelPrice, services, expenses, activeStep, save,
@@ -58,12 +53,10 @@ const Init = ({
     fuelConsumption,
     fuelPrice,
     services,
-    expenses,
+    expenses: expenses.map(el => ({ ...el, name: t(el.name) })),
     activeStep,
   };
   const [state, setState] = useState(settings);
-
-  console.log(state);
 
   const saveState = (name, data) => setState({ ...state, [name]: data });
 
@@ -75,7 +68,22 @@ const Init = ({
     save({ ...state, activeStep: activeStep - 1 });
   };
 
-  const CurrentStepContent = steps[activeStep].component;
+  const stepsComponents = [
+    () => <Welcome />,
+    () => (
+      <FuelConsumption
+        fuelPrice={settings.fuelPrice}
+        fuelConsumption={settings.fuelConsumption}
+        services={services}
+        stepName={steps[activeStep].name}
+        onChange={saveState}
+      />
+    ),
+    () => <TaxiServices services={services} stepName={steps[activeStep].name} onChange={saveState} />,
+    () => <Expenses expenses={expenses} stepName={steps[activeStep].name} onChange={saveState} />,
+  ];
+
+  const currentStepComponent = stepsComponents[activeStep];
 
   return (
     <div>
@@ -88,12 +96,7 @@ const Init = ({
         <D12>
           <InitSteps steps={steps.map(el => ({ ...el, label: t(el.label) }))} activeStep={activeStep} />
         </D12>
-        <CurrentStepContent
-          stepName={stepNames[activeStep]}
-          fuelPrice={settings.fuelPrice}
-          fuelConsumption={settings.fuelConsumption}
-          onChange={saveState}
-        />
+        {currentStepComponent()}
         <D12>
           <InitNavButtons onBack={onBack} onNext={onNext} activeStep={activeStep} stepsLen={steps.length} />
         </D12>

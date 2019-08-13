@@ -3,7 +3,7 @@
   "welcome-title": "Welcome",
   "welcome-desc": "welcome to taxi statistics",
   "app-title": "TaxiStat - how much do you earn in taxi?",
-  "fuel-consumption-label": "Fuel",
+  "fuel": "Fuel",
   "fuel-consumption-title": "Fuel Consumption",
   "fuel-consumption-desc": "Input fuel condumption per 100km and Fuel cost per 1 liter",
   "taxi-services-label": "Taxi",
@@ -26,5 +26,11 @@
   "remove-service-success": "Taxi service {name} has been deleted. You can always create new one",
   "service-name": "Taxi service name",
   "new-service-name": "New taxi service",
-  "reset-unsaved-service-confirmation": "You have unsaved taxi service. Are you sure you want to exit from page?"
+  "reset-unsaved-service-confirmation": "You have unsaved taxi service. Are you sure you want to exit from page?",
+  "insurance": "Insurance",
+  "parking": "Parking",
+  "tech-service": "Tech Service",
+  "add-comments-input": "Add input field for comments",
+  "new-expense-name": "New expense name",
+  "expense-name": "Expense name"
 }
