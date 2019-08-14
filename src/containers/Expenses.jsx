@@ -36,7 +36,9 @@ const Expenses = () => {
 
   const dispatch = useDispatch();
 
-  const { list: expenses } = useSelector(getExpensesSettings, shallowEqual);
+  const { list } = useSelector(getExpensesSettings, shallowEqual);
+
+  const expenses = list.map(el => ({ ...el, name: t(el.name) }));
 
   const [expanded, setExpanded] = useState(false);
 
