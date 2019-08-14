@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import { createHashHistory } from 'history';
 import { Provider } from 'react-redux';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
@@ -11,7 +10,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import teal from '@material-ui/core/colors/teal';
 import blue from '@material-ui/core/colors/blue';
 import * as serviceWorker from './serviceWorker';
-import App from './App';
+import App, { history } from './App';
 import configureStore from './configureStore';
 import createRootSaga from './sagas';
 
@@ -19,7 +18,6 @@ import './i18n';
 
 function TaxiStat() {
   const initialState = {};
-  const history = createHashHistory({});
 
   const rootSaga = createRootSaga();
   const store = configureStore(initialState, rootSaga, history);
@@ -37,7 +35,7 @@ function TaxiStat() {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <MuiPickersUtilsProvider utils={MomentUtils} locale="ru">
-          <App />
+          <App history={history} />
         </MuiPickersUtilsProvider>
       </ThemeProvider>
     </Provider>

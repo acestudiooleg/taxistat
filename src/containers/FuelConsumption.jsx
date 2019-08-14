@@ -1,10 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Input from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { H5, P, D12 } from '../MyHTML';
+
+import actions from '../actions/settings';
+import { getSettings } from '../reducers/settings';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -22,13 +25,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const FuelConsumption = ({ fuelConsumption, fuelPrice, onChange }) => {
+const FuelConsumption = () => {
   const { t } = useTranslation();
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { fuelConsumption, fuelPrice } = useSelector(getSettings, shallowEqual);
 
   const handleChange = name => (event) => {
-    const newValues = { fuelConsumption, fuelPrice, [name]: event.target.value };
-    onChange(newValues);
+    const newValues = { [name]: event.target.value };
+    dispatch(actions.save(newValues));
   };
 
   return (
@@ -66,12 +71,6 @@ const FuelConsumption = ({ fuelConsumption, fuelPrice, onChange }) => {
       <D12 />
     </div>
   );
-};
-
-FuelConsumption.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  fuelPrice: PropTypes.number.isRequired,
-  fuelConsumption: PropTypes.number.isRequired,
 };
 
 export default FuelConsumption;

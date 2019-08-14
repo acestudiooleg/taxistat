@@ -1,9 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
 import { createHashHistory } from 'history';
-import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route, Switch, Redirect } from 'react-router';
 
@@ -19,23 +18,20 @@ import './db';
 
 import './i18n';
 
-const mapStateToProps = state => ({
-  settings: getSettings(state),
-});
+export const history = createHashHistory({});
 
-const mapDispatchToProps = {
-  init: actions.init,
-};
-
-function App({ settings, init }) {
-  const history = createHashHistory({});
+function App() {
   const { t } = useTranslation();
+  const [init, setInit] = useState(false);
+  const dispatch = useDispatch();
+  const { done } = useSelector(getSettings, shallowEqual);
 
-  if (!settings.initialized) {
-    init();
+  if (!init) {
+    setInit(true);
+    dispatch(actions.init());
   }
 
-  const redirectToRoot = () => <Redirect to={!settings.done ? routes.init : routes.home} />;
+  const redirectToRoot = () => <Redirect to={!done ? routes.init : routes.home} />;
   return (
     <ConnectedRouter history={history}>
       <Helmet>
@@ -51,15 +47,4 @@ function App({ settings, init }) {
   );
 }
 
-App.propTypes = {
-  settings: PropTypes.shape({
-    initialized: PropTypes.bool.isRequired,
-    done: PropTypes.bool.isRequired,
-  }).isRequired,
-  init: PropTypes.func.isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+export default App;

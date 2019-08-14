@@ -8,8 +8,6 @@ const initialState = {
   done: false,
   loading: false,
   activeStep: 0,
-  services: [],
-  expenses: [],
   error: null,
 };
 

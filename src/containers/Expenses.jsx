@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import omit from 'lodash/omit';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,8 +10,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Add from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 
-import ExpenseForm from './ExpenseForm';
+import ExpenseForm from '../components/ExpenseForm';
 import { Container, P } from '../MyHTML';
+import { getExpensesSettings } from '../reducers/expensesSettings';
+import actions from '../actions/expensesSettings';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,29 +30,28 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Expenses = ({ stepName, onChange, expenses: savedExpenses }) => {
+const Expenses = () => {
   const { t } = useTranslation();
   const classes = useStyles();
+
+  const dispatch = useDispatch();
+
+  const { list: expenses } = useSelector(getExpensesSettings, shallowEqual);
+
   const [expanded, setExpanded] = useState(false);
 
-  const [expensesState, setState] = useState(savedExpenses);
+  const [expensesState, setExpenses] = useState(expenses);
 
-  let expenses = expensesState;
+  const showAddButton = expensesState.every(el => el.name !== expanded && !el.isNew);
 
-  const showAddButton = expenses.every(el => el.name !== expanded && !el.isNew);
-
-  if (stepName && stepName !== 'expenses') {
-    expenses = expenses.filter(el => !el.isNew);
-  }
-
-  const handleService = serviceName => (serviceData) => {
-    const newServices = expenses.map((el) => {
-      if (el.name === serviceName) {
-        return serviceData;
+  const handleService = name => (data) => {
+    const newExpenses = expensesState.map((el) => {
+      if (el.name === name) {
+        return data;
       }
       return el;
     });
-    setState(newServices);
+    setExpenses(newExpenses);
   };
 
   const handleAccordionChange = panel => (event, isExpanded) => setExpanded(isExpanded ? panel : false);
@@ -64,27 +65,26 @@ const Expenses = ({ stepName, onChange, expenses: savedExpenses }) => {
         commentsEnabled: false,
       },
     ];
-    setState(newServices);
+    setExpenses(newServices);
     setExpanded(t('new-expenses-name'));
-    onChange('services', newServices);
   };
 
-  const saveNewExpenses = () => {
-    setState(
-      expenses.map((el) => {
+  const saveNewExpenses = () => dispatch(
+    actions.save(
+      expensesState.map((el) => {
         if (el.isNew) {
           return omit({ ...el, name: el.newName }, ['isNew', 'newName']);
         }
         return el;
       }),
-    );
-  };
+    ),
+  );
 
   const removeExpenses = name => () => {
     const isDelete = window.confirm(t('remove-expense-confirmation', { name }));
     if (isDelete) {
       alert(t('remove-expense-success', { name }));
-      setState(expenses.filter(el => el.name !== name));
+      setExpenses(expenses.filter(el => el.name !== name));
     }
   };
 
@@ -114,20 +114,6 @@ const Expenses = ({ stepName, onChange, expenses: savedExpenses }) => {
       )}
     </div>
   );
-};
-
-Expenses.defaultProps = {
-  stepName: null,
-};
-
-Expenses.propTypes = {
-  expenses: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  onChange: PropTypes.func.isRequired,
-  stepName: PropTypes.string,
 };
 
 export default Expenses;

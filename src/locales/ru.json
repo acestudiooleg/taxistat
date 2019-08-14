@@ -31,5 +31,6 @@
   "parking": "Парковка",
   "tech-service": "Тех. обслуживание",
   "add-comments-input": "Добавить строку для комментариев",
-  "new-expense-name": "Имя нового расхода"
+  "new-expense-name": "Имя нового расхода",
+  "expense-name": "Имя нового расхода"
 }

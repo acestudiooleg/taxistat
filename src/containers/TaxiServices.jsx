@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import omit from 'lodash/omit';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,8 +10,11 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Add from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 
-import ServiceForm, { ServiceType } from './ServiceForm';
+import ServiceForm from '../components/ServiceForm';
 import { Container, P } from '../MyHTML';
+import { getTaxiServices } from '../reducers/taxiServices';
+
+import actions from '../actions/taxiServices';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,29 +31,28 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TaxiService = ({ stepName, onChange, services: savedServices }) => {
+const TaxiServices = () => {
   const { t } = useTranslation();
   const classes = useStyles();
+
+  const { list: services } = useSelector(getTaxiServices, shallowEqual);
+
   const [expanded, setExpanded] = useState(false);
 
-  const [servicesState, setState] = useState(savedServices);
-
-  let services = servicesState;
+  const [servicesState, setServices] = useState(services);
 
   const showAddButton = services.every(el => el.name !== expanded && !el.isNew);
 
-  if (stepName && stepName !== 'services') {
-    services = services.filter(el => !el.isNew);
-  }
+  const dispatch = useDispatch();
 
   const handleService = serviceName => (serviceData) => {
-    const newServices = services.map((el) => {
+    const newServices = servicesState.map((el) => {
       if (el.name === serviceName) {
         return serviceData;
       }
       return el;
     });
-    setState(newServices);
+    setServices(newServices);
   };
 
   const handleAccordionChange = panel => (event, isExpanded) => setExpanded(isExpanded ? panel : false);
@@ -69,27 +71,26 @@ const TaxiService = ({ stepName, onChange, services: savedServices }) => {
         cardFeeEnabled: false,
       },
     ];
-    setState(newServices);
+    setServices(newServices);
     setExpanded(t('new-service-name'));
-    onChange('services', newServices);
   };
 
-  const saveNewService = () => {
-    setState(
+  const saveService = () => dispatch(
+    actions.save(
       services.map((el) => {
         if (el.isNew) {
           return omit({ ...el, name: el.newName }, ['isNew', 'newName']);
         }
         return el;
       }),
-    );
-  };
+    ),
+  );
 
   const removeService = name => () => {
-    const isDelete = window.confirm(t('remove-service-confirmation').replace('{name}', name));
+    const isDelete = window.confirm(t('remove-service-confirmation', { name }));
     if (isDelete) {
-      alert(t('remove-service-success').replace('{name}', name));
-      setState(services.filter(el => el.name !== name));
+      alert(t('remove-service-success', { name }));
+      setServices(services.filter(el => el.name !== name));
     }
   };
 
@@ -105,7 +106,7 @@ const TaxiService = ({ stepName, onChange, services: savedServices }) => {
               fees={el}
               onChange={handleService(el.name)}
               onRemove={removeService(el.name)}
-              onSave={saveNewService}
+              onSave={saveService}
             />
           </AccBody>
         </Accordion>
@@ -121,14 +122,4 @@ const TaxiService = ({ stepName, onChange, services: savedServices }) => {
   );
 };
 
-TaxiService.defaultProps = {
-  stepName: null,
-};
-
-TaxiService.propTypes = {
-  services: PropTypes.arrayOf(ServiceType).isRequired,
-  onChange: PropTypes.func.isRequired,
-  stepName: PropTypes.string,
-};
-
-export default TaxiService;
+export default TaxiServices;

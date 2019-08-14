@@ -11,7 +11,8 @@ export default class Model {
       this.db.insert(this.name, data);
     }
     this.db.commit();
-    return Promise.resolve(data);
+
+    return this.read(data);
   }
 
   update(data) {
@@ -21,7 +22,7 @@ export default class Model {
       this.db.update(this.name, { ID: data.ID }, () => data);
     }
     this.db.commit();
-    return Promise.resolve(data);
+    return this.read(data);
   }
 
   read(params) {
