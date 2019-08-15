@@ -70,6 +70,7 @@ const Init = () => {
     if (activeStep < steps.length - 1) {
       save({ activeStep: activeStep + 1 });
     } else {
+      save({ done: true });
       dispatch(push(router.home));
     }
   };
