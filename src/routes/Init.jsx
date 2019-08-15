@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
+import { push } from 'connected-react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import AppBar from '@material-ui/core/AppBar';
@@ -18,6 +19,8 @@ import TaxiServices from '../containers/TaxiServices';
 import actions from '../actions/settings';
 
 import { getSettings } from '../reducers/settings';
+
+import router from '../router';
 
 const steps = [
   {
@@ -63,7 +66,13 @@ const Init = () => {
 
   const save = data => dispatch(actions.save(data));
 
-  const onNext = () => save({ activeStep: activeStep + 1 });
+  const onNext = () => {
+    if (activeStep < steps.length - 1) {
+      save({ activeStep: activeStep + 1 });
+    } else {
+      dispatch(push(router.home));
+    }
+  };
 
   const onBack = () => save({ activeStep: activeStep - 1 });
 
