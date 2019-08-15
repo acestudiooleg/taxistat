@@ -1,4 +1,7 @@
 {
+  "liters": "Литров",
+  "uah": "грн.",
+  "time-price": "Стоимость вашего времени в час",
   "welcome": "Привет",
   "welcome-title": "Добро Пожаловать",
   "welcome-desc": "Добро Пожаловать в  taxi statistics",

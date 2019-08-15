@@ -2,6 +2,8 @@ import React from 'react';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Input from '@material-ui/core/TextField';
+import Switch from '@material-ui/core/Switch';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { makeStyles } from '@material-ui/core/styles';
 import debounce from 'lodash/debounce';
 
@@ -30,10 +32,17 @@ const FuelConsumption = () => {
   const { t } = useTranslation();
   const classes = useStyles();
   const dispatch = debounce(useDispatch(), 500);
-  const { fuelConsumption, fuelPrice } = useSelector(getSettings, shallowEqual);
+  const {
+    fuelConsumption, fuelPrice, timePrice, timePriceEnabled,
+  } = useSelector(getSettings, shallowEqual);
 
   const handleChange = name => (event) => {
     const newValues = { [name]: event.target.value };
+    dispatch(actions.save(newValues));
+  };
+
+  const handleCheckboxChange = name => (a, enabled) => {
+    const newValues = { [name]: enabled };
     dispatch(actions.save(newValues));
   };
 
@@ -54,6 +63,9 @@ const FuelConsumption = () => {
             onChange={handleChange('fuelConsumption')}
             margin="normal"
             variant="outlined"
+            InputProps={{
+              endAdornment: <InputAdornment position="end">{t('liters')}</InputAdornment>,
+            }}
           />
         </D12>
         <D12 className={classes.container}>
@@ -66,6 +78,34 @@ const FuelConsumption = () => {
             onChange={handleChange('fuelPrice')}
             margin="normal"
             variant="outlined"
+            InputProps={{
+              endAdornment: <InputAdornment position="end">{t('uah')}</InputAdornment>,
+            }}
+          />
+        </D12>
+        <D12 className={classes.container}>
+          <Input
+            id="timePrice"
+            label={t('time-price')}
+            defaultValue={timePrice}
+            disabled={!timePriceEnabled}
+            className={classes.input}
+            type="number"
+            onChange={handleChange('timePrice')}
+            margin="normal"
+            variant="outlined"
+            InputProps={{
+              startAdornment: <InputAdornment position="start">{t('uah')}</InputAdornment>,
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Switch
+                    checked={timePriceEnabled}
+                    onChange={handleCheckboxChange('timePriceEnabled')}
+                    defaultValue={timePriceEnabled}
+                  />
+                </InputAdornment>
+              ),
+            }}
           />
         </D12>
       </form>

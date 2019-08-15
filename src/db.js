@@ -3,7 +3,15 @@ import Model from './Model';
 
 const taxistat = new LocalStorageDB('taxistat', localStorage);
 
-export const settingsModel = ['done', 'fuelConsumption', 'fuelPrice', 'lang', 'activeStep'];
+export const settingsModel = [
+  'done',
+  'fuelConsumption',
+  'fuelPrice',
+  'lang',
+  'activeStep',
+  'timePrice',
+  'timePriceEnabled',
+];
 export const servicesModel = ['name', 'rideFee', 'weekFee', 'weekFeeEnabled', 'cardFee', 'cardFeeEnabled'];
 export const expensesSettingsModel = ['name', 'commentsEnabled'];
 

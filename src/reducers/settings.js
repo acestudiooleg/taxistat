@@ -7,6 +7,8 @@ const initialState = {
   hasData: false,
   fuelConsumption: 0,
   fuelPrice: 0,
+  timePrice: 0,
+  timePriceEnabled: false,
   initialized: false,
   done: false,
   loading: false,

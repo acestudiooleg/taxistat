@@ -1,4 +1,7 @@
 {
+  "liters": "liters",
+  "uah": "uah",
+  "time-price": "Price of your time per hour",
   "welcome": "Welcome",
   "welcome-title": "Welcome",
   "welcome-desc": "welcome to taxi statistics",
