@@ -1,10 +1,9 @@
-import { put, takeEvery } from "redux-saga/effects";
-import actions, { ASYNC_DEC, ASYNC_INC } from "../actions/counter";
+import { put, takeEvery } from 'redux-saga/effects';
+import actions, { ASYNC_DEC, ASYNC_INC } from '../actions/counter';
 
-const timer = time =>
-  new Promise(s => {
-    setTimeout(s, time);
-  });
+const timer = time => new Promise((s) => {
+  setTimeout(s, time);
+});
 
 function* makeAsyncIncrement({ payload: counter }) {
   try {

@@ -1,38 +1,42 @@
-import React from "react";
-import { Grid, Typography, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { connect } from "react-redux";
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { Grid, Typography, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { connect } from 'react-redux';
 
-import actions from "../actions/counter";
-import { getCounter } from "../reducers/counter";
+import actions from '../actions/counter';
+import { getCounter } from '../reducers/counter';
 
 const mapStateToProps = state => ({
-  counter: getCounter(state)
+  counter: getCounter(state),
 });
 
 const mapDispatchToProps = {
   increment: actions.increment,
   asyncDec: actions.asyncDec,
-  ...actions // decrement
+  ...actions, // decrement
 };
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   input: {
-    display: "none"
-  }
+    display: 'none',
+  },
 }));
 
-const Home = ({ counter, increment, decrement, asyncInc, asyncDec }) => {
+const Home = ({
+  counter, increment, decrement, asyncInc, asyncDec,
+}) => {
   const classes = useStyles();
   return (
     <Grid container>
       <Grid item xs={12}>
         <Typography variant="h1">
-          Home - {counter.loading ? <CircularProgress /> : counter.value}
+          Home -
+          {counter.loading ? <CircularProgress /> : counter.value}
         </Typography>
       </Grid>
       <Grid item xs={12}>
@@ -79,5 +83,5 @@ const Home = ({ counter, increment, decrement, asyncInc, asyncDec }) => {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Home);

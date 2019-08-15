@@ -1,55 +1,49 @@
-import React from "react";
-import { createHashHistory } from "history";
-import { Provider } from "react-redux";
-import { ConnectedRouter } from "connected-react-router";
-import { Route, Switch, Redirect } from "react-router";
-import { MuiPickersUtilsProvider } from "material-ui-pickers";
-import MomentUtils from "@date-io/moment";
-import { ThemeProvider } from "@material-ui/styles";
-import { createMuiTheme } from "@material-ui/core/styles";
-import purple from "@material-ui/core/colors/purple";
-import green from "@material-ui/core/colors/green";
-import configureStore from "./configureStore";
-import createRootSaga from "./sagas";
+import React, { useState } from 'react';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
+import { createHashHistory } from 'history';
+import { ConnectedRouter } from 'connected-react-router';
+import { Route, Switch, Redirect } from 'react-router';
 
-import routes from "./router";
-import Home from "./routes/Home";
-import Settings from "./routes/Settings";
+import routes from './router';
+import Home from './routes/Home';
+import Settings from './routes/Settings';
+import Init from './routes/Init';
+
+import actions from './actions/settings';
+
+import { getSettings } from './reducers/settings';
+import './db';
+
+import './i18n';
+
+export const history = createHashHistory({});
 
 function App() {
-  const initialState = {};
-  const history = createHashHistory({});
+  const { t } = useTranslation();
+  const [init, setInit] = useState(false);
+  const dispatch = useDispatch();
+  const { done } = useSelector(getSettings, shallowEqual);
 
-  const rootSaga = createRootSaga();
-  const store = configureStore(initialState, rootSaga, history);
-  const theme = createMuiTheme({
-    palette: {
-      primary: purple,
-      secondary: green
-    },
-    status: {
-      danger: "orange"
-    }
-  });
-  const isFirstVisit = false;
+  if (!init) {
+    setInit(true);
+    dispatch(actions.init());
+  }
 
-  const redirectToRoot = () => (
-    <Redirect to={isFirstVisit ? routes.settings : routes.home} />
-  );
+  const redirectToRoot = () => <Redirect to={!done ? routes.init : routes.home} />;
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <MuiPickersUtilsProvider utils={MomentUtils} locale="ru">
-          <ConnectedRouter history={history}>
-            <Switch>
-              <Route exact path={routes.root} render={redirectToRoot} />
-              <Route exact path={routes.home} component={Home} />
-              <Route exact path={routes.settings} component={Settings} />
-            </Switch>
-          </ConnectedRouter>
-        </MuiPickersUtilsProvider>
-      </ThemeProvider>
-    </Provider>
+    <ConnectedRouter history={history}>
+      <Helmet>
+        <title>{t('app-title')}</title>
+      </Helmet>
+      <Switch>
+        <Route exact path={routes.root} render={redirectToRoot} />
+        <Route exact path={routes.home} component={Home} />
+        <Route exact path={routes.settings} component={Settings} />
+        <Route exact path={routes.init} component={Init} />
+      </Switch>
+    </ConnectedRouter>
   );
 }
 

@@ -13,7 +13,7 @@ export default function (initialState = {}, rootSaga, history) {
   if (isDevelopment && typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
     composeEnhancers = composeWithDevTools;
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      serializeState: true,
+      serialize: true,
     });
   } else {
     composeEnhancers = compose;
