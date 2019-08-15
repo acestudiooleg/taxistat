@@ -87,7 +87,7 @@ const TaxiServices = () => {
       },
     ];
     setServices(newServices);
-    setExpanded(`${t('new-service-name')}undefined`);
+    setExpanded(`${t('new-service-name')}New`);
   };
 
   const saveService = () => {
@@ -115,9 +115,9 @@ const TaxiServices = () => {
     <div className={classes.root}>
       {servicesState.map(el => (
         <Accordion
-          key={el.name + el.ID}
-          expanded={expanded === el.name + el.ID}
-          onChange={handleAccordionChange(el.name + el.ID)}
+          key={el.name + (el.ID || 'New')}
+          expanded={expanded === el.name + (el.ID || 'New')}
+          onChange={handleAccordionChange(el.name + (el.ID || 'New'))}
         >
           <AccHead expandIcon={<ExpandMoreIcon />}>
             <P className={classes.heading}>{el.name}</P>

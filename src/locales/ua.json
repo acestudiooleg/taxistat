@@ -38,5 +38,6 @@
   "add-comments-input": "Додати строку для коментарів",
   "new-expense-name": "Ім'я нової витрати",
   "expense-name": "Ім'я нової витрати",
-  "service-name-validation-error": "Введіть ім'я служби таксі"
+  "service-name-validation-error": "Введіть ім'я служби таксі",
+  "expense-name-validation-error": "Введіть ім'я витрати"
 }

@@ -39,5 +39,6 @@
   "add-comments-input": "Add input field for comments",
   "new-expense-name": "New expense name",
   "expense-name": "Expense name",
-  "service-name-validation-error": "The name is required"
+  "service-name-validation-error": "The service name is required",
+  "expense-name-validation-error": "The expense name is required"
 }

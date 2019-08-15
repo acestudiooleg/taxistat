@@ -39,5 +39,6 @@
   "add-comments-input": "Добавить строку для комментариев",
   "new-expense-name": "Имя нового расхода",
   "expense-name": "Имя нового расхода",
-  "service-name-validation-error": "Введите имя службы такси"
+  "service-name-validation-error": "Введите имя службы такси",
+  "expense-name-validation-error": "Введите имя расхода"
 }
