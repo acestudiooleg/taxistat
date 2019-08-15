@@ -3,6 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import en from './locales/en';
 import ru from './locales/ru';
+import ua from './locales/ua';
 // not like to use this?
 // have a look at the Quick start guide
 // for passing in lng and translations on init
@@ -13,6 +14,9 @@ const resources = {
   },
   ru: {
     translation: ru,
+  },
+  ua: {
+    translation: ua,
   },
 };
 

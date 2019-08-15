@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import omit from 'lodash/omit';
+import debounce from 'lodash/debounce';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/ExpansionPanel';
@@ -34,9 +35,9 @@ const Expenses = () => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const dispatch = useDispatch();
+  const dispatch = debounce(useDispatch(), 500);
 
-  const { list } = useSelector(getExpensesSettings, shallowEqual);
+  const { list, hasData } = useSelector(getExpensesSettings, shallowEqual);
 
   const expenses = list.map(el => ({ ...el, name: t(el.name) }));
 
@@ -45,6 +46,9 @@ const Expenses = () => {
   const [expensesState, setExpenses] = useState(expenses);
 
   const showAddButton = expensesState.every(el => el.name !== expanded && !el.isNew);
+  if (hasData && !expensesState.length) {
+    setExpenses(expenses);
+  }
 
   const handleService = name => (data) => {
     const newExpenses = expensesState.map((el) => {
@@ -82,17 +86,20 @@ const Expenses = () => {
     ),
   );
 
-  const removeExpenses = name => () => {
+  const removeExpenses = ({ name, ID }) => () => {
     const isDelete = window.confirm(t('remove-expense-confirmation', { name }));
     if (isDelete) {
       alert(t('remove-expense-success', { name }));
-      setExpenses(expenses.filter(el => el.name !== name));
+      setExpenses(expensesState.filter(el => el.ID !== ID));
+      if (ID) {
+        dispatch(actions.remove({ ID }));
+      }
     }
   };
 
   return (
     <div className={classes.root}>
-      {expenses.map(el => (
+      {expensesState.map(el => (
         <Accordion key={el.name} expanded={expanded === el.name} onChange={handleAccordionChange(el.name)}>
           <AccHead expandIcon={<ExpandMoreIcon />}>
             <P className={classes.heading}>{el.name}</P>
@@ -101,7 +108,7 @@ const Expenses = () => {
             <ExpenseForm
               expense={el}
               onChange={handleService(el.name)}
-              onRemove={removeExpenses(el.name)}
+              onRemove={removeExpenses(el)}
               onSave={saveNewExpenses}
             />
           </AccBody>

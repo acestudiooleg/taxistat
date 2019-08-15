@@ -9,6 +9,7 @@ import AccHead from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Add from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
+import debounce from 'lodash/debounce';
 
 import ServiceForm from '../components/ServiceForm';
 import { Container, P } from '../MyHTML';
@@ -35,15 +36,28 @@ const TaxiServices = () => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const { list: services } = useSelector(getTaxiServices, shallowEqual);
+  const { list: services, hasData } = useSelector(getTaxiServices, shallowEqual);
 
   const [expanded, setExpanded] = useState(false);
 
   const [servicesState, setServices] = useState(services);
 
-  const showAddButton = services.every(el => el.name !== expanded && !el.isNew);
+  if (hasData && !servicesState.length) {
+    setServices(services);
+  }
 
-  const dispatch = useDispatch();
+  const maybeNew = servicesState.find(el => el.isNew);
+
+  if (maybeNew) {
+    const alreadySaved = services.find(el => el.name === maybeNew.name);
+    if (alreadySaved) {
+      setServices(services);
+    }
+  }
+
+  const showAddButton = servicesState.every(el => el.name !== expanded && !el.isNew);
+
+  const dispatch = debounce(useDispatch(), 500);
 
   const handleService = serviceName => (serviceData) => {
     const newServices = servicesState.map((el) => {
@@ -52,6 +66,7 @@ const TaxiServices = () => {
       }
       return el;
     });
+
     setServices(newServices);
   };
 
@@ -59,11 +74,11 @@ const TaxiServices = () => {
 
   const addService = () => {
     const newServices = [
-      ...services,
+      ...servicesState,
       {
         isNew: true,
         name: t('new-service-name'),
-        newName: t('service-name'),
+        newName: '',
         rideFee: 10,
         weekFee: 0,
         weekFeeEnabled: false,
@@ -72,40 +87,46 @@ const TaxiServices = () => {
       },
     ];
     setServices(newServices);
-    setExpanded(t('new-service-name'));
+    setExpanded(`${t('new-service-name')}undefined`);
   };
 
-  const saveService = () => dispatch(
-    actions.save(
-      services.map((el) => {
-        if (el.isNew) {
-          return omit({ ...el, name: el.newName }, ['isNew', 'newName']);
-        }
-        return el;
-      }),
-    ),
-  );
+  const saveService = () => {
+    const newService = servicesState.find(el => el.isNew);
+    if (!newService.newName) {
+      return window.alert(t('service-name-validation-error'));
+    }
+    newService.name = newService.newName;
+    dispatch(actions.add(omit(newService, ['isNew', 'newName'])));
+    return setExpanded(false);
+  };
 
-  const removeService = name => () => {
+  const removeService = ({ name, ID }) => () => {
     const isDelete = window.confirm(t('remove-service-confirmation', { name }));
     if (isDelete) {
       alert(t('remove-service-success', { name }));
-      setServices(services.filter(el => el.name !== name));
+      setServices(servicesState.filter(el => el.name !== name));
+      if (ID) {
+        dispatch(actions.remove({ ID }));
+      }
     }
   };
 
   return (
     <div className={classes.root}>
-      {services.map(el => (
-        <Accordion key={el.name} expanded={expanded === el.name} onChange={handleAccordionChange(el.name)}>
+      {servicesState.map(el => (
+        <Accordion
+          key={el.name + el.ID}
+          expanded={expanded === el.name + el.ID}
+          onChange={handleAccordionChange(el.name + el.ID)}
+        >
           <AccHead expandIcon={<ExpandMoreIcon />}>
             <P className={classes.heading}>{el.name}</P>
           </AccHead>
           <AccBody>
             <ServiceForm
-              fees={el}
+              service={el}
               onChange={handleService(el.name)}
-              onRemove={removeService(el.name)}
+              onRemove={removeService(el)}
               onSave={saveService}
             />
           </AccBody>

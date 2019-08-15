@@ -3,6 +3,7 @@ import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Input from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import debounce from 'lodash/debounce';
 
 import { H5, P, D12 } from '../MyHTML';
 
@@ -28,7 +29,7 @@ const useStyles = makeStyles(() => ({
 const FuelConsumption = () => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const dispatch = useDispatch();
+  const dispatch = debounce(useDispatch(), 500);
   const { fuelConsumption, fuelPrice } = useSelector(getSettings, shallowEqual);
 
   const handleChange = name => (event) => {
@@ -47,7 +48,7 @@ const FuelConsumption = () => {
           <Input
             id="liters"
             label={t('liters-per-hundred-km')}
-            value={fuelConsumption}
+            defaultValue={fuelConsumption}
             className={classes.input}
             type="number"
             onChange={handleChange('fuelConsumption')}
@@ -59,7 +60,7 @@ const FuelConsumption = () => {
           <Input
             id="price"
             label={t('fuel-price-per-liter')}
-            value={fuelPrice}
+            defaultValue={fuelPrice}
             className={classes.input}
             type="number"
             onChange={handleChange('fuelPrice')}

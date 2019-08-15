@@ -1,7 +1,10 @@
 import { createReducer } from '../helpers';
-import { SAVE, SAVE_SUCCESS, SAVE_FAILURE } from '../actions/settings';
+import {
+  SAVE, SAVE_SUCCESS, INIT_SUCCESS, SAVE_FAILURE,
+} from '../actions/settings';
 
 const initialState = {
+  hasData: false,
   fuelConsumption: 0,
   fuelPrice: 0,
   initialized: false,
@@ -15,6 +18,17 @@ export const getSettings = ({ settings }) => settings;
 
 export default createReducer(initialState, {
   [SAVE]: () => ({ loading: true }),
-  [SAVE_SUCCESS]: ({ payload }, state) => ({ ...state, ...payload, loading: false }),
-  [SAVE_FAILURE]: ({ payload }) => ({ error: payload, loading: false }),
+  [SAVE_SUCCESS]: ({ payload }, state) => ({
+    ...state,
+    ...payload,
+    loading: false,
+    hasData: true,
+  }),
+  [INIT_SUCCESS]: ({ payload }, state) => ({
+    ...state,
+    ...payload,
+    loading: false,
+    hasData: true,
+  }),
+  [SAVE_FAILURE]: ({ payload }) => ({ error: payload, loading: false, hasData: true }),
 });

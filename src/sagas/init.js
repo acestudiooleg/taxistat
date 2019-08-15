@@ -28,9 +28,9 @@ function* read() {
 }
 
 function* putToStore(settingsData) {
-  yield put(settingsActions.saveSuccess(settingsData.settings));
-  yield put(taxiServicesActions.saveSuccess(settingsData.services));
-  yield put(expensesSettingsActions.saveSuccess(settingsData.expensesSettings));
+  yield put(settingsActions.initSuccess(settingsData.settings));
+  yield put(taxiServicesActions.initSuccess(settingsData.services));
+  yield put(expensesSettingsActions.initSuccess(settingsData.expensesSettings));
 }
 
 function* init() {
@@ -56,11 +56,8 @@ function* init() {
       const data = yield read();
       yield putToStore(data);
     }
-    yield put(settingsActions.initSuccess());
   } catch (error) {
-    console.log(error);
-
-    yield put(settingsActions.initFailure({ error }));
+    yield put(settingsActions.initFailure(error));
   }
 }
 

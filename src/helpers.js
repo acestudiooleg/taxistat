@@ -3,6 +3,11 @@ import { createReducer as reduxCreateReducer } from 'redux-create-reducer';
 export const createEmptyAction = type => () => ({ type });
 
 export const createDataAction = type => payload => ({ type, payload });
+export const createErrorAction = type => (error) => {
+  console.error('type', error);
+
+  return { type, payload: JSON.stringify(error) };
+};
 
 export const createReducer = (initState, methods = {}) => {
   const revertedMetods = Object.keys(methods).reduce((accum, methodName) => {

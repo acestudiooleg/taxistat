@@ -22,8 +22,11 @@
   "card-fee": "Card fee",
   "setup": "Setup",
   "remove-service": "Remove service",
-  "remove-service-confirmation": "Are you sure you want to delete taxi service - {name}",
-  "remove-service-success": "Taxi service {name} has been deleted. You can always create new one",
+  "remove-service-confirmation": "Are you sure you want to delete taxi service - {{name}}",
+  "remove-service-success": "Taxi service {{name}} has been deleted. You can always create new one",
+  "remove-expense": "Remove expense",
+  "remove-expense-confirmation": "Are you sure you want to delete expense - {{name}}",
+  "remove-expense-success": "Expense {{name}} has been deleted. You can always create new one",
   "service-name": "Taxi service name",
   "new-service-name": "New taxi service",
   "reset-unsaved-service-confirmation": "You have unsaved taxi service. Are you sure you want to exit from page?",
@@ -32,5 +35,6 @@
   "tech-service": "Tech Service",
   "add-comments-input": "Add input field for comments",
   "new-expense-name": "New expense name",
-  "expense-name": "Expense name"
+  "expense-name": "Expense name",
+  "service-name-validation-error": "The name is required"
 }

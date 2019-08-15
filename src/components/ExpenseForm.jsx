@@ -64,7 +64,7 @@ const ExpenseForm = ({
             <Switch
               checked={expense.commentsEnabled}
               onChange={handleCheckboxChange('commentsEnabled')}
-              value={expense.commentsEnabled}
+              defaultValue={expense.commentsEnabled}
             />
 )}
           label={t('add-comments-input')}

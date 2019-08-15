@@ -11,18 +11,16 @@ export function* read() {
 export function* save({ payload }) {
   try {
     const settings = yield select(getSettings);
-    const dd = {
+
+    const [data] = yield db.settings.update({
       ID: settings.ID,
       ...pick(settings, settingsModel),
       ...pick(payload, settingsModel),
-    };
-    console.log(dd);
-
-    const [data] = yield db.settings.update(dd);
+    });
 
     yield put(actions.saveSuccess(data));
   } catch (error) {
-    yield put(actions.saveFailure({ error }));
+    yield put(actions.saveFailure(error));
   }
 }
 

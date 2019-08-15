@@ -31,28 +31,28 @@ const RemoveButton = withStyles(theme => ({
 }))(Fab);
 
 const ServiceForm = ({
-  fees, onChange, onRemove, onSave,
+  service, onChange, onRemove, onSave,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const handleInputChange = name => ({ target: { value } }) => {
-    const newState = { ...fees, [name]: value };
+  const handleInputChange = (name, type = 'number') => ({ target: { value } }) => {
+    const newState = { ...service, [name]: type === 'number' ? Number(value) : value };
     onChange(newState);
   };
   const handleCheckboxChange = name => (a, enabled) => {
-    const newState = { ...fees, [name]: enabled };
+    const newState = { ...service, [name]: enabled };
     onChange(newState);
   };
   return (
     <Container>
-      {fees.isNew && (
+      {service.isNew && (
         <D12>
           <Input
             label={t('service-name')}
-            defaultValue={fees.newName}
+            defaultValue={service.newName}
             className={classes.input}
-            onChange={handleInputChange('newName')}
+            onChange={handleInputChange('newName', 'string')}
             margin="normal"
             variant="outlined"
           />
@@ -61,7 +61,7 @@ const ServiceForm = ({
       <D12>
         <Input
           label={t('service-fee-per-ride')}
-          value={fees.rideFee}
+          defaultValue={service.rideFee}
           className={classes.input}
           type="number"
           onChange={handleInputChange('rideFee')}
@@ -75,8 +75,8 @@ const ServiceForm = ({
       <D12>
         <Input
           label={t('service-fee-per-week')}
-          value={fees.weekFee}
-          disabled={!fees.weekFeeEnabled}
+          defaultValue={service.weekFee}
+          disabled={!service.weekFeeEnabled}
           className={classes.input}
           type="number"
           onChange={handleInputChange('weekFee')}
@@ -87,9 +87,9 @@ const ServiceForm = ({
             endAdornment: (
               <InputAdornment position="end">
                 <Switch
-                  checked={fees.weekFeeEnabled}
+                  checked={service.weekFeeEnabled}
                   onChange={handleCheckboxChange('weekFeeEnabled')}
-                  value={fees.weekFeeEnabled}
+                  defaultValue={service.weekFeeEnabled}
                 />
               </InputAdornment>
             ),
@@ -99,8 +99,8 @@ const ServiceForm = ({
       <D12>
         <Input
           label={t('card-fee')}
-          value={fees.cardFee.value}
-          disabled={!fees.cardFee.enabled}
+          defaultValue={service.cardFee}
+          disabled={!service.cardFeeEnabled}
           className={classes.input}
           type="number"
           onChange={handleInputChange('cardFee')}
@@ -111,16 +111,16 @@ const ServiceForm = ({
             endAdornment: (
               <InputAdornment position="end">
                 <Switch
-                  checked={fees.cardFeeEnabled}
+                  checked={service.cardFeeEnabled}
                   onChange={handleCheckboxChange('cardFeeEnabled')}
-                  value={fees.cardFeeEnabled}
+                  defaultValue={service.cardFeeEnabled}
                 />
               </InputAdornment>
             ),
           }}
         />
       </D12>
-      {!fees.isNew && (
+      {!service.isNew && (
         <D12>
           <Container justify="flex-end">
             <RemoveButton onClick={onRemove}>
@@ -129,7 +129,7 @@ const ServiceForm = ({
           </Container>
         </D12>
       )}
-      {fees.isNew && (
+      {service.isNew && (
         <D12>
           <Container justify="flex-end">
             <D6>
@@ -162,7 +162,7 @@ export const ServiceType = PropTypes.shape({
 });
 
 ServiceForm.propTypes = {
-  fees: ServiceType.isRequired,
+  service: ServiceType.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
