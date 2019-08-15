@@ -16,12 +16,11 @@ import { Container, P } from '../MyHTML';
 import { getExpensesSettings } from '../reducers/expensesSettings';
 import actions from '../actions/expensesSettings';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
     overflow: 'auto',
     height: 'calc(100vh - 240px)',
-    borderBottom: `1px solid ${theme.palette.grey[500]}`,
   },
   input: {
     width: '100%',

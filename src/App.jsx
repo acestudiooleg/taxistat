@@ -11,7 +11,7 @@ import { Route, Switch } from 'react-router';
 import routes from './router';
 import Home from './routes/Home';
 import Settings from './routes/Settings';
-import Init from './routes/Init';
+import Statictics from './routes/Statictics';
 
 import actions from './actions/settings';
 
@@ -34,7 +34,7 @@ function App() {
     dispatch(actions.init());
   }
 
-  const redirectUrl = done ? routes.home : routes.init;
+  const redirectUrl = done ? routes.home : routes.settings;
 
   if (pathname === routes.root) {
     dispatch(push(redirectUrl));
@@ -48,7 +48,7 @@ function App() {
       <Switch>
         <Route exact path={routes.home} component={Home} />
         <Route exact path={routes.settings} component={Settings} />
-        <Route exact path={routes.init} component={Init} />
+        <Route exact path={routes.statictics} component={Statictics} />
       </Switch>
     </ConnectedRouter>
   );

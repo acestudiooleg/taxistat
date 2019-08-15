@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, D6, Button } from '../MyHTML';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   root: {
     width: '90%',
   },
@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => ({
     padding: 10,
   },
   buttons: {
+    borderTop: `1px solid ${theme.palette.grey[500]}`,
     position: 'absolute',
     bottom: 10,
   },
