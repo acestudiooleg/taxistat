@@ -1,6 +1,6 @@
 export default {
   root: '/',
   settings: '/settings',
-  home: '/home',
+  balance: '/balance',
   statictics: '/statictics',
 };

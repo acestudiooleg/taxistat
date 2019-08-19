@@ -40,5 +40,11 @@
   "new-expense-name": "Имя нового расхода",
   "expense-name": "Имя нового расхода",
   "service-name-validation-error": "Введите имя службы такси",
-  "expense-name-validation-error": "Введите имя расхода"
+  "expense-name-validation-error": "Введите имя расхода",
+  "settings": "Настройки",
+  "balance": "Баланс",
+  "statistics": "Статистика",
+  "earn": "Заработок",
+  "expenses": "Расходы",
+  "earn-today": "Сегодня"
 }

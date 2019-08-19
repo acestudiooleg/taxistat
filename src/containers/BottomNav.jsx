@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import StatIcon from '@material-ui/icons/ShowChart';
-import HomeIcon from '@material-ui/icons/Home';
+import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import router from '../router';
@@ -43,7 +43,7 @@ const Home = () => {
       className={classes.bottomNav}
     >
       <BottomNavigationAction label={t('statictics')} value={router.statictics} icon={<StatIcon />} />
-      <BottomNavigationAction label={t('home')} value={router.home} icon={<HomeIcon />} />
+      <BottomNavigationAction label={t('balance')} value={router.balance} icon={<DirectionsCarIcon />} />
       <BottomNavigationAction label={t('settings')} value={router.settings} icon={<SettingsIcon />} />
     </BottomNavigation>
   );

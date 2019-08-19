@@ -40,5 +40,11 @@
   "new-expense-name": "New expense name",
   "expense-name": "Expense name",
   "service-name-validation-error": "The service name is required",
-  "expense-name-validation-error": "The expense name is required"
+  "expense-name-validation-error": "The expense name is required",
+  "settings": "Settings",
+  "balance": "Balance",
+  "statistics": "Statistics",
+  "earn": "Earn",
+  "expenses": "Expenses",
+  "earn-today": "Earn Today"
 }

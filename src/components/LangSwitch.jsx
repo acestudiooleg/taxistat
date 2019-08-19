@@ -9,7 +9,7 @@ import i18n from '../i18n';
 const LangSwitch = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const currentLanguage = window.localStorage.getItem('i18nextLng') || 'en';
+  const currentLanguage = (window.localStorage.getItem('i18nextLng') || 'en').substring(0, 2).toLowerCase();
 
   const openMenu = event => setAnchorEl(event.currentTarget);
 

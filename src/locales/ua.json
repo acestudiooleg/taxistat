@@ -39,5 +39,11 @@
   "new-expense-name": "Ім'я нової витрати",
   "expense-name": "Ім'я нової витрати",
   "service-name-validation-error": "Введіть ім'я служби таксі",
-  "expense-name-validation-error": "Введіть ім'я витрати"
+  "expense-name-validation-error": "Введіть ім'я витрати",
+  "settings": "Налаштування",
+  "balance": "Баланс",
+  "statistics": "Статистика",
+  "earn": "Заробіток",
+  "expenses": "Витрати",
+  "earn-today": "Сегодні"
 }

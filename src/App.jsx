@@ -9,7 +9,7 @@ import { createHashHistory } from 'history';
 import { Route, Switch } from 'react-router';
 
 import routes from './router';
-import Home from './routes/Home';
+import Balance from './routes/Home';
 import Settings from './routes/Settings';
 import Statictics from './routes/Statictics';
 
@@ -34,7 +34,7 @@ function App() {
     dispatch(actions.init());
   }
 
-  const redirectUrl = done ? routes.home : routes.settings;
+  const redirectUrl = done ? routes.balance : routes.settings;
 
   if (pathname === routes.root) {
     dispatch(push(redirectUrl));
@@ -46,7 +46,7 @@ function App() {
         <title>{t('app-title')}</title>
       </Helmet>
       <Switch>
-        <Route exact path={routes.home} component={Home} />
+        <Route exact path={routes.balance} component={Balance} />
         <Route exact path={routes.settings} component={Settings} />
         <Route exact path={routes.statictics} component={Statictics} />
       </Switch>
