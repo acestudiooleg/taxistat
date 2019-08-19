@@ -13,11 +13,12 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 import router from '../router';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
   bottomNav: {
+    borderTop: `1px solid ${theme.palette.grey[300]}`,
     width: '100%',
     position: 'absolute',
     bottom: 0,
@@ -35,17 +36,19 @@ const Home = () => {
   const pathname = useSelector(state => get(state, 'router.location.pathname') || '');
 
   return (
-    <BottomNavigation
-      value={pathname}
-      onChange={(event, newValue) => {
-        dispatch(push(newValue));
-      }}
-      className={classes.bottomNav}
-    >
-      <BottomNavigationAction label={t('statictics')} value={router.statictics} icon={<StatIcon />} />
-      <BottomNavigationAction label={t('balance')} value={router.balance} icon={<DirectionsCarIcon />} />
-      <BottomNavigationAction label={t('settings')} value={router.settings} icon={<SettingsIcon />} />
-    </BottomNavigation>
+    <div>
+      <BottomNavigation
+        value={pathname}
+        onChange={(event, newValue) => {
+          dispatch(push(newValue));
+        }}
+        className={classes.bottomNav}
+      >
+        <BottomNavigationAction label={t('statictics')} value={router.statictics} icon={<StatIcon />} />
+        <BottomNavigationAction label={t('balance')} value={router.balance} icon={<DirectionsCarIcon />} />
+        <BottomNavigationAction label={t('settings')} value={router.settings} icon={<SettingsIcon />} />
+      </BottomNavigation>
+    </div>
   );
 };
 

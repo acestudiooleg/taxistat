@@ -1,34 +1,39 @@
 import React from 'react';
-import { shallowEqual, useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { push } from 'connected-react-router';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Divider from '@material-ui/core/Divider';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import List from '@material-ui/core/List';
+import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 
 import LangSwitch from '../components/LangSwitch';
 import BottomNav from '../containers/BottomNav';
 import {
-  Container, H6, Item, H2, H3, D12, D6, D8, P,
+  Container, H6, D11, P,
 } from '../MyHTML';
 
-import actions from '../actions/settings';
+import router from '../router';
 
-import { getSettings } from '../reducers/settings';
+const SpendButton = withStyles(theme => ({
+  root: {
+    color: theme.palette.getContrastText(theme.palette.error.main),
+    backgroundColor: theme.palette.error.main,
+    '&:hover': {
+      backgroundColor: theme.palette.error.main,
+    },
+  },
+}))(Button);
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -46,11 +51,16 @@ const useStyles = makeStyles(theme => ({
     marginRight: 10,
     width: 100,
   },
-  bottomNav: {
+  spentButton: {
+    backgroundColor: theme.palette.error.main,
+  },
+
+  buttons: {
     width: '100%',
     position: 'absolute',
-    bottom: 0,
+    bottom: 70,
   },
+
   title: {
     flexGrow: 1,
   },
@@ -59,11 +69,10 @@ const useStyles = makeStyles(theme => ({
 const Balance = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const { activeStep } = useSelector(getSettings, shallowEqual);
 
   const dispatch = useDispatch();
 
-  const save = data => dispatch(actions.save(data));
+  const goto = url => () => dispatch(push(url));
 
   return (
     <div className={classes.root}>
@@ -156,6 +165,20 @@ const Balance = () => {
           </TableRow>
         </TableBody>
       </Table>
+      <div className={classes.buttons}>
+        <Container spacing={1} justify="center">
+          <D11>
+            <Button fullWidth onClick={goto(router.earn)} variant="contained" color="primary">
+              {t('earned')}
+            </Button>
+          </D11>
+          <D11>
+            <SpendButton fullWidth onClick={goto(router.spend)} variant="contained">
+              {t('spent')}
+            </SpendButton>
+          </D11>
+        </Container>
+      </div>
       <BottomNav />
     </div>
   );

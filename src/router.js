@@ -3,4 +3,6 @@ export default {
   settings: '/settings',
   balance: '/balance',
   statictics: '/statictics',
+  earn: '/earn',
+  spend: '/spend',
 };
