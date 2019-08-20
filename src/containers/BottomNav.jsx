@@ -44,7 +44,7 @@ const Home = () => {
         }}
         className={classes.bottomNav}
       >
-        <BottomNavigationAction label={t('statictics')} value={router.statictics} icon={<StatIcon />} />
+        <BottomNavigationAction label={t('statistics')} value={router.statistics} icon={<StatIcon />} />
         <BottomNavigationAction label={t('balance')} value={router.balance} icon={<DirectionsCarIcon />} />
         <BottomNavigationAction label={t('settings')} value={router.settings} icon={<SettingsIcon />} />
       </BottomNavigation>

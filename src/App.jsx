@@ -11,7 +11,9 @@ import { Route, Switch } from 'react-router';
 import routes from './router';
 import Balance from './routes/Home';
 import Settings from './routes/Settings';
-import Statictics from './routes/Statictics';
+import Statistics from './routes/Statistics';
+import Earn from './routes/Earn';
+import Spend from './routes/Spend';
 
 import actions from './actions/settings';
 
@@ -48,7 +50,9 @@ function App() {
       <Switch>
         <Route exact path={routes.balance} component={Balance} />
         <Route exact path={routes.settings} component={Settings} />
-        <Route exact path={routes.statictics} component={Statictics} />
+        <Route exact path={routes.statistics} component={Statistics} />
+        <Route exact path={routes.earn} component={Earn} />
+        <Route exact path={routes.spend} component={Spend} />
       </Switch>
     </ConnectedRouter>
   );

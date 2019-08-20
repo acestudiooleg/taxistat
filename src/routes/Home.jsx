@@ -3,8 +3,6 @@ import { useDispatch } from 'react-redux';
 import { push } from 'connected-react-router';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
@@ -17,11 +15,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
-import LangSwitch from '../components/LangSwitch';
-import BottomNav from '../containers/BottomNav';
-import {
-  Container, H6, D11, P,
-} from '../MyHTML';
+import Layout from '../components/Layout';
+import { Container, D11, P } from '../MyHTML';
 
 import router from '../router';
 
@@ -60,10 +55,6 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     bottom: 70,
   },
-
-  title: {
-    flexGrow: 1,
-  },
 }));
 
 const Balance = () => {
@@ -75,13 +66,7 @@ const Balance = () => {
   const goto = url => () => dispatch(push(url));
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static" color="primary">
-        <Toolbar>
-          <H6 className={classes.title}>{t('balance')}</H6>
-          <LangSwitch />
-        </Toolbar>
-      </AppBar>
+    <Layout title={t('balance')}>
       <Table>
         <TableBody>
           <TableRow>
@@ -179,8 +164,7 @@ const Balance = () => {
           </D11>
         </Container>
       </div>
-      <BottomNav />
-    </div>
+    </Layout>
   );
 };
 

@@ -1,21 +1,17 @@
 import React from 'react';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { push } from 'connected-react-router';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 
-import { Container, H6, D12 } from '../MyHTML';
+import { Container, D12 } from '../MyHTML';
 import Welcome from '../components/Welcome';
 import InitSteps from '../components/InitSteps';
 import InitNavButtons from '../components/InitNavButtons';
-import LangSwitch from '../components/LangSwitch';
 
 import FuelConsumption from '../containers/FuelConsumption';
 import Expenses from '../containers/Expenses';
 import TaxiServices from '../containers/TaxiServices';
-import BottomNav from '../containers/BottomNav';
+import Layout from '../components/Layout';
 
 import actions from '../actions/settings';
 
@@ -46,20 +42,7 @@ const steps = [
   },
 ];
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
-
-const Init = () => {
-  const classes = useStyles();
+const Settings = () => {
   const { t } = useTranslation();
   const { activeStep, done } = useSelector(getSettings, shallowEqual);
 
@@ -81,13 +64,7 @@ const Init = () => {
   const CurrentStepComponent = steps[activeStep].component;
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static" color="primary">
-        <Toolbar>
-          <H6 className={classes.title}>{t('setup')}</H6>
-          <LangSwitch />
-        </Toolbar>
-      </AppBar>
+    <Layout title={t('settings')} isShowNavigation={done}>
       <Container>
         <D12>
           Use tabs when init is done
@@ -100,9 +77,8 @@ const Init = () => {
           </D12>
         )}
       </Container>
-      {done && <BottomNav />}
-    </div>
+    </Layout>
   );
 };
 
-export default Init;
+export default Settings;
