@@ -14,7 +14,9 @@ import { getSettings } from '../reducers/settings';
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: '90%',
+    width: '100%',
+    overflow: 'auto',
+    height: 'calc(100vh - 240px)',
   },
   input: {
     width: '100%',
@@ -47,7 +49,7 @@ const FuelConsumption = () => {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <D12>
         <H5 align="center">{t('fuel-consumption-title')}</H5>
         <P align="center">{t('fuel-consumption-desc')}</P>

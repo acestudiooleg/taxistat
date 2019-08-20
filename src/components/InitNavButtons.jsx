@@ -15,9 +15,9 @@ const useStyles = makeStyles(theme => ({
     padding: 10,
   },
   buttons: {
-    borderTop: `1px solid ${theme.palette.grey[500]}`,
+    borderTop: `1px solid ${theme.palette.grey[300]}`,
     position: 'absolute',
-    bottom: 10,
+    bottom: 0,
   },
 }));
 

@@ -17,12 +17,11 @@ import { getTaxiServices } from '../reducers/taxiServices';
 
 import actions from '../actions/taxiServices';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
     overflow: 'auto',
     height: 'calc(100vh - 240px)',
-    borderBottom: `1px solid ${theme.palette.grey[500]}`,
   },
   input: {
     width: '100%',
