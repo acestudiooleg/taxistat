@@ -18,11 +18,6 @@ import { getTaxiServices } from '../reducers/taxiServices';
 import actions from '../actions/taxiServices';
 
 const useStyles = makeStyles(() => ({
-  root: {
-    width: '100%',
-    overflow: 'auto',
-    height: 'calc(100vh - 240px)',
-  },
   input: {
     width: '100%',
   },
@@ -111,7 +106,7 @@ const TaxiServices = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <>
       {servicesState.map(el => (
         <Accordion
           key={el.name + (el.ID || 'New')}
@@ -138,7 +133,7 @@ const TaxiServices = () => {
           </Fab>
         </Container>
       )}
-    </div>
+    </>
   );
 };
 

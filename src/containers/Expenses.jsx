@@ -17,11 +17,6 @@ import { getExpensesSettings } from '../reducers/expensesSettings';
 import actions from '../actions/expensesSettings';
 
 const useStyles = makeStyles(() => ({
-  root: {
-    width: '100%',
-    overflow: 'auto',
-    height: 'calc(100vh - 240px)',
-  },
   input: {
     width: '100%',
   },
@@ -97,7 +92,7 @@ const Expenses = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <>
       {expensesState.map(el => (
         <Accordion
           key={el.name + (el.ID || 'New')}
@@ -124,7 +119,7 @@ const Expenses = () => {
           </Fab>
         </Container>
       )}
-    </div>
+    </>
   );
 };
 
