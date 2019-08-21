@@ -36,6 +36,8 @@ function* putToStore(settingsData) {
 function* init() {
   try {
     const [maybeSettings] = yield db.settings.read();
+    console.log({ maybeSettings });
+
     if (!maybeSettings) {
       const settings = {
         initialized: true,

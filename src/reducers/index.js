@@ -6,6 +6,7 @@ import expensesSettings from './expensesSettings';
 import taxiServices from './taxiServices';
 import rides from './rides';
 import expenses from './expenses';
+import backup from './backup';
 
 export default history => combineReducers({
   router: connectRouter(history),
@@ -15,4 +16,5 @@ export default history => combineReducers({
   expensesSettings,
   rides,
   expenses,
+  backup,
 });
