@@ -27,6 +27,8 @@
   "pay-type": "Payment Type",
   "distance": "Distance",
   "km": "km",
+  "expense": "Expense",
+  "comment": "Comment",
   "minutes": "min.",
   "ride-time": "Ride rime",
   "liters-per-hundred-km": "Leiter per 100km",

@@ -7,7 +7,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 
-import { ServiceType } from './ServiceForm';
+import { ExpenseType } from './ExpenseForm';
 
 const useStyles = makeStyles(theme => ({
   group: {
@@ -15,15 +15,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ChooseTaxiService = ({ services, selected, onChange }) => {
+const ChooseExpenseType = ({ expenses, selected, onChange }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
     <>
-      <FormLabel component="legend">{t('taxi-service')}</FormLabel>
+      <FormLabel component="legend">{t('expense')}</FormLabel>
       <RadioGroup className={classes.group} value={String(selected)} onChange={onChange}>
-        {services.map(el => (
+        {expenses.map(el => (
           <FormControlLabel key={el.name} value={String(el.ID)} control={<Radio />} label={el.name} />
         ))}
       </RadioGroup>
@@ -31,10 +31,10 @@ const ChooseTaxiService = ({ services, selected, onChange }) => {
   );
 };
 
-ChooseTaxiService.propTypes = {
-  services: PropTypes.arrayOf(ServiceType).isRequired,
+ChooseExpenseType.propTypes = {
+  expenses: PropTypes.arrayOf(ExpenseType).isRequired,
   onChange: PropTypes.func.isRequired,
-  selected: PropTypes.number.isRequired,
+  selected: PropTypes.string.isRequired,
 };
 
-export default ChooseTaxiService;
+export default ChooseExpenseType;

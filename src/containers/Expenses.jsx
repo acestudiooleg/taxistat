@@ -40,6 +40,7 @@ const Expenses = () => {
   const [expensesState, setExpenses] = useState(expenses);
 
   const showAddButton = expensesState.every(el => el.name !== expanded && !el.isNew);
+
   if (hasData && !expensesState.length) {
     setExpenses(expenses);
   }
