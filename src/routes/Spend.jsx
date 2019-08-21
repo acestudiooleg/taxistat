@@ -72,7 +72,7 @@ const Spend = () => {
     <Layout title={t('spent')}>
       <div className={classes.radios}>
         <FormControl component="fieldset" className={classes.formControl}>
-          <ChooseExpenseType selected={state.expenseId} expenses={expenses} onChange={setData('expenseId', Number)} />
+          <ChooseExpenseType expenseId={state.expenseId} expenses={expenses} onChange={setData('expenseId', Number)} />
         </FormControl>
       </div>
       <Container>

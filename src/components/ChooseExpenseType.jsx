@@ -15,14 +15,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ChooseExpenseType = ({ expenses, selected, onChange }) => {
+const ChooseExpenseType = ({ expenses, expenseId, onChange }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
     <>
       <FormLabel component="legend">{t('expense')}</FormLabel>
-      <RadioGroup className={classes.group} value={String(selected)} onChange={onChange}>
+      <RadioGroup className={classes.group} value={String(expenseId)} onChange={onChange}>
         {expenses.map(el => (
           <FormControlLabel key={el.name} value={String(el.ID)} control={<Radio />} label={el.name} />
         ))}
@@ -34,7 +34,7 @@ const ChooseExpenseType = ({ expenses, selected, onChange }) => {
 ChooseExpenseType.propTypes = {
   expenses: PropTypes.arrayOf(ExpenseType).isRequired,
   onChange: PropTypes.func.isRequired,
-  selected: PropTypes.string.isRequired,
+  expenseId: PropTypes.number.isRequired,
 };
 
 export default ChooseExpenseType;
