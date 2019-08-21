@@ -1,9 +1,14 @@
+import moment from 'moment';
 import { put, takeLatest } from 'redux-saga/effects';
 import settingsActions, { INIT } from '../actions/settings';
 import taxiServicesActions from '../actions/taxiServices';
 import expensesSettingsActions from '../actions/expensesSettings';
+import expensesActions from '../actions/expenses';
+import ridesActions from '../actions/rides';
 import { predefinedServices, predefinedExpenses, predefinedFuel } from '../constants';
 import db from '../db';
+
+const filterByCurrentMonth = row => moment(row.timestamp).isSame(moment(), 'month');
 
 function* save(settingsData) {
   const settings = yield db.settings.create(settingsData.settings);
@@ -20,10 +25,14 @@ function* read() {
   const settings = yield db.settings.read();
   const services = yield db.services.read();
   const expensesSettings = yield db.expensesSettings.read();
+  const expenses = yield db.expenses.read({ query: filterByCurrentMonth });
+  const rides = yield db.rides.read({ query: filterByCurrentMonth });
   return {
     settings: (settings && settings[0]) || {},
     services,
     expensesSettings,
+    expenses,
+    rides,
   };
 }
 
@@ -31,12 +40,13 @@ function* putToStore(settingsData) {
   yield put(settingsActions.initSuccess(settingsData.settings));
   yield put(taxiServicesActions.initSuccess(settingsData.services));
   yield put(expensesSettingsActions.initSuccess(settingsData.expensesSettings));
+  yield put(expensesActions.initSuccess(settingsData.expenses));
+  yield put(ridesActions.initSuccess(settingsData.rides));
 }
 
 function* init() {
   try {
     const [maybeSettings] = yield db.settings.read();
-    console.log({ maybeSettings });
 
     if (!maybeSettings) {
       const settings = {

@@ -10,7 +10,7 @@ const initialState = {
   error: null,
 };
 
-export const getRides = ({ taxiServices }) => taxiServices;
+export const getRides = ({ rides }) => rides;
 
 const save = ({ payload: list }) => ({ list, loading: false, hasData: true });
 

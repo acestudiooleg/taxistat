@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { push } from 'connected-react-router';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import Layout from '../components/Layout';
 import BalanceTotal from '../components/BalanceTotal';
 import { Container, D11 } from '../MyHTML';
+
+import { getBalance } from '../selectors/balance';
 
 import router from '../router';
 
@@ -32,14 +34,16 @@ const useStyles = makeStyles(() => ({
 const Balance = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-
   const dispatch = useDispatch();
+  const {
+    earn, balance, expenses, earnToday,
+  } = useSelector(getBalance);
 
   const goto = url => () => dispatch(push(url));
 
   return (
     <Layout title={t('balance')}>
-      <BalanceTotal earn={16632.0} balance={-5528.0} expenses={7191.0} earnToday={168.01} />
+      <BalanceTotal earn={earn} balance={balance} expenses={expenses} earnToday={earnToday} />
       <div className={classes.buttons}>
         <Container spacing={1} justify="center">
           <D11>

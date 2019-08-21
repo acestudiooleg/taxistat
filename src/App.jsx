@@ -9,7 +9,7 @@ import { createHashHistory } from 'history';
 import { Route, Switch } from 'react-router';
 
 import routes from './router';
-import Balance from './routes/Home';
+import Balance from './routes/Balance';
 import Settings from './routes/Settings';
 import Statistics from './routes/Statistics';
 import Earn from './routes/Earn';
