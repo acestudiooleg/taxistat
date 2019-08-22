@@ -20,7 +20,7 @@ import Table from '../components/Table';
 import { getTaxiServices } from '../reducers/taxiServices';
 import { getSettings } from '../reducers/settings';
 
-import actions from '../actions/taxiServices';
+import actions from '../actions/rides';
 
 import { Container, D12, D11 } from '../MyHTML';
 import { PayTypes } from '../constants';
@@ -62,9 +62,9 @@ const Earn = () => {
   const [state, setState] = useState({
     init: false,
     distance: null,
-    serviceId: 0,
+    serviceId: 1,
     payType: PayTypes.Cash,
-    minutes: null,
+    rideTime: null,
     money: null,
     moneyCard: null,
     tips: null,
@@ -76,7 +76,6 @@ const Earn = () => {
 
   const dispatch = useDispatch();
 
-  const save = data => dispatch(actions.save(data));
   const setData = key => ({ target: { value } }) => setState({ ...state, [key]: value });
   const goto = url => () => dispatch(push(url));
 
@@ -105,6 +104,20 @@ const Earn = () => {
     profitIcon = <BadProfitIcon color="error" />;
   }
 
+  const save = () => {
+    if (state.money && state.distance) {
+      dispatch(
+        actions.add({
+          ...state,
+          profit,
+          money: total,
+        }),
+      );
+    } else {
+      window.alert(t('ride-data-validation-error'));
+    }
+  };
+
   const rows = [
     { title: t('total'), icon: <EqualizerIcon color="primary" />, value: total },
     { title: `${t('profit')} (${percent}%)`, icon: profitIcon, value: profit },
@@ -118,7 +131,7 @@ const Earn = () => {
     <Layout title={t('earned')}>
       <div className={classes.radios}>
         <FormControl component="fieldset" className={classes.formControl}>
-          <ChooseTaxiService services={services} selected={Number(state.serviceId)} onChange={setData('serviceId')} />
+          <ChooseTaxiService services={services} serviceId={Number(state.serviceId)} onChange={setData('serviceId')} />
         </FormControl>
         <FormControl component="fieldset" className={classes.formControl}>
           <ChoosePayType selected={state.payType} onChange={setData('payType')} />

@@ -1,6 +1,9 @@
 import { put, takeEvery } from 'redux-saga/effects';
+
 import actions, { SAVE, ADD, REMOVE } from '../actions/expenses';
 import db from '../db';
+
+import { goToBalance } from '../utils';
 
 export function* read() {
   return yield db.expenses.read();
@@ -18,9 +21,13 @@ export function* save({ payload: expense }) {
 
 export function* add({ payload }) {
   try {
-    const data = yield db.expenses.create(payload);
+    const data = yield db.expenses.create({
+      ...payload,
+      timestamp: new Date().toISOString(),
+    });
 
     yield put(actions.addSuccess(data));
+    yield goToBalance();
   } catch (error) {
     yield put(actions.addFailure(error));
   }

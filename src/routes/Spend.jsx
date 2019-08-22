@@ -14,7 +14,7 @@ import ChooseExpenseType from '../components/ChooseExpenseType';
 
 import { getExpensesSettings } from '../reducers/expensesSettings';
 
-import actions from '../actions/taxiServices';
+import actions from '../actions/expenses';
 
 import { Container, D12, D11 } from '../MyHTML';
 
@@ -54,7 +54,7 @@ const Spend = () => {
   const [state, setState] = useState({
     init: false,
     expenseId: 1,
-    money: null,
+    value: null,
     comment: null,
   });
 
@@ -64,9 +64,20 @@ const Spend = () => {
 
   const expense = find(expenses, { ID: state.expenseId }) || {};
 
-  const save = data => dispatch(actions.save(data));
   const setData = (key, type) => ({ target: { value } }) => setState({ ...state, [key]: type(value) });
   const goto = url => () => dispatch(push(url));
+  const save = () => {
+    if (state.value) {
+      dispatch(
+        actions.add({
+          ...state,
+          expenseName: expense.name,
+        }),
+      );
+    } else {
+      window.alert(t('expense-data-validation-error'));
+    }
+  };
 
   return (
     <Layout title={t('spent')}>
@@ -79,9 +90,9 @@ const Spend = () => {
         <D12 className={classes.row}>
           <Input
             label={t('sum')}
-            defaultValue={state.money}
+            defaultValue={state.value}
             type="number"
-            onChange={setData('money', Number)}
+            onChange={setData('value', Number)}
             end={t('uah')}
           />
         </D12>

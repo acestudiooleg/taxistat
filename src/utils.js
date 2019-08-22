@@ -1,5 +1,8 @@
+import { put } from 'redux-saga/effects';
+import { push } from 'connected-react-router';
 import find from 'lodash/find';
 import { PayTypes } from './constants';
+import router from './router';
 
 export const calcTotal = ({ money, moneyCard, tips }) => Number(money) + Number(moneyCard) + Number(tips);
 
@@ -11,7 +14,7 @@ export const calcProfit = ({
   money: m,
   moneyCard: mc,
   tips: t,
-  minutes: mn,
+  rideTime: mn,
   payType,
 }) => {
   let profit = 0;
@@ -20,7 +23,7 @@ export const calcProfit = ({
   const moneyCard = Number(mc);
   const tips = Number(t);
   const minutes = Number(mn);
-  const { rideFee, cardFee, cardFeeEnabled } = find(services, { ID: serviceId });
+  const { rideFee, cardFee, cardFeeEnabled } = find(services, { ID: serviceId }) || {};
 
   const {
     fuelConsumption, fuelPrice, timePrice, timePriceEnabled,
@@ -47,3 +50,7 @@ export const calcProfit = ({
 };
 
 export const calcPercent = (a, b) => (a * 100) / b;
+
+export const goToBalance = () => put(push(router.balance));
+export const goToSettings = () => put(push(router.settings));
+export const goToStatistics = () => put(push(router.statistics));

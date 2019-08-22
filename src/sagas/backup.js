@@ -1,10 +1,9 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
+import { goToBalance } from '../utils';
 
 import actions, { SAVE, RESTORE } from '../actions/backup';
 import settingsActions from '../actions/settings';
 import db from '../db';
-import router from '../router';
 
 export function* save() {
   try {
@@ -23,7 +22,7 @@ export function* restore({ payload: jsonFile }) {
 
     yield put(actions.restoreSuccess(data));
     yield put(settingsActions.init());
-    yield put(push(router.balance));
+    yield goToBalance();
   } catch (error) {
     yield put(actions.restoreFailure(error));
   }

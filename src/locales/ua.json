@@ -51,6 +51,8 @@
   "add-comments-input": "Додати строку для коментарів",
   "new-expense-name": "Ім'я нової витрати",
   "expense-name": "Ім'я нової витрати",
+  "ride-data-validation-error": "Введіть відстань та суму поїздки",
+  "expense-data-validation-error": "Введіть суму витрат",
   "service-name-validation-error": "Введіть ім'я служби таксі",
   "expense-name-validation-error": "Введіть ім'я витрати",
   "settings": "Налаштування",

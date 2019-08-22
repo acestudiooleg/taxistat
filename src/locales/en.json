@@ -53,6 +53,8 @@
   "new-expense-name": "New expense name",
   "expense-name": "Expense name",
   "service-name-validation-error": "The service name is required",
+  "ride-data-validation-error": "The distance and money value are required",
+  "expense-data-validation-error": "The money value is required",
   "expense-name-validation-error": "The expense name is required",
   "settings": "Settings",
   "balance": "Balance",
