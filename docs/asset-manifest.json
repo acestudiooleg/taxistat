@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/taxistat/static/css/main.34de6062.chunk.css",
-    "main.js": "/taxistat/static/js/main.af9d0dc5.chunk.js",
-    "main.js.map": "/taxistat/static/js/main.af9d0dc5.chunk.js.map",
+    "main.js": "/taxistat/static/js/main.8c33f36c.chunk.js",
+    "main.js.map": "/taxistat/static/js/main.8c33f36c.chunk.js.map",
     "runtime~main.js": "/taxistat/static/js/runtime~main.850b3200.js",
     "runtime~main.js.map": "/taxistat/static/js/runtime~main.850b3200.js.map",
-    "static/js/2.4427a5f7.chunk.js": "/taxistat/static/js/2.4427a5f7.chunk.js",
-    "static/js/2.4427a5f7.chunk.js.map": "/taxistat/static/js/2.4427a5f7.chunk.js.map",
+    "static/js/2.47d20eae.chunk.js": "/taxistat/static/js/2.47d20eae.chunk.js",
+    "static/js/2.47d20eae.chunk.js.map": "/taxistat/static/js/2.47d20eae.chunk.js.map",
     "index.html": "/taxistat/index.html",
-    "precache-manifest.8c09a3c5dcde3b8a78e0ce0e49f3b837.js": "/taxistat/precache-manifest.8c09a3c5dcde3b8a78e0ce0e49f3b837.js",
+    "precache-manifest.dfc8370e6c36090d953e20dd7da5aa1a.js": "/taxistat/precache-manifest.dfc8370e6c36090d953e20dd7da5aa1a.js",
     "service-worker.js": "/taxistat/service-worker.js",
     "static/css/main.34de6062.chunk.css.map": "/taxistat/static/css/main.34de6062.chunk.css.map"
   }
