@@ -3,7 +3,7 @@ import find from 'lodash/find';
 import actions, { SAVE, ADD, REMOVE } from '../actions/rides';
 import db from '../db';
 import { getTaxiServices } from '../reducers/taxiServices';
-import { goToBalance } from '../utils';
+import { goToBalance } from '../router';
 
 export function* read() {
   return yield db.rides.read();
@@ -26,7 +26,7 @@ export function* add({ payload }) {
     const data = yield db.rides.create({ ...payload, timestamp: new Date().toISOString(), serviceName: service.name });
 
     yield put(actions.addSuccess(data));
-    yield goToBalance();
+    yield goToBalance(put);
   } catch (error) {
     yield put(actions.addFailure(error));
   }

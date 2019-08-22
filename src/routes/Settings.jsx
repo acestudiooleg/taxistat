@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
-import { push } from 'connected-react-router';
 import { useTranslation } from 'react-i18next';
 
 import WelcomeIcon from '@material-ui/icons/PanTool';
@@ -22,8 +21,6 @@ import Init from '../components/Init';
 import actions from '../actions/settings';
 
 import { getSettings } from '../reducers/settings';
-
-import router from '../router';
 
 const SettingsRoute = () => {
   const { t } = useTranslation();
@@ -71,7 +68,6 @@ const SettingsRoute = () => {
       save({ activeStep: activeStep + 1 });
     } else {
       save({ done: true });
-      dispatch(push(router.home));
     }
   };
 

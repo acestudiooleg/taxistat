@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
-import { push, ConnectedRouter } from 'connected-react-router';
-import get from 'lodash/get';
+import { ConnectedRouter } from 'connected-react-router';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
 import { createHashHistory } from 'history';
 
-import { Route, Switch } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router';
 
 import routes from './router';
 import Balance from './routes/Balance';
@@ -24,22 +24,29 @@ import './i18n';
 
 export const history = createHashHistory({});
 
+const RedirectRoute = ({ component: Component, ...rest }) => {
+  const { hasData, done } = useSelector(getSettings, shallowEqual);
+  const comp = (props) => {
+    if (hasData && !done) {
+      return <Redirect to={routes.settings} />;
+    }
+    return <Component {...props} />;
+  };
+
+  return <Route {...rest} render={comp} />;
+};
+
+RedirectRoute.propTypes = {
+  component: PropTypes.func.isRequired,
+};
+
 function App() {
   const { t } = useTranslation();
-  const [init, setInit] = useState(false);
   const dispatch = useDispatch();
-  const { done } = useSelector(getSettings, shallowEqual);
-  const pathname = useSelector(state => get(state, 'router.location.pathname') || '', shallowEqual);
+  const { initialized } = useSelector(getSettings, shallowEqual);
 
-  if (!init) {
-    setInit(true);
+  if (!initialized) {
     dispatch(actions.init());
-  }
-
-  const redirectUrl = done ? routes.balance : routes.settings;
-
-  if (pathname === routes.root) {
-    dispatch(push(redirectUrl));
   }
 
   return (
@@ -48,11 +55,12 @@ function App() {
         <title>{t('app-title')}</title>
       </Helmet>
       <Switch>
-        <Route exact path={routes.balance} component={Balance} />
+        <Route exact path={routes.root} render={() => <Redirect to={routes.balance} />} />
+        <RedirectRoute exact path={routes.balance} component={Balance} />
         <Route exact path={routes.settings} component={Settings} />
-        <Route exact path={routes.statistics} component={Statistics} />
-        <Route exact path={routes.earn} component={Earn} />
-        <Route exact path={routes.spend} component={Spend} />
+        <RedirectRoute exact path={routes.statistics} component={Statistics} />
+        <RedirectRoute exact path={routes.earn} component={Earn} />
+        <RedirectRoute exact path={routes.spend} component={Spend} />
       </Switch>
     </ConnectedRouter>
   );

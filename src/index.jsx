@@ -15,11 +15,10 @@ import createRootSaga from './sagas';
 
 import './i18n';
 
-function TaxiStat() {
-  const initialState = {};
+export const rootSaga = createRootSaga();
+export const store = configureStore({}, rootSaga, history);
 
-  const rootSaga = createRootSaga();
-  const store = configureStore(initialState, rootSaga, history);
+function TaxiStat() {
   const theme = createMuiTheme({
     palette: {
       primary: teal,

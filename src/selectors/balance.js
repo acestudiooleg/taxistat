@@ -6,7 +6,7 @@ import { getExpenses } from '../reducers/expenses';
 export const getBalance = createSelector(
   getRides,
   getExpenses,
-  ({ list: rides }, { list: expensesList }) => {
+  ({ list: rides } = { list: [] }, { list: expensesList } = { list: [] }) => {
     const earn = rides.reduce((acc, el) => acc + Number(el.profit), 0);
     const expenses = expensesList.reduce((acc, el) => acc + Number(el.value), 0);
     const balance = earn - expenses;

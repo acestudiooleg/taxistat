@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { push } from 'connected-react-router';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,7 +25,7 @@ import { Container, D12, D11 } from '../MyHTML';
 import { PayTypes } from '../constants';
 import { calcProfit, calcTotal, calcPercent } from '../utils';
 
-import router from '../router';
+import { goToBalance } from '../router';
 
 const useStyles = makeStyles(theme => ({
   buttons: {
@@ -77,7 +76,6 @@ const Earn = () => {
   const dispatch = useDispatch();
 
   const setData = key => ({ target: { value } }) => setState({ ...state, [key]: value });
-  const goto = url => () => dispatch(push(url));
 
   const isBoth = state.payType === PayTypes.CardAndCash;
 
@@ -159,7 +157,7 @@ const Earn = () => {
             </Button>
           </D11>
           <D11>
-            <Button fullWidth onClick={goto(router.balance)} color="secondary" variant="contained">
+            <Button fullWidth onClick={() => goToBalance(dispatch)} color="secondary" variant="contained">
               {t('back')}
             </Button>
           </D11>

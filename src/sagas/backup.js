@@ -1,5 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { goToBalance } from '../utils';
+import { goToBalance } from '../router';
 
 import actions, { SAVE, RESTORE } from '../actions/backup';
 import settingsActions from '../actions/settings';
@@ -22,7 +22,7 @@ export function* restore({ payload: jsonFile }) {
 
     yield put(actions.restoreSuccess(data));
     yield put(settingsActions.init());
-    yield goToBalance();
+    yield goToBalance(put);
   } catch (error) {
     yield put(actions.restoreFailure(error));
   }

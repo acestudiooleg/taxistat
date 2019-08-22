@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { push } from 'connected-react-router';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
@@ -11,7 +10,7 @@ import { Container, D11 } from '../MyHTML';
 
 import { getBalance } from '../selectors/balance';
 
-import router from '../router';
+import { goToEarn, goToSpend } from '../router';
 
 const SpendButton = withStyles(theme => ({
   root: {
@@ -39,20 +38,20 @@ const Balance = () => {
     earn, balance, expenses, earnToday,
   } = useSelector(getBalance);
 
-  const goto = url => () => dispatch(push(url));
 
   return (
     <Layout title={t('balance')}>
+
       <BalanceTotal earn={earn} balance={balance} expenses={expenses} earnToday={earnToday} />
       <div className={classes.buttons}>
         <Container spacing={1} justify="center">
           <D11>
-            <Button fullWidth onClick={goto(router.earn)} variant="contained" color="primary">
+            <Button fullWidth onClick={() => goToEarn(dispatch)} variant="contained" color="primary">
               {t('earned')}
             </Button>
           </D11>
           <D11>
-            <SpendButton fullWidth onClick={goto(router.spend)} variant="contained">
+            <SpendButton fullWidth onClick={() => goToSpend(dispatch)} variant="contained">
               {t('spent')}
             </SpendButton>
           </D11>
