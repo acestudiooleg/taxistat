@@ -16,13 +16,7 @@ import { Container, P } from '../MyHTML';
 import { getExpensesSettings } from '../reducers/expensesSettings';
 import actions from '../actions/expensesSettings';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    overflow: 'auto',
-    height: 'calc(100vh - 240px)',
-    borderBottom: `1px solid ${theme.palette.grey[500]}`,
-  },
+const useStyles = makeStyles(() => ({
   input: {
     width: '100%',
   },
@@ -46,6 +40,7 @@ const Expenses = () => {
   const [expensesState, setExpenses] = useState(expenses);
 
   const showAddButton = expensesState.every(el => el.name !== expanded && !el.isNew);
+
   if (hasData && !expensesState.length) {
     setExpenses(expenses);
   }
@@ -64,27 +59,27 @@ const Expenses = () => {
 
   const addExpenses = () => {
     const newServices = [
-      ...expenses,
+      ...expensesState,
       {
+        isNew: true,
         name: t('new-expense-name'),
-        newName: t('expense-name'),
+        newName: '',
         commentsEnabled: false,
       },
     ];
     setExpenses(newServices);
-    setExpanded(t('new-expenses-name'));
+    setExpanded(`${t('new-expense-name')}New`);
   };
 
-  const saveNewExpenses = () => dispatch(
-    actions.save(
-      expensesState.map((el) => {
-        if (el.isNew) {
-          return omit({ ...el, name: el.newName }, ['isNew', 'newName']);
-        }
-        return el;
-      }),
-    ),
-  );
+  const saveNewExpenses = () => {
+    const newExpense = expensesState.find(el => el.isNew);
+    if (!newExpense.newName) {
+      return window.alert(t('expense-name-validation-error'));
+    }
+    newExpense.name = newExpense.newName;
+    dispatch(actions.add(omit(newExpense, ['isNew', 'newName'])));
+    return setExpanded(false);
+  };
 
   const removeExpenses = ({ name, ID }) => () => {
     const isDelete = window.confirm(t('remove-expense-confirmation', { name }));
@@ -98,9 +93,13 @@ const Expenses = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <>
       {expensesState.map(el => (
-        <Accordion key={el.name} expanded={expanded === el.name} onChange={handleAccordionChange(el.name)}>
+        <Accordion
+          key={el.name + (el.ID || 'New')}
+          expanded={expanded === el.name + (el.ID || 'New')}
+          onChange={handleAccordionChange(el.name + (el.ID || 'New'))}
+        >
           <AccHead expandIcon={<ExpandMoreIcon />}>
             <P className={classes.heading}>{el.name}</P>
           </AccHead>
@@ -121,7 +120,7 @@ const Expenses = () => {
           </Fab>
         </Container>
       )}
-    </div>
+    </>
   );
 };
 

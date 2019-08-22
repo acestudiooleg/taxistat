@@ -8,7 +8,6 @@ import MomentUtils from '@date-io/moment';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import teal from '@material-ui/core/colors/teal';
-import blue from '@material-ui/core/colors/blue';
 import * as serviceWorker from './serviceWorker';
 import App, { history } from './App';
 import configureStore from './configureStore';
@@ -16,15 +15,16 @@ import createRootSaga from './sagas';
 
 import './i18n';
 
-function TaxiStat() {
-  const initialState = {};
+export const rootSaga = createRootSaga();
+export const store = configureStore({}, rootSaga, history);
 
-  const rootSaga = createRootSaga();
-  const store = configureStore(initialState, rootSaga, history);
+function TaxiStat() {
   const theme = createMuiTheme({
     palette: {
       primary: teal,
-      secondary: blue,
+      secondary: {
+        main: '#197d73',
+      },
     },
     status: {
       danger: 'orange',

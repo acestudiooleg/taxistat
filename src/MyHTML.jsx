@@ -52,6 +52,13 @@ export const Container = ({ children, ...props }) => (
     {children}
   </Grid>
 );
+
+export const Item = ({ children, ...props }) => (
+  <Grid item {...props}>
+    {children}
+  </Grid>
+);
+
 export const D12 = ({ children, ...props }) => (
   <Grid item xs={12} {...props}>
     {children}

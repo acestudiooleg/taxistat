@@ -13,9 +13,6 @@ import actions from '../actions/settings';
 import { getSettings } from '../reducers/settings';
 
 const useStyles = makeStyles(() => ({
-  root: {
-    width: '90%',
-  },
   input: {
     width: '100%',
   },
@@ -47,7 +44,7 @@ const FuelConsumption = () => {
   };
 
   return (
-    <div>
+    <>
       <D12>
         <H5 align="center">{t('fuel-consumption-title')}</H5>
         <P align="center">{t('fuel-consumption-desc')}</P>
@@ -110,7 +107,7 @@ const FuelConsumption = () => {
         </D12>
       </form>
       <D12 />
-    </div>
+    </>
   );
 };
 

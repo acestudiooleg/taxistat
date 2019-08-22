@@ -4,6 +4,8 @@ import actions, { SAVE } from '../actions/settings';
 import db, { settingsModel } from '../db';
 import { getSettings } from '../reducers/settings';
 
+import { goToBalance } from '../router';
+
 export function* read() {
   return yield db.settings.read();
 }
@@ -19,6 +21,9 @@ export function* save({ payload }) {
     });
 
     yield put(actions.saveSuccess(data));
+    if (payload.done) {
+      yield goToBalance(put);
+    }
   } catch (error) {
     yield put(actions.saveFailure(error));
   }

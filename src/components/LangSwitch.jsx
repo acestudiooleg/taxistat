@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -9,9 +8,8 @@ import i18n from '../i18n';
 
 const LangSwitch = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { t } = useTranslation();
 
-  const currentLanguage = window.localStorage.getItem('i18nextLng') || 'en';
+  const currentLanguage = (window.localStorage.getItem('i18nextLng') || 'en').substring(0, 2).toLowerCase();
 
   const openMenu = event => setAnchorEl(event.currentTarget);
 

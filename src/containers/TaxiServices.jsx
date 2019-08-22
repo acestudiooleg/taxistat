@@ -17,13 +17,7 @@ import { getTaxiServices } from '../reducers/taxiServices';
 
 import actions from '../actions/taxiServices';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    overflow: 'auto',
-    height: 'calc(100vh - 240px)',
-    borderBottom: `1px solid ${theme.palette.grey[500]}`,
-  },
+const useStyles = makeStyles(() => ({
   input: {
     width: '100%',
   },
@@ -87,7 +81,7 @@ const TaxiServices = () => {
       },
     ];
     setServices(newServices);
-    setExpanded(`${t('new-service-name')}undefined`);
+    setExpanded(`${t('new-service-name')}New`);
   };
 
   const saveService = () => {
@@ -112,12 +106,12 @@ const TaxiServices = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <>
       {servicesState.map(el => (
         <Accordion
-          key={el.name + el.ID}
-          expanded={expanded === el.name + el.ID}
-          onChange={handleAccordionChange(el.name + el.ID)}
+          key={el.name + (el.ID || 'New')}
+          expanded={expanded === el.name + (el.ID || 'New')}
+          onChange={handleAccordionChange(el.name + (el.ID || 'New'))}
         >
           <AccHead expandIcon={<ExpandMoreIcon />}>
             <P className={classes.heading}>{el.name}</P>
@@ -139,7 +133,7 @@ const TaxiServices = () => {
           </Fab>
         </Container>
       )}
-    </div>
+    </>
   );
 };
 

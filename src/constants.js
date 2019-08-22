@@ -31,7 +31,14 @@ export const predefinedExpenses = [
   { name: 'parking', commentsEnabled: false },
   { name: 'tech-service', commentsEnabled: true },
 ];
+
 export const predefinedFuel = {
   consumption: 9.5,
   price: 30,
+};
+
+export const PayTypes = {
+  Cash: 'cash',
+  Card: 'card',
+  CardAndCash: 'cardAndCash',
 };
