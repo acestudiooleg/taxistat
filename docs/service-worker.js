@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/taxistat/precache-manifest.78f873033e0b7976755c68abfd20f200.js"
+  "/taxistat/precache-manifest.1b49a2fb9491639073444ce68c3fff53.js"
 );
 
 self.addEventListener('message', (event) => {
