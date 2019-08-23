@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 
 import Layout from '../components/Layout';
-import Input from '../components/Input';
+import Input from '../containers/Input';
 import ChooseExpenseType from '../components/ChooseExpenseType';
 
 import { getExpensesSettings } from '../reducers/expensesSettings';
@@ -21,10 +21,14 @@ import { Container, D12, D11 } from '../MyHTML';
 import router from '../router';
 
 const useStyles = makeStyles(theme => ({
+  content: {
+    position: 'relative',
+    height: '100%',
+    minHeight: 700,
+  },
   buttons: {
+    marginTop: 15,
     width: '100%',
-    position: 'absolute',
-    bottom: 70,
   },
 
   radios: {
@@ -81,40 +85,46 @@ const Spend = () => {
 
   return (
     <Layout title={t('spent')}>
-      <div className={classes.radios}>
-        <FormControl component="fieldset" className={classes.formControl}>
-          <ChooseExpenseType expenseId={state.expenseId} expenses={expenses} onChange={setData('expenseId', Number)} />
-        </FormControl>
-      </div>
-      <Container>
-        <D12 className={classes.row}>
-          <Input
-            label={t('sum')}
-            defaultValue={state.value}
-            type="number"
-            onChange={setData('value', Number)}
-            end={t('uah')}
-          />
-        </D12>
-        {expense.commentsEnabled && (
+      <div className={classes.content}>
+        <div className={classes.radios}>
+          <FormControl component="fieldset" className={classes.formControl}>
+            <ChooseExpenseType
+              expenseId={state.expenseId}
+              expenses={expenses}
+              onChange={setData('expenseId', Number)}
+            />
+          </FormControl>
+        </div>
+        <Container>
           <D12 className={classes.row}>
-            <Input label={t('comment')} defaultValue={state.comment} onChange={setData('comment', String)} />
+            <Input
+              label={t('sum')}
+              defaultValue={state.value}
+              type="number"
+              onChange={setData('value', Number)}
+              end={t('uah')}
+            />
           </D12>
-        )}
-      </Container>
-      <div className={classes.buttons}>
-        <Container spacing={1} justify="center">
-          <D11>
-            <Button fullWidth onClick={save} variant="contained" color="primary">
-              {t('save')}
-            </Button>
-          </D11>
-          <D11>
-            <Button fullWidth onClick={goto(router.balance)} color="secondary" variant="contained">
-              {t('back')}
-            </Button>
-          </D11>
+          {expense.commentsEnabled && (
+            <D12 className={classes.row}>
+              <Input label={t('comment')} defaultValue={state.comment} onChange={setData('comment', String)} />
+            </D12>
+          )}
         </Container>
+        <div className={classes.buttons}>
+          <Container spacing={1} justify="center">
+            <D11>
+              <Button fullWidth onClick={save} variant="contained" color="primary">
+                {t('save')}
+              </Button>
+            </D11>
+            <D11>
+              <Button fullWidth onClick={goto(router.balance)} color="secondary" variant="contained">
+                {t('back')}
+              </Button>
+            </D11>
+          </Container>
+        </div>
       </div>
     </Layout>
   );

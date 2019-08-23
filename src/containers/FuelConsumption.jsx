@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import Input from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { makeStyles } from '@material-ui/core/styles';
 import debounce from 'lodash/debounce';
+import Input from './Input';
 
 import { H5, P, D12 } from '../MyHTML';
 

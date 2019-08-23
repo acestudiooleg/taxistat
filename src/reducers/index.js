@@ -7,6 +7,7 @@ import taxiServices from './taxiServices';
 import rides from './rides';
 import expenses from './expenses';
 import backup from './backup';
+import keyboard from './keyboard';
 
 export default history => combineReducers({
   router: connectRouter(history),
@@ -17,4 +18,5 @@ export default history => combineReducers({
   rides,
   expenses,
   backup,
+  keyboard,
 });

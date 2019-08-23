@@ -11,7 +11,7 @@ import NormalProfitIcon from '@material-ui/icons/SentimentSatisfied';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 
 import Layout from '../components/Layout';
-import Input from '../components/Input';
+import Input from '../containers/Input';
 import ChooseTaxiService from '../components/ChooseTaxiService';
 import ChoosePayType from '../components/ChoosePayType';
 import Table from '../components/Table';
@@ -28,10 +28,14 @@ import { calcProfit, calcTotal, calcPercent } from '../utils';
 import { goToBalance } from '../router';
 
 const useStyles = makeStyles(theme => ({
+  content: {
+    position: 'relative',
+    height: '100%',
+    minHeight: 700,
+  },
   buttons: {
+    marginTop: 15,
     width: '100%',
-    position: 'absolute',
-    bottom: 70,
   },
 
   radios: {
@@ -127,41 +131,47 @@ const Earn = () => {
 
   return (
     <Layout title={t('earned')}>
-      <div className={classes.radios}>
-        <FormControl component="fieldset" className={classes.formControl}>
-          <ChooseTaxiService services={services} serviceId={Number(state.serviceId)} onChange={setData('serviceId')} />
-        </FormControl>
-        <FormControl component="fieldset" className={classes.formControl}>
-          <ChoosePayType selected={state.payType} onChange={setData('payType')} />
-        </FormControl>
-      </div>
-      <Container>
-        <D12 className={classes.row}>{makeInput('distance', 'distance', 'km', state.distance)}</D12>
-        <D12 className={classes.row}>{makeInput(isBoth ? 'cash' : state.payType, 'money', 'uah', state.money)}</D12>
-        {isBoth && <D12 className={classes.row}>{makeInput('card', 'moneyCard', 'uah', state.moneyCard)}</D12>}
-        <D12 className={classes.row}>{makeInput('tips', 'tips', 'uah', state.tips)}</D12>
-        {settings.timePriceEnabled && (
-          <D12 className={classes.row}>{makeInput('ride-time', 'minutes', 'minutes', state.minutes)}</D12>
-        )}
-        {state.money && (
-          <D12 className={classes.row}>
-            <Table rows={rows} />
-          </D12>
-        )}
-      </Container>
-      <div className={classes.buttons}>
-        <Container spacing={1} justify="center">
-          <D11>
-            <Button fullWidth onClick={save} variant="contained" color="primary">
-              {t('save')}
-            </Button>
-          </D11>
-          <D11>
-            <Button fullWidth onClick={() => goToBalance(dispatch)} color="secondary" variant="contained">
-              {t('back')}
-            </Button>
-          </D11>
+      <div className={classes.content}>
+        <div className={classes.radios}>
+          <FormControl component="fieldset" className={classes.formControl}>
+            <ChooseTaxiService
+              services={services}
+              serviceId={Number(state.serviceId)}
+              onChange={setData('serviceId')}
+            />
+          </FormControl>
+          <FormControl component="fieldset" className={classes.formControl}>
+            <ChoosePayType selected={state.payType} onChange={setData('payType')} />
+          </FormControl>
+        </div>
+        <Container>
+          <D12 className={classes.row}>{makeInput('distance', 'distance', 'km', state.distance)}</D12>
+          <D12 className={classes.row}>{makeInput(isBoth ? 'cash' : state.payType, 'money', 'uah', state.money)}</D12>
+          {isBoth && <D12 className={classes.row}>{makeInput('card', 'moneyCard', 'uah', state.moneyCard)}</D12>}
+          <D12 className={classes.row}>{makeInput('tips', 'tips', 'uah', state.tips)}</D12>
+          {settings.timePriceEnabled && (
+            <D12 className={classes.row}>{makeInput('ride-time', 'minutes', 'minutes', state.minutes)}</D12>
+          )}
+          {state.money && (
+            <D12 className={classes.row}>
+              <Table rows={rows} />
+            </D12>
+          )}
         </Container>
+        <div className={classes.buttons}>
+          <Container spacing={1} justify="center">
+            <D11>
+              <Button fullWidth onClick={save} variant="contained" color="primary">
+                {t('save')}
+              </Button>
+            </D11>
+            <D11>
+              <Button fullWidth onClick={() => goToBalance(dispatch)} color="secondary" variant="contained">
+                {t('back')}
+              </Button>
+            </D11>
+          </Container>
+        </div>
       </div>
     </Layout>
   );

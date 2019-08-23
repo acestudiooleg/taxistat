@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Input from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
 import Delete from '@material-ui/icons/Delete';
 import Save from '@material-ui/icons/Save';
 import Fab from '@material-ui/core/Fab';
+import Input from '../containers/Input';
 
 import { Container, D12, D6 } from '../MyHTML';
 

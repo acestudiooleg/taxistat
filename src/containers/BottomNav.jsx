@@ -18,9 +18,10 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   bottomNav: {
+    zIndex: 9,
     borderTop: `1px solid ${theme.palette.grey[300]}`,
     width: '100%',
-    position: 'absolute',
+    position: 'fixed',
     bottom: 0,
   },
   title: {
@@ -28,28 +29,31 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Home = () => {
+const BottomNav = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
+  const keyboardIsHidden = useSelector(state => state.keyboard.hidden);
   const pathname = useSelector(state => get(state, 'router.location.pathname') || '');
 
   return (
-    <div>
-      <BottomNavigation
-        value={pathname}
-        onChange={(event, newValue) => {
-          dispatch(push(newValue));
-        }}
-        className={classes.bottomNav}
-      >
-        <BottomNavigationAction label={t('statistics')} value={router.statistics} icon={<StatIcon />} />
-        <BottomNavigationAction label={t('balance')} value={router.balance} icon={<DirectionsCarIcon />} />
-        <BottomNavigationAction label={t('settings')} value={router.settings} icon={<SettingsIcon />} />
-      </BottomNavigation>
+    <div className={classes.root}>
+      {keyboardIsHidden && (
+        <BottomNavigation
+          value={pathname}
+          onChange={(event, newValue) => {
+            dispatch(push(newValue));
+          }}
+          className={classes.bottomNav}
+        >
+          <BottomNavigationAction label={t('statistics')} value={router.statistics} icon={<StatIcon />} />
+          <BottomNavigationAction label={t('balance')} value={router.balance} icon={<DirectionsCarIcon />} />
+          <BottomNavigationAction label={t('settings')} value={router.settings} icon={<SettingsIcon />} />
+        </BottomNavigation>
+      )}
     </div>
   );
 };
 
-export default Home;
+export default BottomNav;
