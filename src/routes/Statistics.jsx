@@ -32,7 +32,7 @@ const Statictics = () => {
       <Layout title={t('balance')}>
         <Accordion expanded={expanded === 'rides'} onChange={handleAccordionChange('rides')}>
           <AccHead expandIcon={<ExpandMoreIcon />}>
-            <P>{t('rides')}</P>
+            <P>{t('orders')}</P>
           </AccHead>
           <AccBody>
             <RidesList rides={rides} />
