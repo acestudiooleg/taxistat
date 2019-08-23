@@ -9,7 +9,7 @@ export const predefinedServices = [
   },
   {
     name: 'Uber',
-    rideFee: 37.5,
+    rideFee: 7.5,
     weekFee: 0,
     weekFeeEnabled: false,
     cardFee: 1,
