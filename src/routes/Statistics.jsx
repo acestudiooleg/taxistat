@@ -1,4 +1,5 @@
 import React from 'react';
+import Swipe from 'react-easy-swipe';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { push } from 'connected-react-router';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -16,7 +17,7 @@ import { Container, D11 } from '../MyHTML';
 import { getRides } from '../reducers/rides';
 import { getExpenses } from '../reducers/expenses';
 
-import router from '../router';
+import router, { goToBalance } from '../router';
 
 const SpendButton = withStyles(theme => ({
   root: {
@@ -47,20 +48,22 @@ const Statictics = () => {
 
   return (
     <Layout title={t('balance')}>
-      <div className={classes.table}>
-        <List component="nav" aria-label="main mailbox folders">
-          {rides.map(({
-            serviceName, payType, distance, money, profit,
-          }, i) => (
-            <>
-              <ListItem key={serviceName}>
-                <ListItemText primary={`${serviceName} - ${t(payType)} - ${distance} - ${money} - ${profit}`} />
-              </ListItem>
-              <Divider />
-            </>
-          ))}
-        </List>
-      </div>
+      <Swipe onSwipeLeft={() => goToBalance(dispatch)}>
+        <div className={classes.table}>
+          <List component="nav" aria-label="main mailbox folders">
+            {rides.map(({
+              serviceName, payType, distance, money, profit,
+            }, i) => (
+              <>
+                <ListItem key={serviceName}>
+                  <ListItemText primary={`${serviceName} - ${t(payType)} - ${distance} - ${money} - ${profit}`} />
+                </ListItem>
+                <Divider />
+              </>
+            ))}
+          </List>
+        </div>
+      </Swipe>
     </Layout>
   );
 };
