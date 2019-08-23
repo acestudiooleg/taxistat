@@ -47,8 +47,8 @@ const Statictics = () => {
   // make as on uknon achrive cards
 
   return (
-    <Layout title={t('balance')}>
-      <Swipe onSwipeLeft={() => goToBalance(dispatch)}>
+    <Swipe tolerance={100} onSwipeLeft={() => goToBalance(dispatch)}>
+      <Layout title={t('balance')}>
         <div className={classes.table}>
           <List component="nav" aria-label="main mailbox folders">
             {rides.map(({
@@ -63,8 +63,8 @@ const Statictics = () => {
             ))}
           </List>
         </div>
-      </Swipe>
-    </Layout>
+      </Layout>
+    </Swipe>
   );
 };
 

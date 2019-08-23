@@ -45,7 +45,7 @@ const Balance = () => {
   } = useSelector(getBalance);
 
   return (
-    <Swipe onSwipeLeft={() => goToSettings(dispatch)} onSwipeRight={() => goToStatistics(dispatch)}>
+    <Swipe onSwipeLeft={() => goToSettings(dispatch)} onSwipeRight={() => goToStatistics(dispatch)} tolerance={100}>
       <Layout title={t('balance')}>
         <div className={classes.body}>
           <BalanceTotal earn={earn} balance={balance} expenses={expenses} earnToday={earnToday} />

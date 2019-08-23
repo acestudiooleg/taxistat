@@ -44,7 +44,7 @@ const Settings = ({ steps }) => {
   };
 
   return (
-    <Swipe onSwipeLeft={swipeLeft} onSwipeRight={swipeRight}>
+    <Swipe tolerance={100} onSwipeLeft={swipeLeft} onSwipeRight={swipeRight}>
       <Container>
         <D12>
           <BottomNavigation value={activeTabNum} onChange={(e, name) => setTabNum(name)} className={classes.bottomNav}>
