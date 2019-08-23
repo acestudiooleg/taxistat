@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0ede6be41f6fb293f4776aec4a2e68b7",
+    "revision": "f26eee36b46bea12302d05e540297b40",
     "url": "/taxistat/index.html"
   },
   {
