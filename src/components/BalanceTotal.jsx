@@ -7,17 +7,30 @@ import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 
 import Table from './Table';
+import { calcPercent } from '../utils';
 
 const BalanceTotal = ({
   earn, balance, expenses, earnToday,
 }) => {
   const { t } = useTranslation();
 
+  const percent = calcPercent(earn, balance).toFixed(2) * -1;
+
   const rows = [
-    { title: t('earn'), icon: <AttachMoneyIcon color="primary" />, value: earn },
-    { title: t('balance'), icon: <AccountBalanceWalletIcon color="primary" />, value: balance },
-    { title: t('expenses'), icon: <DirectionsCarIcon color="primary" />, value: expenses },
-    { title: t('earn-today'), icon: <CalendarTodayIcon color="primary" />, value: earnToday },
+    {
+      title: t('earn'),
+      icon: <AttachMoneyIcon color="primary" />,
+      value: earn.toFixed(2),
+      percent,
+    },
+    {
+      title: t('balance'),
+      icon: <AccountBalanceWalletIcon color="primary" />,
+      value: balance.toFixed(2),
+      percent: (100 - percent) * -1,
+    },
+    { title: t('expenses'), icon: <DirectionsCarIcon color="primary" />, value: expenses.toFixed(2) },
+    { title: t('earn-today'), icon: <CalendarTodayIcon color="primary" />, value: earnToday.toFixed(2) },
   ];
 
   return <Table rows={rows} />;

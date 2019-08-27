@@ -29,7 +29,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Row = ({ icon, title, value }) => {
+const Row = ({
+  icon, title, value, percent,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
   return (
@@ -45,8 +47,8 @@ const Row = ({ icon, title, value }) => {
       </TableCell>
       <TableCell align="right">
         <P variant="subtitle2" className={cx({ [classes.negativeValue]: value < 0 })}>
-          {value}
-          {t('uah')}
+          {`${value} ${t('uah')}`}
+          {percent && <span>{` (${percent}%)`}</span>}
         </P>
       </TableCell>
     </TableRow>
@@ -55,18 +57,21 @@ const Row = ({ icon, title, value }) => {
 
 Row.defaultProps = {
   icon: null,
+  percent: null,
 };
+
 Row.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.node,
   value: PropTypes.number.isRequired,
+  percent: PropTypes.number,
 };
 
 const Table = ({ rows }) => (
   <TableMUI>
     <TableBody>
       {rows.map(row => (
-        <Row key={row.title} title={row.title} icon={row.icon} value={row.value} />
+        <Row key={row.title} title={row.title} icon={row.icon} value={row.value} percent={row.percent} />
       ))}
     </TableBody>
   </TableMUI>
