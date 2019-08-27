@@ -6,6 +6,8 @@ export const settingsModel = [
   'fuelConsumption',
   'fuelPrice',
   'lang',
+  'currency',
+  'taxiDriver',
   'activeStep',
   'timePrice',
   'timePriceEnabled',

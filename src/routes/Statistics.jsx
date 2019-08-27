@@ -17,19 +17,18 @@ import ExpensesList from '../components/ExpensesList';
 
 import { getRides } from '../reducers/rides';
 import { getExpenses } from '../reducers/expenses';
+import { getSettings } from '../reducers/settings';
 
 import { goToBalance } from '../router';
 import { sortByDate } from '../utils';
 
-const filterRides = (rides, pattern) =>
-  rides.filter(({ timestamp, serviceName, money, profit, distance }) =>
-    [moment(timestamp).format('DD MM YYYY HH mm'), serviceName, money, profit, distance].some(v => pattern.test(v)),
-  );
+const filterRides = (rides, pattern) => rides.filter(({
+  timestamp, serviceName, money, profit, distance,
+}) => [moment(timestamp).format('DD MM YYYY HH mm'), serviceName, money, profit, distance].some(v => pattern.test(v)));
 
-const filterExpenses = (expenses, pattern) =>
-  expenses.filter(({ timestamp, expenseName, value, comment }) =>
-    [moment(timestamp).format('DD MM YYYY HH mm'), expenseName, value, comment].some(v => pattern.test(v)),
-  );
+const filterExpenses = (expenses, pattern) => expenses.filter(({
+  timestamp, expenseName, value, comment,
+}) => [moment(timestamp).format('DD MM YYYY HH mm'), expenseName, value, comment].some(v => pattern.test(v)));
 
 const useStyles = makeStyles(() => ({
   list: {
@@ -43,6 +42,7 @@ const Statictics = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const classes = useStyles();
+  const { currency } = useSelector(getSettings, shallowEqual);
   const { list: ridesList } = useSelector(getRides, shallowEqual);
   const { list: expensesList } = useSelector(getExpenses, shallowEqual);
   const [tab, setTab] = useState(0);
@@ -67,8 +67,8 @@ const Statictics = () => {
         </AppBar>
         <Paper className={classes.list}>
           <Input value={filterValue} onChange={onChangeFilter} placeholder={t('filter')} />
-          {tab === 0 && <RidesList rides={sortByDate(rides, true)} />}
-          {tab === 1 && <ExpensesList expenses={sortByDate(expenses, true)} />}
+          {tab === 0 && <RidesList rides={sortByDate(rides, true)} currency={currency} />}
+          {tab === 1 && <ExpensesList expenses={sortByDate(expenses, true)} currency={currency} />}
         </Paper>
       </Layout>
     </Swipe>

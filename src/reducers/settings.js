@@ -3,6 +3,8 @@ import {
   SAVE, SAVE_SUCCESS, INIT_SUCCESS, SAVE_FAILURE,
 } from '../actions/settings';
 
+import { getCurrency } from '../components/LangSwitch';
+
 const initialState = {
   hasData: false,
   fuelConsumption: 0,
@@ -10,6 +12,8 @@ const initialState = {
   timePrice: 0,
   timePriceEnabled: false,
   initialized: false,
+  taxiDriver: true,
+  currency: getCurrency(),
   done: false,
   loading: false,
   activeStep: 0,

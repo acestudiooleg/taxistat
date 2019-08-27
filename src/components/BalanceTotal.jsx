@@ -10,7 +10,7 @@ import Table from './Table';
 import { calcPercent } from '../utils';
 
 const BalanceTotal = ({
-  earn, balance, expenses, earnToday,
+  earn, balance, expenses, earnToday, currency,
 }) => {
   const { t } = useTranslation();
 
@@ -33,7 +33,7 @@ const BalanceTotal = ({
     { title: t('earn-today'), icon: <CalendarTodayIcon color="primary" />, value: earnToday.toFixed(2) },
   ];
 
-  return <Table rows={rows} />;
+  return <Table rows={rows} currency={currency} />;
 };
 
 BalanceTotal.propTypes = {
@@ -41,6 +41,7 @@ BalanceTotal.propTypes = {
   balance: PropTypes.number.isRequired,
   expenses: PropTypes.number.isRequired,
   earnToday: PropTypes.number.isRequired,
+  currency: PropTypes.string.isRequired,
 };
 
 export default BalanceTotal;

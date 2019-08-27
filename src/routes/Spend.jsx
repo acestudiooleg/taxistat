@@ -19,6 +19,7 @@ import actions from '../actions/expenses';
 import { Container, D12, D11 } from '../MyHTML';
 
 import router from '../router';
+import { getSettings } from '../reducers/settings';
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -53,6 +54,7 @@ const Spend = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const { currency } = useSelector(getSettings, shallowEqual);
   const { list: expenses, hasData } = useSelector(getExpensesSettings, shallowEqual);
 
   const [state, setState] = useState({
@@ -102,7 +104,7 @@ const Spend = () => {
               defaultValue={state.value}
               type="number"
               onChange={setData('value', Number)}
-              end={t('uah')}
+              end={currency}
             />
           </D12>
           {expense.commentsEnabled && (

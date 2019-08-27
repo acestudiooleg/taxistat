@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const RidesList = ({ rides }) => {
+const RidesList = ({ rides, currency }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -74,13 +74,13 @@ const RidesList = ({ rides }) => {
                 <ListItemIcon className={classes.listIcon}>
                   <MoneyIcon color="secondary" />
                 </ListItemIcon>
-                <Text label={money} measure={t('uah')} />
+                <Text label={money} measure={currency} />
               </div>
               <div className={classes.param}>
                 <ListItemIcon className={classes.listIcon}>
                   <ProfitIcon color="secondary" />
                 </ListItemIcon>
-                <Text label={profit} measure={t('uah')} />
+                <Text label={profit} measure={currency} />
               </div>
             </ListItem>
             <Divider />
@@ -100,6 +100,7 @@ RidesList.propTypes = {
       profit: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  currency: PropTypes.string.isRequired,
 };
 
 export default RidesList;

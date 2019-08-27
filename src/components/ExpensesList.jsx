@@ -34,7 +34,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ExpensesList = ({ expenses }) => {
+const ExpensesList = ({ expenses, currency }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   return (
@@ -55,7 +55,7 @@ const ExpensesList = ({ expenses }) => {
               <ListItemIcon className={classes.listIcon}>
                 <MoneyIcon color="secondary" />
               </ListItemIcon>
-              <Text exp label={value} measure={t('uah')} />
+              <Text exp label={value} measure={currency} />
             </div>
             <div className={classes.param}>
               <ListItemIcon className={classes.listIcon}>
@@ -79,6 +79,7 @@ ExpensesList.propTypes = {
       comment: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  currency: PropTypes.string.isRequired,
 };
 
 export default ExpensesList;

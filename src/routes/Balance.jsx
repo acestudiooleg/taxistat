@@ -1,6 +1,6 @@
 import React from 'react';
 import Swipe from 'react-easy-swipe';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
@@ -14,6 +14,7 @@ import { getBalance } from '../selectors/balance';
 import {
   goToEarn, goToSpend, goToStatistics, goToSettings,
 } from '../router';
+import { getSettings } from '../reducers/settings';
 
 const SpendButton = withStyles(theme => ({
   root: {
@@ -40,6 +41,7 @@ const Balance = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { currency } = useSelector(getSettings, shallowEqual);
   const {
     earn, balance, expenses, earnToday,
   } = useSelector(getBalance);
@@ -48,7 +50,7 @@ const Balance = () => {
     <Swipe onSwipeLeft={() => goToSettings(dispatch)} onSwipeRight={() => goToStatistics(dispatch)} tolerance={100}>
       <Layout title={t('balance')}>
         <div className={classes.body}>
-          <BalanceTotal earn={earn} balance={balance} expenses={expenses} earnToday={earnToday} />
+          <BalanceTotal earn={earn} balance={balance} expenses={expenses} earnToday={earnToday} currency={currency} />
           <div className={classes.buttons}>
             <Container spacing={1} justify="center">
               <D11>

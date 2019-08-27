@@ -2,7 +2,7 @@ import React from 'react';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Switch from '@material-ui/core/Switch';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import debounce from 'lodash/debounce';
 import Input from './Input';
@@ -30,8 +30,11 @@ const FuelConsumption = () => {
   const classes = useStyles();
   const dispatch = debounce(useDispatch(), 500);
   const {
-    fuelConsumption, fuelPrice, timePrice, timePriceEnabled,
-  } = useSelector(getSettings, shallowEqual);
+    fuelConsumption, fuelPrice, timePrice, timePriceEnabled, taxiDriver, currency,
+  } = useSelector(
+    getSettings,
+    shallowEqual,
+  );
 
   const handleChange = name => (event) => {
     const newValues = { [name]: event.target.value };
@@ -52,17 +55,22 @@ const FuelConsumption = () => {
       <form noValidate autoComplete="off">
         <D12 className={classes.container}>
           <Input
+            id="currency"
+            label={t('currency')}
+            defaultValue={currency}
+            className={classes.input}
+            onChange={handleChange('currency')}
+          />
+        </D12>
+        <D12 className={classes.container}>
+          <Input
             id="liters"
             label={t('liters-per-hundred-km')}
             defaultValue={fuelConsumption}
             className={classes.input}
             type="number"
             onChange={handleChange('fuelConsumption')}
-            margin="normal"
-            variant="outlined"
-            InputProps={{
-              endAdornment: <InputAdornment position="end">{t('liters')}</InputAdornment>,
-            }}
+            end={t('liters')}
           />
         </D12>
         <D12 className={classes.container}>
@@ -73,38 +81,36 @@ const FuelConsumption = () => {
             className={classes.input}
             type="number"
             onChange={handleChange('fuelPrice')}
-            margin="normal"
-            variant="outlined"
-            InputProps={{
-              endAdornment: <InputAdornment position="end">{t('uah')}</InputAdornment>,
-            }}
+            end={currency}
           />
         </D12>
         <D12 className={classes.container}>
-          <Input
-            id="timePrice"
-            label={t('time-price')}
-            defaultValue={timePrice}
-            disabled={!timePriceEnabled}
-            className={classes.input}
-            type="number"
-            onChange={handleChange('timePrice')}
-            margin="normal"
-            variant="outlined"
-            InputProps={{
-              startAdornment: <InputAdornment position="start">{t('uah')}</InputAdornment>,
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Switch
-                    checked={timePriceEnabled}
-                    onChange={handleCheckboxChange('timePriceEnabled')}
-                    defaultValue={timePriceEnabled}
-                  />
-                </InputAdornment>
-              ),
-            }}
+          <FormControlLabel
+            control={<Switch checked={taxiDriver} onChange={handleChange('taxiDriver')} value={taxiDriver} />}
+            label={t('taxi-is-my-main-job')}
           />
         </D12>
+        {!taxiDriver && (
+          <D12 className={classes.container}>
+            <Input
+              id="timePrice"
+              label={t('time-price')}
+              defaultValue={timePrice}
+              disabled={!timePriceEnabled}
+              className={classes.input}
+              type="number"
+              onChange={handleChange('timePrice')}
+              start={currency}
+              end={(
+                <Switch
+                  checked={timePriceEnabled}
+                  onChange={handleCheckboxChange('timePriceEnabled')}
+                  defaultValue={timePriceEnabled}
+                />
+)}
+            />
+          </D12>
+        )}
       </form>
       <D12 />
     </>

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import TableMUI from '@material-ui/core/Table';
@@ -30,10 +29,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Row = ({
-  icon, title, value, percent,
+  icon, title, value, percent, currency,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation();
   return (
     <TableRow>
       <TableCell className={classes.tableCell} component="th" scope="row">
@@ -47,8 +45,8 @@ const Row = ({
       </TableCell>
       <TableCell align="right">
         <P variant="subtitle2" className={cx({ [classes.negativeValue]: value < 0 })}>
-          {`${value} ${t('uah')}`}
-          {percent && <span>{` (${percent}%)`}</span>}
+          {`${value} ${currency}`}
+          {Boolean(percent) && <span>{` (${percent}%)`}</span>}
         </P>
       </TableCell>
     </TableRow>
@@ -65,13 +63,21 @@ Row.propTypes = {
   icon: PropTypes.node,
   value: PropTypes.number.isRequired,
   percent: PropTypes.number,
+  currency: PropTypes.string.isRequired,
 };
 
-const Table = ({ rows }) => (
+const Table = ({ rows, currency }) => (
   <TableMUI>
     <TableBody>
       {rows.map(row => (
-        <Row key={row.title} title={row.title} icon={row.icon} value={row.value} percent={row.percent} />
+        <Row
+          key={row.title}
+          title={row.title}
+          icon={row.icon}
+          value={row.value}
+          percent={row.percent}
+          currency={currency}
+        />
       ))}
     </TableBody>
   </TableMUI>
@@ -85,6 +91,7 @@ Table.propTypes = {
       value: PropTypes.any,
     }),
   ).isRequired,
+  currency: PropTypes.string.isRequired,
 };
 
 export default Table;
