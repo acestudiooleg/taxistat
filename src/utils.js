@@ -1,4 +1,5 @@
 import find from 'lodash/find';
+import moment from 'moment';
 import { PayTypes } from './constants';
 
 export const calcTotal = ({ money, moneyCard, tips }) => Number(money) + Number(moneyCard) + Number(tips);
@@ -47,3 +48,13 @@ export const calcProfit = ({
 };
 
 export const calcPercent = (a, b) => (a * 100) / b;
+
+export const sortByDate = (array, dir) => array.sort((a, b) => {
+  if (moment(a.timestamp).isBefore(b.timestamp)) {
+    return dir ? 1 : -1;
+  }
+  if (moment(a.timestamp).isAfter(b.timestamp)) {
+    return dir ? -1 : 1;
+  }
+  return 0;
+});

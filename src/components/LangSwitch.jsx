@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -15,6 +16,7 @@ const LangSwitch = () => {
 
   const changeLanguage = lng => () => {
     i18n.changeLanguage(lng);
+    moment.locale(lng === 'ua' ? 'uk' : lng);
     setAnchorEl(null);
   };
 

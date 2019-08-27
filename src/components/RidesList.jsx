@@ -14,12 +14,28 @@ import DistanceIcon from '@material-ui/icons/Navigation';
 import Divider from '@material-ui/core/Divider';
 
 import Text from './Text';
+import { makeDayLine } from './DateLine';
 
 import { PayTypes } from '../constants';
 
 const useStyles = makeStyles(() => ({
+  list: {
+    width: '100%',
+  },
+  li: {
+    padding: 4,
+    width: '100%',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap',
+  },
   listIcon: {
     minWidth: 30,
+  },
+
+  param: {
+    display: 'flex',
+    width: 120,
+    padding: 10,
   },
 }));
 
@@ -34,28 +50,38 @@ const RidesList = ({ rides }) => {
   };
 
   return (
-    <List component="nav" aria-label="main mailbox folders">
+    <List className={classes.list} component="nav" aria-label="main mailbox folders">
       {rides.map(({
-        serviceName, payType, distance, money, profit,
+        timestamp, serviceName, payType, distance, money, profit,
       }) => {
         const icon = icons[payType];
+
         return (
-          <div>
-            <ListItem key={serviceName}>
-              <ListItemIcon className={classes.listIcon}>{icon}</ListItemIcon>
-              <Text label={serviceName} />
-              <ListItemIcon className={classes.listIcon}>
-                <DistanceIcon color="secondary" />
-              </ListItemIcon>
-              <Text label={distance} measure={t('km')} />
-              <ListItemIcon className={classes.listIcon}>
-                <MoneyIcon color="secondary" />
-              </ListItemIcon>
-              <Text label={money} measure={t('uah')} />
-              <ListItemIcon className={classes.listIcon}>
-                <ProfitIcon color="secondary" />
-              </ListItemIcon>
-              <Text label={profit} measure={t('uah')} />
+          <div key={timestamp + money}>
+            {makeDayLine(timestamp)}
+            <ListItem className={classes.li}>
+              <div className={classes.param}>
+                <ListItemIcon className={classes.listIcon}>{icon}</ListItemIcon>
+                <Text label={serviceName} />
+              </div>
+              <div className={classes.param}>
+                <ListItemIcon className={classes.listIcon}>
+                  <DistanceIcon color="secondary" />
+                </ListItemIcon>
+                <Text label={distance} measure={t('km')} />
+              </div>
+              <div className={classes.param}>
+                <ListItemIcon className={classes.listIcon}>
+                  <MoneyIcon color="secondary" />
+                </ListItemIcon>
+                <Text label={money} measure={t('uah')} />
+              </div>
+              <div className={classes.param}>
+                <ListItemIcon className={classes.listIcon}>
+                  <ProfitIcon color="secondary" />
+                </ListItemIcon>
+                <Text label={profit} measure={t('uah')} />
+              </div>
             </ListItem>
             <Divider />
           </div>

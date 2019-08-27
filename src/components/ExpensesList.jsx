@@ -11,17 +11,26 @@ import ExpensesIcon from '@material-ui/icons/ShoppingCart';
 import CommentsIcon from '@material-ui/icons/Create';
 import Divider from '@material-ui/core/Divider';
 
+import { makeDayLine } from './DateLine';
 import Text from './Text';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   listIcon: {
     minWidth: 30,
   },
+  list: {
+    width: '100%',
+  },
+  li: {
+    padding: 4,
+    width: '100%',
+    flexWrap: 'wrap',
+  },
 
-  divider: {
-    color: theme.palette.grey[500],
-    marginRight: 5,
-    width: 10,
+  param: {
+    display: 'flex',
+    width: 120,
+    padding: 10,
   },
 }));
 
@@ -30,21 +39,30 @@ const ExpensesList = ({ expenses }) => {
   const { t } = useTranslation();
   return (
     <List component="nav" aria-label="main mailbox folders">
-      {expenses.map(({ expenseName, value, comment }) => (
-        <div>
-          <ListItem key={expenseName}>
-            <ListItemIcon className={classes.listIcon}>
-              <ExpensesIcon color="secondary" />
-            </ListItemIcon>
-            <Text exp label={expenseName} />
-            <ListItemIcon className={classes.listIcon}>
-              <MoneyIcon color="secondary" />
-            </ListItemIcon>
-            <Text exp label={value} measure={t('uah')} />
-            <ListItemIcon className={classes.listIcon}>
-              <CommentsIcon color="secondary" />
-            </ListItemIcon>
-            <Text exp label={comment} />
+      {expenses.map(({
+        timestamp, expenseName, value, comment,
+      }) => (
+        <div key={timestamp + value}>
+          {makeDayLine(timestamp)}
+          <ListItem className={classes.li}>
+            <div className={classes.param}>
+              <ListItemIcon className={classes.listIcon}>
+                <ExpensesIcon color="secondary" />
+              </ListItemIcon>
+              <Text exp label={expenseName} />
+            </div>
+            <div className={classes.param}>
+              <ListItemIcon className={classes.listIcon}>
+                <MoneyIcon color="secondary" />
+              </ListItemIcon>
+              <Text exp label={value} measure={t('uah')} />
+            </div>
+            <div className={classes.param}>
+              <ListItemIcon className={classes.listIcon}>
+                <CommentsIcon color="secondary" />
+              </ListItemIcon>
+              <Text exp label={comment} />
+            </div>
           </ListItem>
           <Divider />
         </div>
