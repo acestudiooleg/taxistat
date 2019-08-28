@@ -49,7 +49,7 @@
   "remove-service-success": "Cлужба {{name}} видалена. Ви завжди зможете додати нову службу",
   "remove-expense": "Видалить витрату",
   "remove-expense-confirmation": "Ви впевненні що хочете видалить витрату - {{name}}",
-  "remove-expense-success": "Витрата {{name}} видалена. Ви завжди зможете додати нову службу",
+  "remove-expense-success": "Витрата {{name}} видалена. Ви завжди зможете додати нову витрату",
   "service-name": "Ім'я служби таксі",
   "new-service-name": "Нова служба таксі",
   "insurance": "Страховка",
