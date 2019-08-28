@@ -81,5 +81,6 @@
   "taxi-is-my-main-job": "Taxi is my main job",
   "total": "Total",
   "profit": "Profit",
-  "distanceName": "Distance Measure"
+  "distanceName": "Distance Measure",
+  "distance-price": "Price for 1 {{distanceName}}"
 }

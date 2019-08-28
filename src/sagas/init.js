@@ -8,6 +8,7 @@ import ridesActions from '../actions/rides';
 import { predefinedServices, predefinedExpenses, predefinedFuel } from '../constants';
 import db from '../db';
 import { getCurrency, getDistanceName } from '../components/LangSwitch';
+import i18n from '../i18n';
 
 const filterByCurrentMonth = row => moment(row.timestamp).isSame(moment(), 'month');
 
@@ -64,7 +65,7 @@ function* init() {
       const data = yield save({
         settings,
         services: predefinedServices,
-        expensesSettings: predefinedExpenses,
+        expensesSettings: predefinedExpenses.map(el => ({ ...el, name: i18n.t(el.name) })),
       });
 
       yield putToStore(data);

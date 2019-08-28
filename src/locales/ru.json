@@ -81,5 +81,6 @@
   "taxi-is-my-main-job": "Такси - это моя основная работа",
   "total": "Итого",
   "profit": "Заработок",
-  "distanceName": "Мера расстояния"
+  "distanceName": "Мера расстояния",
+  "distance-price": "Цена за 1 {{distanceName}}"
 }

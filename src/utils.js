@@ -4,6 +4,8 @@ import { PayTypes } from './constants';
 
 export const calcTotal = ({ money, moneyCard, tips }) => Number(money) + Number(moneyCard) + Number(tips);
 
+export const calcFuelCost = (fuelConsumption, fuelPrice) => (fuelConsumption / 100) * fuelPrice;
+
 export const calcProfit = ({
   services,
   settings,
@@ -27,7 +29,7 @@ export const calcProfit = ({
     fuelConsumption, fuelPrice, timePrice, timePriceEnabled,
   } = settings;
 
-  const fuelCost = (fuelConsumption / 100) * fuelPrice * distance;
+  const fuelCost = calcFuelCost(fuelConsumption, fuelPrice) * distance;
   const timeCost = timePriceEnabled ? (timePrice / 60) * minutes : 0;
 
   if (payType === PayTypes.Cash) {

@@ -14,7 +14,9 @@ import { getBalance } from '../selectors/balance';
 import {
   goToEarn, goToSpend, goToStatistics, goToSettings,
 } from '../router';
+
 import { getSettings } from '../reducers/settings';
+import { calcFuelCost } from '../utils';
 
 const SpendButton = withStyles(theme => ({
   root: {
@@ -41,16 +43,31 @@ const Balance = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { currency } = useSelector(getSettings, shallowEqual);
+
   const {
-    earn, balance, expenses, earnToday,
+    currency, fuelConsumption, fuelPrice, distanceName,
+  } = useSelector(getSettings, shallowEqual);
+
+  const {
+    earn, balance, expenses, earnToday, distance,
   } = useSelector(getBalance);
+
+  const distancePrice = calcFuelCost(fuelConsumption, fuelPrice);
 
   return (
     <Swipe onSwipeLeft={() => goToSettings(dispatch)} onSwipeRight={() => goToStatistics(dispatch)} tolerance={100}>
       <Layout title={t('balance')}>
         <div className={classes.body}>
-          <BalanceTotal earn={earn} balance={balance} expenses={expenses} earnToday={earnToday} currency={currency} />
+          <BalanceTotal
+            distancePrice={distancePrice}
+            distance={distance}
+            earn={earn}
+            balance={balance}
+            expenses={expenses}
+            earnToday={earnToday}
+            currency={currency}
+            distanceName={t(distanceName)}
+          />
           <div className={classes.buttons}>
             <Container spacing={1} justify="center">
               <D11>
