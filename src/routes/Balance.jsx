@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import Swipe from 'react-easy-swipe';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -56,7 +57,7 @@ const Balance = () => {
 
   return (
     <Swipe onSwipeLeft={() => goToSettings(dispatch)} onSwipeRight={() => goToStatistics(dispatch)} tolerance={100}>
-      <Layout title={t('balance')}>
+      <Layout title={t('balance-for', { date: moment().format('DD MMMM YYYY') })}>
         <div className={classes.body}>
           <BalanceTotal
             distancePrice={distancePrice}

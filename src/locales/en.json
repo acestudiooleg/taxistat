@@ -65,6 +65,7 @@
   "expense-name-validation-error": "The expense name is required",
   "settings": "Settings",
   "balance": "Balance",
+  "balance-for": "Balance for {{date}}",
   "statistics": "Statistics",
   "earn": "Earn",
   "earned": "Earned",

@@ -65,6 +65,7 @@
   "expense-name-validation-error": "Введите имя расхода",
   "settings": "Настройки",
   "balance": "Баланс",
+  "balance-for": "Баланс на {{date}}",
   "statistics": "Статистика",
   "earn": "Заработок",
   "earned": "Заработал",
