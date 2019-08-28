@@ -30,7 +30,7 @@ const FuelConsumption = () => {
   const classes = useStyles();
   const dispatch = debounce(useDispatch(), 500);
   const {
-    fuelConsumption, fuelPrice, timePrice, timePriceEnabled, taxiDriver, currency,
+    fuelConsumption, fuelPrice, timePrice, timePriceEnabled, taxiDriver, currency, distanceName,
   } = useSelector(
     getSettings,
     shallowEqual,
@@ -50,7 +50,7 @@ const FuelConsumption = () => {
     <>
       <D12>
         <H5 align="center">{t('fuel-consumption-title')}</H5>
-        <P align="center">{t('fuel-consumption-desc')}</P>
+        <P align="center">{t('fuel-consumption-desc', { distanceName: t(distanceName) })}</P>
       </D12>
       <form noValidate autoComplete="off">
         <D12 className={classes.container}>
@@ -64,29 +64,18 @@ const FuelConsumption = () => {
         </D12>
         <D12 className={classes.container}>
           <Input
-            id="liters"
-            label={t('liters-per-hundred-km')}
-            defaultValue={fuelConsumption}
+            id="distanceName"
+            label={t('distanceName')}
+            defaultValue={distanceName}
             className={classes.input}
-            type="number"
-            onChange={handleChange('fuelConsumption')}
-            end={t('liters')}
-          />
-        </D12>
-        <D12 className={classes.container}>
-          <Input
-            id="price"
-            label={t('fuel-price-per-liter')}
-            defaultValue={fuelPrice}
-            className={classes.input}
-            type="number"
-            onChange={handleChange('fuelPrice')}
-            end={currency}
+            onChange={handleChange('distanceName')}
           />
         </D12>
         <D12 className={classes.container}>
           <FormControlLabel
-            control={<Switch checked={taxiDriver} onChange={handleChange('taxiDriver')} value={taxiDriver} />}
+            control={
+              <Switch checked={taxiDriver} onChange={handleCheckboxChange('taxiDriver')} defaultValue={taxiDriver} />
+            }
             label={t('taxi-is-my-main-job')}
           />
         </D12>
@@ -111,6 +100,28 @@ const FuelConsumption = () => {
             />
           </D12>
         )}
+        <D12 className={classes.container}>
+          <Input
+            id="liters"
+            label={t('liters-per-hundred-km')}
+            defaultValue={fuelConsumption}
+            className={classes.input}
+            type="number"
+            onChange={handleChange('fuelConsumption')}
+            end={t('liters')}
+          />
+        </D12>
+        <D12 className={classes.container}>
+          <Input
+            id="price"
+            label={t('fuel-price-per-liter')}
+            defaultValue={fuelPrice}
+            className={classes.input}
+            type="number"
+            onChange={handleChange('fuelPrice')}
+            end={currency}
+          />
+        </D12>
       </form>
       <D12 />
     </>

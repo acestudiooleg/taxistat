@@ -39,8 +39,8 @@ const SettingsRoute = () => {
       icon: BackupIcon,
     },
     {
-      name: 'fuel',
-      label: t('fuel'),
+      name: 'settings',
+      label: t('settings'),
       component: FuelConsumption,
       icon: FuelConsumptionIcon,
     },

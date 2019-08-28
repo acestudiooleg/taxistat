@@ -5,7 +5,9 @@ import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Container, D11 } from '../MyHTML';
+import {
+  Container, D11, D12, H5, P,
+} from '../MyHTML';
 
 import actions from '../actions/backup';
 import { getSettings } from '../reducers/settings';
@@ -57,6 +59,11 @@ const Backup = () => {
   return (
     <div className={classes.root}>
       <Container spacing={1} justify="center">
+        <D12>
+          <H5 align="center">{t('backup-title')}</H5>
+          <P align="center">{t('backup-desc')}</P>
+          {settings && !settings.done && <P align="center">{t('backup-press-next')}</P>}
+        </D12>
         <D11>{settings && settings.done && buttonSave}</D11>
         <D11>
           <label htmlFor="restore-from-file" onChange={restore}>

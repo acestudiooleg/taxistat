@@ -12,7 +12,9 @@ import Fab from '@material-ui/core/Fab';
 import debounce from 'lodash/debounce';
 
 import ServiceForm from '../components/ServiceForm';
-import { Container, P } from '../MyHTML';
+import {
+  Container, P, H5, D12,
+} from '../MyHTML';
 import { getTaxiServices } from '../reducers/taxiServices';
 
 import actions from '../actions/taxiServices';
@@ -107,25 +109,31 @@ const TaxiServices = () => {
 
   return (
     <>
-      {servicesState.map(el => (
-        <Accordion
-          key={el.name + (el.ID || 'New')}
-          expanded={expanded === el.name + (el.ID || 'New')}
-          onChange={handleAccordionChange(el.name + (el.ID || 'New'))}
-        >
-          <AccHead expandIcon={<ExpandMoreIcon />}>
-            <P className={classes.heading}>{el.name}</P>
-          </AccHead>
-          <AccBody>
-            <ServiceForm
-              service={el}
-              onChange={handleService(el.name)}
-              onRemove={removeService(el)}
-              onSave={saveService}
-            />
-          </AccBody>
-        </Accordion>
-      ))}
+      <D12>
+        <H5 align="center">{t('taxi-services-title')}</H5>
+        <P align="center">{t('taxi-services-desc')}</P>
+      </D12>
+      <D12>
+        {servicesState.map(el => (
+          <Accordion
+            key={el.name + (el.ID || 'New')}
+            expanded={expanded === el.name + (el.ID || 'New')}
+            onChange={handleAccordionChange(el.name + (el.ID || 'New'))}
+          >
+            <AccHead expandIcon={<ExpandMoreIcon />}>
+              <P className={classes.heading}>{el.name}</P>
+            </AccHead>
+            <AccBody>
+              <ServiceForm
+                service={el}
+                onChange={handleService(el.name)}
+                onRemove={removeService(el)}
+                onSave={saveService}
+              />
+            </AccBody>
+          </Accordion>
+        ))}
+      </D12>
       {showAddButton && (
         <Container justify="flex-end">
           <Fab onClick={addService} className={classes.fab} color="primary">

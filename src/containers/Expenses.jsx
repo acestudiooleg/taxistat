@@ -12,7 +12,9 @@ import Add from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 
 import ExpenseForm from '../components/ExpenseForm';
-import { Container, P } from '../MyHTML';
+import {
+  Container, P, D12, H5,
+} from '../MyHTML';
 import { getExpensesSettings } from '../reducers/expensesSettings';
 import actions from '../actions/expensesSettings';
 
@@ -94,25 +96,31 @@ const Expenses = () => {
 
   return (
     <>
-      {expensesState.map(el => (
-        <Accordion
-          key={el.name + (el.ID || 'New')}
-          expanded={expanded === el.name + (el.ID || 'New')}
-          onChange={handleAccordionChange(el.name + (el.ID || 'New'))}
-        >
-          <AccHead expandIcon={<ExpandMoreIcon />}>
-            <P className={classes.heading}>{el.name}</P>
-          </AccHead>
-          <AccBody>
-            <ExpenseForm
-              expense={el}
-              onChange={handleService(el.name)}
-              onRemove={removeExpenses(el)}
-              onSave={saveNewExpenses}
-            />
-          </AccBody>
-        </Accordion>
-      ))}
+      <D12>
+        <H5 align="center">{t('expenses-title')}</H5>
+        <P align="center">{t('expenses-desc')}</P>
+      </D12>
+      <D12>
+        {expensesState.map(el => (
+          <Accordion
+            key={el.name + (el.ID || 'New')}
+            expanded={expanded === el.name + (el.ID || 'New')}
+            onChange={handleAccordionChange(el.name + (el.ID || 'New'))}
+          >
+            <AccHead expandIcon={<ExpandMoreIcon />}>
+              <P className={classes.heading}>{el.name}</P>
+            </AccHead>
+            <AccBody>
+              <ExpenseForm
+                expense={el}
+                onChange={handleService(el.name)}
+                onRemove={removeExpenses(el)}
+                onSave={saveNewExpenses}
+              />
+            </AccBody>
+          </Accordion>
+        ))}
+      </D12>
       {showAddButton && (
         <Container justify="flex-end">
           <Fab onClick={addExpenses} className={classes.fab} color="primary">

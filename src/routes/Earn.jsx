@@ -126,7 +126,7 @@ const Earn = () => {
   ];
 
   const makeInput = (label, key, end, value) => (
-    <Input label={t(label)} defaultValue={value} type="number" onChange={setData(key)} end={t(end)} />
+    <Input label={t(label)} defaultValue={value} type="number" onChange={setData(key)} end={end} />
   );
 
   return (
@@ -145,16 +145,20 @@ const Earn = () => {
           </FormControl>
         </div>
         <Container>
-          <D12 className={classes.row}>{makeInput('distance', 'distance', 'km', state.distance)}</D12>
-          <D12 className={classes.row}>{makeInput(isBoth ? 'cash' : state.payType, 'money', 'uah', state.money)}</D12>
-          {isBoth && <D12 className={classes.row}>{makeInput('card', 'moneyCard', 'uah', state.moneyCard)}</D12>}
-          <D12 className={classes.row}>{makeInput('tips', 'tips', 'uah', state.tips)}</D12>
+          <D12 className={classes.row}>{makeInput('distance', 'distance', settings.distanceName, state.distance)}</D12>
+          <D12 className={classes.row}>
+            {makeInput(isBoth ? 'cash' : state.payType, 'money', settings.currency, state.money)}
+          </D12>
+          {isBoth && (
+            <D12 className={classes.row}>{makeInput('card', 'moneyCard', settings.currency, state.moneyCard)}</D12>
+          )}
+          <D12 className={classes.row}>{makeInput('tips', 'tips', settings.currency, state.tips)}</D12>
           {settings.timePriceEnabled && (
             <D12 className={classes.row}>{makeInput('ride-time', 'minutes', 'minutes', state.minutes)}</D12>
           )}
           {state.money && (
             <D12 className={classes.row}>
-              <Table rows={rows} />
+              <Table rows={rows} currency={settings.currency} />
             </D12>
           )}
         </Container>

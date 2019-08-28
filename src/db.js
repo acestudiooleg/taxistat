@@ -3,10 +3,12 @@ import Model from './Model';
 
 export const settingsModel = [
   'done',
+  'initialized',
   'fuelConsumption',
   'fuelPrice',
   'lang',
   'currency',
+  'distanceName',
   'taxiDriver',
   'activeStep',
   'timePrice',

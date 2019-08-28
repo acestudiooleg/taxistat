@@ -7,7 +7,7 @@ import expensesActions from '../actions/expenses';
 import ridesActions from '../actions/rides';
 import { predefinedServices, predefinedExpenses, predefinedFuel } from '../constants';
 import db from '../db';
-import { getCurrency } from '../components/LangSwitch';
+import { getCurrency, getDistanceName } from '../components/LangSwitch';
 
 const filterByCurrentMonth = row => moment(row.timestamp).isSame(moment(), 'month');
 
@@ -53,6 +53,7 @@ function* init() {
       const settings = {
         initialized: true,
         done: false,
+        distanceName: getDistanceName(),
         currency: getCurrency(),
         taxiDriver: true,
         fuelPrice: predefinedFuel.price,

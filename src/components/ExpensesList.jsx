@@ -36,7 +36,6 @@ const useStyles = makeStyles(() => ({
 
 const ExpensesList = ({ expenses, currency }) => {
   const classes = useStyles();
-  const { t } = useTranslation();
   return (
     <List component="nav" aria-label="main mailbox folders">
       {expenses.map(({

@@ -3,7 +3,7 @@ import {
   SAVE, SAVE_SUCCESS, INIT_SUCCESS, SAVE_FAILURE,
 } from '../actions/settings';
 
-import { getCurrency } from '../components/LangSwitch';
+import { getCurrency, getDistanceName } from '../components/LangSwitch';
 
 const initialState = {
   hasData: false,
@@ -13,6 +13,7 @@ const initialState = {
   timePriceEnabled: false,
   initialized: false,
   taxiDriver: true,
+  distanceName: getDistanceName(),
   currency: getCurrency(),
   done: false,
   loading: false,
