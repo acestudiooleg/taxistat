@@ -84,5 +84,6 @@
   "distanceName": "Міра відстані",
   "distance-price": "Ціна за 1 {{distanceName}}",
   "stat-for-month": "Статистика за місяць",
-  "orders-qty": "Замовлень"
+  "orders-qty": "Замовлень",
+  "charts": "Графіки"
 }

@@ -85,5 +85,6 @@
   "distanceName": "Мера расстояния",
   "distance-price": "Цена за 1 {{distanceName}}",
   "stat-for-month": "Статистика за месяц",
-  "orders-qty": "Заказов"
+  "orders-qty": "Заказов",
+  "charts": "Графики"
 }

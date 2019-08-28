@@ -14,6 +14,7 @@ import Input from '../containers/Input';
 import Layout from '../components/Layout';
 import RidesList from '../components/RidesList';
 import ExpensesList from '../components/ExpensesList';
+import Charts from '../components/Charts';
 
 import { getRides } from '../reducers/rides';
 import { getExpenses } from '../reducers/expenses';
@@ -63,12 +64,14 @@ const Statictics = () => {
           <Tabs value={tab} onChange={handleChange} indicatorColor="primary" variant="fullWidth">
             <Tab label={t('orders')} />
             <Tab label={t('expenses')} />
+            <Tab label={t('charts')} />
           </Tabs>
         </AppBar>
         <Paper className={classes.list}>
-          <Input value={filterValue} onChange={onChangeFilter} placeholder={t('filter')} />
+          {tab !== 2 && <Input value={filterValue} onChange={onChangeFilter} placeholder={t('filter')} />}
           {tab === 0 && <RidesList rides={sortByDate(rides, true)} currency={currency} />}
           {tab === 1 && <ExpensesList expenses={sortByDate(expenses, true)} currency={currency} />}
+          {tab === 2 && <Charts expenses={expensesList} rides={ridesList} currency={currency} />}
         </Paper>
       </Layout>
     </Swipe>

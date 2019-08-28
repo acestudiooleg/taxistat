@@ -25,6 +25,24 @@ export const predefinedServices = [
   },
 ];
 
+export const servicesColors = {
+  Uklon: '#33cca1',
+  Uber: '#008186',
+  OnTaxi: '#ffc107',
+};
+
+export const colors = [
+  '#33cca1',
+  '#ffc107',
+  '#4caf50',
+  '#03a9f4',
+  '#ff9800',
+  '#795548',
+  '#64dd17',
+  '#311b92',
+  '#c51162',
+];
+
 export const predefinedExpenses = [
   { name: 'fuel', commentsEnabled: false },
   { name: 'insurance', commentsEnabled: false },
