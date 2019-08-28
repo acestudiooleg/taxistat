@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Row = ({
-  icon, title, value, percent, ms,
+  icon, title, value, percent, ms, taxiDriver,
 }) => {
   const classes = useStyles();
   return (
@@ -44,9 +44,9 @@ const Row = ({
         </ListItem>
       </TableCell>
       <TableCell align="right">
-        <P variant="subtitle2" className={cx({ [classes.negativeValue]: value < 0 })}>
+        <P variant="subtitle2" className={cx({ [classes.negativeValue]: taxiDriver && value < 0 })}>
           {`${value} ${ms}`}
-          {Boolean(percent) && <span>{` (${percent}%)`}</span>}
+          {!taxiDriver && Boolean(percent) && <span>{` (${percent}%)`}</span>}
         </P>
       </TableCell>
     </TableRow>
@@ -56,6 +56,7 @@ const Row = ({
 Row.defaultProps = {
   icon: null,
   percent: null,
+  taxiDriver: null,
 };
 
 Row.propTypes = {
@@ -64,13 +65,22 @@ Row.propTypes = {
   value: PropTypes.number.isRequired,
   percent: PropTypes.number,
   ms: PropTypes.string.isRequired,
+  taxiDriver: PropTypes.bool,
 };
 
 const Table = ({ rows }) => (
   <TableMUI>
     <TableBody>
       {rows.map(row => (
-        <Row key={row.title} title={row.title} icon={row.icon} value={row.value} percent={row.percent} ms={row.ms} />
+        <Row
+          key={row.title}
+          title={row.title}
+          icon={row.icon}
+          value={row.value}
+          percent={row.percent}
+          ms={row.ms}
+          taxiDriver={row.taxiDriver}
+        />
       ))}
     </TableBody>
   </TableMUI>
@@ -81,7 +91,10 @@ Table.propTypes = {
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       icon: PropTypes.node,
-      value: PropTypes.any,
+      value: PropTypes.any.isRequired,
+      percent: PropTypes.number,
+      ms: PropTypes.string.isRequired,
+      taxiDriver: PropTypes.bool,
     }),
   ).isRequired,
 };

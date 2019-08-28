@@ -4,8 +4,8 @@ import db from '../db';
 
 import { goToBalance } from '../router';
 
-export function* read() {
-  return yield db.expenses.read();
+export function* read(q) {
+  return yield db.expenses.read(q);
 }
 
 export function* save({ payload: expense }) {

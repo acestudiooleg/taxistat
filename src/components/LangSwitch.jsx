@@ -7,7 +7,7 @@ import Language from '@material-ui/icons/Language';
 
 import i18n from '../i18n';
 
-const currentLang = () => (window.localStorage.getItem('i18nextLng') || 'en').substring(0, 2).toLowerCase();
+export const currentLang = () => (window.localStorage.getItem('i18nextLng') || 'en').substring(0, 2).toLowerCase();
 
 export const getDistanceName = () => (currentLang() === 'en' ? 'ml' : 'km');
 export const getCurrency = () => {

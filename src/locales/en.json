@@ -83,5 +83,7 @@
   "total": "Total",
   "profit": "Profit",
   "distanceName": "Distance Measure",
-  "distance-price": "Price for 1 {{distanceName}}"
+  "distance-price": "Price for 1 {{distanceName}}",
+  "stat-for-month": "Statistics for month",
+  "orders-qty": "Orders"
 }

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
-import counter from './counter';
+import statistics from './statistics';
 import settings from './settings';
 import expensesSettings from './expensesSettings';
 import taxiServices from './taxiServices';
@@ -11,7 +11,7 @@ import keyboard from './keyboard';
 
 export default history => combineReducers({
   router: connectRouter(history),
-  counter,
+  statistics,
   settings,
   taxiServices,
   expensesSettings,

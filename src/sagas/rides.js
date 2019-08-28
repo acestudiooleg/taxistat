@@ -5,8 +5,8 @@ import db from '../db';
 import { getTaxiServices } from '../reducers/taxiServices';
 import { goToBalance } from '../router';
 
-export function* read() {
-  return yield db.rides.read();
+export function* read(q) {
+  return yield db.rides.read(q);
 }
 
 export function* save({ payload: ride }) {

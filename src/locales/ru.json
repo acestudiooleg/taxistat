@@ -83,5 +83,7 @@
   "total": "Итого",
   "profit": "Заработок",
   "distanceName": "Мера расстояния",
-  "distance-price": "Цена за 1 {{distanceName}}"
+  "distance-price": "Цена за 1 {{distanceName}}",
+  "stat-for-month": "Статистика за месяц",
+  "orders-qty": "Заказов"
 }

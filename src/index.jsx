@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 import { Provider } from 'react-redux';
-import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -34,7 +34,7 @@ function TaxiStat() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <MuiPickersUtilsProvider utils={MomentUtils} locale="ru">
+        <MuiPickersUtilsProvider utils={MomentUtils}>
           <App history={history} />
         </MuiPickersUtilsProvider>
       </ThemeProvider>

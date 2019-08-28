@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import PollIcon from '@material-ui/icons/Poll';
+import CalendarTodayIcon from '@material-ui/icons/Today';
 import DistanceIcon from '@material-ui/icons/Navigation';
 import FuelConsumptionIcon from '@material-ui/icons/LocalGasStation';
 
@@ -12,7 +13,17 @@ import Table from './Table';
 import { calcPercent } from '../utils';
 
 const BalanceTotal = ({
-  earn, balance, expenses, earnToday, currency, distancePrice, distance, distanceName,
+  earn,
+  balance,
+  expenses,
+  earnToday,
+  currency,
+  distancePrice,
+  distance,
+  distanceName,
+  dateTitle,
+  orders,
+  taxiDriver,
 }) => {
   const { t } = useTranslation();
 
@@ -23,6 +34,7 @@ const BalanceTotal = ({
       title: t('earn'),
       icon: <AttachMoneyIcon color="primary" />,
       value: earn.toFixed(2),
+      taxiDriver,
       percent,
       ms: currency,
     },
@@ -30,6 +42,7 @@ const BalanceTotal = ({
       title: t('balance'),
       icon: <AccountBalanceWalletIcon color="primary" />,
       value: balance.toFixed(2),
+      taxiDriver,
       percent: (100 - percent) * -1,
       ms: currency,
     },
@@ -40,7 +53,7 @@ const BalanceTotal = ({
       ms: currency,
     },
     {
-      title: t('earn-today'),
+      title: dateTitle,
       icon: <CalendarTodayIcon color="primary" />,
       value: earnToday.toFixed(2),
       ms: currency,
@@ -50,6 +63,12 @@ const BalanceTotal = ({
       icon: <FuelConsumptionIcon color="primary" />,
       value: distancePrice.toFixed(2),
       ms: currency,
+    },
+    {
+      title: t('orders-qty'),
+      icon: <PollIcon color="primary" />,
+      value: orders,
+      ms: '',
     },
     {
       title: t('distance'),
@@ -67,10 +86,13 @@ BalanceTotal.propTypes = {
   distance: PropTypes.number.isRequired,
   earn: PropTypes.number.isRequired,
   balance: PropTypes.number.isRequired,
+  orders: PropTypes.number.isRequired,
   expenses: PropTypes.number.isRequired,
   earnToday: PropTypes.number.isRequired,
   currency: PropTypes.string.isRequired,
   distanceName: PropTypes.string.isRequired,
+  dateTitle: PropTypes.string.isRequired,
+  taxiDriver: PropTypes.bool.isRequired,
 };
 
 export default BalanceTotal;

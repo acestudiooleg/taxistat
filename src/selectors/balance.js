@@ -20,6 +20,7 @@ export const getBalance = createSelector(
       balance,
       earnToday,
       distance,
+      orders: rides.length,
     };
   },
 );
