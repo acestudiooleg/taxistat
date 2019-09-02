@@ -23,7 +23,11 @@ export function* add({ payload }) {
   try {
     const services = yield select(getTaxiServices);
     const service = find(services.list, { ID: payload.serviceId });
-    const data = yield db.rides.create({ ...payload, timestamp: new Date().toISOString(), serviceName: service.name });
+    const data = yield db.rides.create({
+      ...payload,
+      timestamp: payload.timestamp.toISOString(),
+      serviceName: service.name,
+    });
 
     yield put(actions.addSuccess(data));
     yield goToBalance(put);

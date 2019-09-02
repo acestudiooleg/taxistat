@@ -10,8 +10,10 @@ import BadProfitIcon from '@material-ui/icons/MoodBad';
 import NormalProfitIcon from '@material-ui/icons/SentimentSatisfied';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 
-import Layout from '../components/Layout';
+import DateInput from '../containers/Date';
 import Input from '../containers/Input';
+
+import Layout from '../components/Layout';
 import ChooseTaxiService from '../components/ChooseTaxiService';
 import ChoosePayType from '../components/ChoosePayType';
 import Table from '../components/Table';
@@ -66,6 +68,7 @@ const Earn = () => {
     init: false,
     distance: null,
     serviceId: 1,
+    timestamp: new Date(),
     payType: PayTypes.Cash,
     rideTime: null,
     money: null,
@@ -80,6 +83,7 @@ const Earn = () => {
   const dispatch = useDispatch();
 
   const setData = key => ({ target: { value } }) => setState({ ...state, [key]: value });
+  const handleDate = timestamp => setState({ ...state, timestamp });
 
   const isBoth = state.payType === PayTypes.CardAndCash;
 
@@ -121,8 +125,18 @@ const Earn = () => {
   };
 
   const rows = [
-    { title: t('total'), icon: <EqualizerIcon color="primary" />, value: total },
-    { title: `${t('profit')} (${percent}%)`, icon: profitIcon, value: profit },
+    {
+      title: t('total'),
+      icon: <EqualizerIcon color="primary" />,
+      value: total,
+      ms: settings.currency,
+    },
+    {
+      title: `${t('profit')} (${percent}%)`,
+      icon: profitIcon,
+      value: profit,
+      ms: settings.currency,
+    },
   ];
 
   const makeInput = (label, key, end, value) => (
@@ -145,20 +159,23 @@ const Earn = () => {
           </FormControl>
         </div>
         <Container>
-          <D12 className={classes.row}>{makeInput('distance', 'distance', settings.distanceName, state.distance)}</D12>
+          <D12 className={classes.row}>
+            <DateInput label={t('date')} className={classes.datepicker} value={state.timestamp} onChange={handleDate} />
+          </D12>
           <D12 className={classes.row}>
             {makeInput(isBoth ? 'cash' : state.payType, 'money', settings.currency, state.money)}
           </D12>
           {isBoth && (
             <D12 className={classes.row}>{makeInput('card', 'moneyCard', settings.currency, state.moneyCard)}</D12>
           )}
+          <D12 className={classes.row}>{makeInput('distance', 'distance', settings.distanceName, state.distance)}</D12>
           <D12 className={classes.row}>{makeInput('tips', 'tips', settings.currency, state.tips)}</D12>
           {settings.timePriceEnabled && (
             <D12 className={classes.row}>{makeInput('ride-time', 'minutes', 'minutes', state.minutes)}</D12>
           )}
           {state.money && (
             <D12 className={classes.row}>
-              <Table rows={rows} currency={settings.currency} />
+              <Table rows={rows} />
             </D12>
           )}
         </Container>

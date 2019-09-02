@@ -64,6 +64,13 @@ class DB {
       setTimeout(s, 0);
     });
   }
+
+  removeAll() {
+    return new Promise((s) => {
+      this.db.drop();
+      setTimeout(s, 0);
+    });
+  }
 }
 
 export default new DB();

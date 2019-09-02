@@ -48,7 +48,7 @@
   "remove-service-confirmation": "Вы уверенны что хотите удалить службу - {{name}}",
   "remove-service-success": "Cлужба {{name}} удалена. Вы всегда можете добавить новую службу",
   "remove-expense": "Удалить расход",
-  "remove-expense-confirmation": "Вы уверенны что хотите расход - {{name}}",
+  "remove-expense-confirmation": "Вы уверенны что хотите удалить расход - {{name}}",
   "remove-expense-success": "Расход {{name}} удален. Вы всегда можете добавить новые расходы",
   "service-name": "Имя службы такси",
   "new-service-name": "Новая служба такси",
@@ -86,5 +86,8 @@
   "distance-price": "Цена за 1 {{distanceName}}",
   "stat-for-month": "Статистика за месяц",
   "orders-qty": "Заказов",
-  "charts": "Графики"
+  "charts": "Графики",
+  "remove-all-settings": "Удалить все данные и настройки",
+  "remove-all-settings-confirmation": "Вы потеряете все, вы уверенны что хотите удалить все данные и настройки?",
+  "remove-all-settings-success": "Все данные успешно удалены, теперь вы можете настроить все заново"
 }

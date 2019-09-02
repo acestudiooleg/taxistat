@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
+import RedButton from '../components/RedButton';
+
 import {
   Container, D11, D12, H5, P,
 } from '../MyHTML';
@@ -28,6 +30,15 @@ const Backup = () => {
   const settings = useSelector(getSettings, shallowEqual);
   const backup = useSelector(getBackup, shallowEqual);
   const dispatch = useDispatch();
+
+  const removeAllSettings = () => {
+    const isConfirmed = window.confirm(t('remove-all-settings-confirmation'));
+    if (isConfirmed) {
+      window.alert(t('remove-all-settings-success'));
+      dispatch(actions.removeAll());
+    }
+  };
+
   const restore = (e) => {
     e.preventDefault();
 
@@ -48,9 +59,11 @@ const Backup = () => {
     const url = URL.createObjectURL(blob);
     const fileName = `taxistat_backup_${new Date().toGMTString()}`;
     buttonSave = (
-      <Button fullWidth href={url} download={fileName} variant="contained" color="primary">
-        {t('save-all-settings')}
-      </Button>
+      <D11>
+        <Button fullWidth href={url} download={fileName} variant="contained" color="primary">
+          {t('save-all-settings')}
+        </Button>
+      </D11>
     );
   } else {
     dispatch(actions.save());
@@ -64,7 +77,7 @@ const Backup = () => {
           <P align="center">{t('backup-desc')}</P>
           {settings && !settings.done && <P align="center">{t('backup-press-next')}</P>}
         </D12>
-        <D11>{settings && settings.done && buttonSave}</D11>
+        {settings && settings.done && buttonSave}
         <D11>
           <label htmlFor="restore-from-file" onChange={restore}>
             <input accept="application/json" className={classes.input} id="restore-from-file" type="file" />
@@ -73,6 +86,13 @@ const Backup = () => {
             </Button>
           </label>
         </D11>
+        {settings && settings.done && (
+          <D11>
+            <RedButton fullWidth onClick={removeAllSettings} component="span" color="secondary" variant="contained">
+              {t('remove-all-settings')}
+            </RedButton>
+          </D11>
+        )}
       </Container>
     </div>
   );

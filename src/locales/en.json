@@ -86,5 +86,8 @@
   "distance-price": "Price for 1 {{distanceName}}",
   "stat-for-month": "Statistics for month",
   "orders-qty": "Orders",
-  "charts": "Charts"
+  "charts": "Charts",
+  "remove-all-settings": "Remove all data and settings",
+  "remove-all-settings-confirmation": "You will lose all, are you sure you want to delete all data and settings?",
+  "remove-all-settings-success": "All data successfuly deleted, you can configure app from scratch"
 }

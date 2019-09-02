@@ -1,4 +1,4 @@
-import { createDataAction, createErrorAction } from '../helpers';
+import { createEmptyAction, createDataAction, createErrorAction } from '../helpers';
 
 export const SAVE = 'backup/SAVE';
 export const SAVE_SUCCESS = 'backup/SAVE_SUCCESS';
@@ -7,6 +7,8 @@ export const SAVE_FAILURE = 'backup/SAVE_FAILURE';
 export const RESTORE = 'backup/RESTORE';
 export const RESTORE_SUCCESS = 'backup/RESTORE_SUCCESS';
 export const RESTORE_FAILURE = 'backup/RESTORE_FAILURE';
+
+export const REMOVE_ALL = 'backup/REMOVE_ALL';
 
 export const types = {
   SAVE,
@@ -26,4 +28,6 @@ export default {
   restore: createDataAction(RESTORE),
   restoreSuccess: createDataAction(RESTORE_SUCCESS),
   restoreFailure: createErrorAction(RESTORE_FAILURE),
+
+  removeAll: createEmptyAction(REMOVE_ALL),
 };

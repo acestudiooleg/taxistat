@@ -85,5 +85,8 @@
   "distance-price": "Ціна за 1 {{distanceName}}",
   "stat-for-month": "Статистика за місяць",
   "orders-qty": "Замовлень",
-  "charts": "Графіки"
+  "charts": "Графіки",
+  "remove-all-settings": "Видалити усі дані та налаштування",
+  "remove-all-settings-confirmation": "Ви втратите все, ви впевненні що хочете видалить усі дані та налаштування?",
+  "remove-all-settings-success": "Усі дані успішно видалені, теперь ви можете налаштувати все наново"
 }
