@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "33c55ee5b8d33745a2120076e70d2efb",
+    "revision": "c4ab58dc37ea957266bba4dea17a34f8",
     "url": "/taxistat/index.html"
   },
   {
-    "revision": "ebcb6529561ecf3a909d",
+    "revision": "8bfe666538a5f904dd84",
     "url": "/taxistat/static/css/main.34de6062.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/taxistat/static/js/2.48085275.chunk.js"
   },
   {
-    "revision": "ebcb6529561ecf3a909d",
-    "url": "/taxistat/static/js/main.41411eed.chunk.js"
+    "revision": "8bfe666538a5f904dd84",
+    "url": "/taxistat/static/js/main.79b9852d.chunk.js"
   },
   {
     "revision": "441d70845b83bd49b1cf",

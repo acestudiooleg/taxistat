@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/taxistat/static/css/main.34de6062.chunk.css",
-    "main.js": "/taxistat/static/js/main.41411eed.chunk.js",
-    "main.js.map": "/taxistat/static/js/main.41411eed.chunk.js.map",
+    "main.js": "/taxistat/static/js/main.79b9852d.chunk.js",
+    "main.js.map": "/taxistat/static/js/main.79b9852d.chunk.js.map",
     "runtime~main.js": "/taxistat/static/js/runtime~main.850b3200.js",
     "runtime~main.js.map": "/taxistat/static/js/runtime~main.850b3200.js.map",
     "static/js/2.48085275.chunk.js": "/taxistat/static/js/2.48085275.chunk.js",
     "static/js/2.48085275.chunk.js.map": "/taxistat/static/js/2.48085275.chunk.js.map",
     "index.html": "/taxistat/index.html",
-    "precache-manifest.204afde59e58b967982e86495f7b89b0.js": "/taxistat/precache-manifest.204afde59e58b967982e86495f7b89b0.js",
+    "precache-manifest.d7ab6d9740f515883abeb6d38ee1c393.js": "/taxistat/precache-manifest.d7ab6d9740f515883abeb6d38ee1c393.js",
     "service-worker.js": "/taxistat/service-worker.js",
     "static/css/main.34de6062.chunk.css.map": "/taxistat/static/css/main.34de6062.chunk.css.map"
   }
