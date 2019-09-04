@@ -23,7 +23,7 @@ export const calcProfit = ({
   const moneyCard = Number(mc);
   const tips = Number(t);
   const minutes = Number(mn);
-  const { rideFee, cardFee, cardFeeEnabled } = find(services, { ID: serviceId }) || {};
+  const { rideFee, cardFee, cardFeeEnabled } = find(services, { ID: Number(serviceId) }) || {};
 
   const {
     fuelConsumption, fuelPrice, timePrice, timePriceEnabled,
@@ -33,16 +33,16 @@ export const calcProfit = ({
   const timeCost = timePriceEnabled ? (timePrice / 60) * minutes : 0;
 
   if (payType === PayTypes.Cash) {
-    profit = money - fuelCost - rideFee - timeCost + tips;
+    profit = money - fuelCost - (rideFee || 0) - timeCost + tips;
   }
 
   if (payType === PayTypes.Card) {
-    profit = money - fuelCost - rideFee - (cardFeeEnabled ? cardFee : 0) - timeCost + tips;
+    profit = money - fuelCost - (rideFee || 0) - (cardFeeEnabled ? Number(cardFee || 0) : 0) - timeCost + tips;
   }
 
   if (payType === PayTypes.CardAndCash) {
-    const cashMoney = money - rideFee;
-    const cardMoney = moneyCard - rideFee - (cardFeeEnabled ? cardFee : 0);
+    const cashMoney = money - Number(rideFee || 0);
+    const cardMoney = moneyCard - Number(rideFee || 0) - (cardFeeEnabled ? Number(cardFee || 0) : 0);
     profit = cashMoney + cardMoney - fuelCost - timeCost + tips;
   }
 
