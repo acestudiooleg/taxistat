@@ -16,6 +16,7 @@ import ChooseExpenseType from '../components/ChooseExpenseType';
 import { getExpensesSettings } from '../reducers/expensesSettings';
 
 import actions from '../actions/expenses';
+import settingsActions from '../actions/settings';
 
 import { Container, D12, D11 } from '../MyHTML';
 
@@ -64,6 +65,7 @@ const Spend = () => {
     timestamp: new Date(),
     value: null,
     comment: null,
+    fuelPrice: null,
   });
 
   if (!state.init && hasData) {
@@ -80,12 +82,24 @@ const Spend = () => {
 
   const save = () => {
     if (state.value) {
+      const {
+        timestamp, value, comment, fuelPrice,
+      } = state;
       dispatch(
         actions.add({
-          ...state,
+          timestamp,
+          value,
+          comment,
           expenseName: expense.name,
         }),
       );
+      if (fuelPrice) {
+        dispatch(
+          settingsActions.save({
+            fuelPrice,
+          }),
+        );
+      }
     } else {
       window.alert(t('expense-data-validation-error'));
     }
