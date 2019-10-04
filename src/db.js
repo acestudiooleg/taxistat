@@ -15,7 +15,7 @@ export const settingsModel = [
   'timePriceEnabled',
 ];
 export const servicesModel = ['name', 'rideFee', 'weekFee', 'weekFeeEnabled', 'cardFee', 'cardFeeEnabled'];
-export const expensesSettingsModel = ['name', 'commentsEnabled'];
+export const expensesSettingsModel = ['name', 'commentsEnabled', 'isFuel'];
 export const expensesModel = ['timestamp', 'expenseId', 'expenseName', 'value', 'comment'];
 export const ridesModel = [
   'timestamp',

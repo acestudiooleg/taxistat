@@ -40,6 +40,7 @@
   "pay-type": "Оплата",
   "liters-per-hundred-km": "Літрів на 100км",
   "fuel-price-per-liter": "Ціна палива за 1л",
+  "current-fuel-price-per-liter": "Поточів ціна палива за 1л (не обов'язково)",
   "service-fee-per-ride": "Комісія служби за замовлення",
   "service-fee-per-week": "Абонплата в тиждень",
   "card-fee": "Комісія за виведення коштів на карту",
@@ -87,6 +88,7 @@
   "orders-qty": "Замовлень",
   "charts": "Графіки",
   "date": "Дата",
+  "is-it-fuel": "Це паливо?",
   "remove-all-settings": "Видалити усі дані та налаштування",
   "remove-all-settings-confirmation": "Ви втратите все, ви впевненні що хочете видалить усі дані та налаштування?",
   "remove-all-settings-success": "Усі дані успішно видалені, теперь ви можете налаштувати все наново"

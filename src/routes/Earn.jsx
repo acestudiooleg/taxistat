@@ -84,6 +84,7 @@ const Earn = () => {
   const { fuelConsumption, fuelPrice } = settings;
 
   const setData = key => ({ target: { value } }) => setState({ ...state, [key]: value });
+
   const handleDate = timestamp => setState({ ...state, timestamp });
 
   const isBoth = state.payType === PayTypes.CardAndCash;

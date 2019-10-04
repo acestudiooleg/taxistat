@@ -44,10 +44,10 @@ export const colors = [
 ];
 
 export const predefinedExpenses = [
-  { name: 'fuel', commentsEnabled: false },
-  { name: 'insurance', commentsEnabled: false },
-  { name: 'parking', commentsEnabled: false },
-  { name: 'tech-service', commentsEnabled: true },
+  { name: 'fuel', commentsEnabled: false, isFuel: true },
+  { name: 'insurance', commentsEnabled: false, isFuel: false },
+  { name: 'parking', commentsEnabled: false, isFuel: false },
+  { name: 'tech-service', commentsEnabled: true, isFuel: false },
 ];
 
 export const predefinedFuel = {

@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 
 import Layout from '../components/Layout';
+import DateInput from '../containers/Date';
 import Input from '../containers/Input';
 import ChooseExpenseType from '../components/ChooseExpenseType';
 
@@ -60,6 +61,7 @@ const Spend = () => {
   const [state, setState] = useState({
     init: false,
     expenseId: 1,
+    timestamp: new Date(),
     value: null,
     comment: null,
   });
@@ -71,7 +73,11 @@ const Spend = () => {
   const expense = find(expenses, { ID: state.expenseId }) || {};
 
   const setData = (key, type) => ({ target: { value } }) => setState({ ...state, [key]: type(value) });
+
+  const handleDate = timestamp => setState({ ...state, timestamp });
+
   const goto = url => () => dispatch(push(url));
+
   const save = () => {
     if (state.value) {
       dispatch(
@@ -99,6 +105,9 @@ const Spend = () => {
         </div>
         <Container>
           <D12 className={classes.row}>
+            <DateInput label={t('date')} className={classes.datepicker} value={state.timestamp} onChange={handleDate} />
+          </D12>
+          <D12 className={classes.row}>
             <Input
               label={t('sum')}
               defaultValue={state.value}
@@ -107,6 +116,16 @@ const Spend = () => {
               end={currency}
             />
           </D12>
+          {expense.isFuel && (
+            <D12 className={classes.row}>
+              <Input
+                label={t('current-fuel-price-per-liter')}
+                type="number"
+                defaultValue={state.fuelPrice}
+                onChange={setData('fuelPrice', Number)}
+              />
+            </D12>
+          )}
           {expense.commentsEnabled && (
             <D12 className={classes.row}>
               <Input label={t('comment')} defaultValue={state.comment} onChange={setData('comment', String)} />

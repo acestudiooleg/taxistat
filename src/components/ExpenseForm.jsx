@@ -60,6 +60,14 @@ const ExpenseForm = ({
       )}
       <D12>
         <FormControlLabel
+          control={
+            <Switch checked={expense.isFuel} onChange={handleCheckboxChange('isFuel')} defaultValue={expense.isFuel} />
+          }
+          label={t('is-it-fuel')}
+        />
+      </D12>
+      <D12>
+        <FormControlLabel
           control={(
             <Switch
               checked={expense.commentsEnabled}

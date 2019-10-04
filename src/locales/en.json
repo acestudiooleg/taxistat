@@ -40,6 +40,7 @@
   "ride-time": "Ride rime",
   "liters-per-hundred-km": "Leiter per 100km",
   "fuel-price-per-liter": "Fuel cost per 1 liter",
+  "current-fuel-price-per-liter": "Current fuel cost per 1 liter (unnecessary)",
   "service-fee-per-ride": "Service fee per ride",
   "service-fee-per-week": "Service fee per week",
   "card-fee": "Card fee",
@@ -88,6 +89,7 @@
   "orders-qty": "Orders",
   "charts": "Charts",
   "date": "Date",
+  "is-it-fuel": "Is it fuel?",
   "remove-all-settings": "Remove all data and settings",
   "remove-all-settings-confirmation": "You will lose all, are you sure you want to delete all data and settings?",
   "remove-all-settings-success": "All data successfuly deleted, you can configure app from scratch"

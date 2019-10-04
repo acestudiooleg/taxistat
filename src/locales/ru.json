@@ -40,6 +40,7 @@
   "ride-time": "Время поездки",
   "liters-per-hundred-km": "Литров на 100км",
   "fuel-price-per-liter": "Стоимость топлива за 1л",
+  "current-fuel-price-per-liter": "Текущая стоимость топлива за 1л (не обязательно)",
   "service-fee-per-ride": "Коммисия службы за заказ",
   "service-fee-per-week": "Абонплата в неделю",
   "card-fee": "Коммисия за вывод денег на карту",
@@ -88,6 +89,7 @@
   "orders-qty": "Заказов",
   "charts": "Графики",
   "date": "Дата",
+  "is-it-fuel": "Это топливо?",
   "remove-all-settings": "Удалить все данные и настройки",
   "remove-all-settings-confirmation": "Вы потеряете все, вы уверенны что хотите удалить все данные и настройки?",
   "remove-all-settings-success": "Все данные успешно удалены, теперь вы можете настроить все заново"
