@@ -25,7 +25,9 @@ import {
 } from '../router';
 
 import { calcFuelCost } from '../utils';
-import { Container, D11 } from '../MyHTML';
+import {
+  Container, D11, D7, D4,
+} from '../MyHTML';
 
 const useStyles = makeStyles(() => ({
   body: {
@@ -35,6 +37,9 @@ const useStyles = makeStyles(() => ({
   datepicker: {
     marginTop: 20,
     width: '100%',
+  },
+  allTime: {
+    marginTop: 30,
   },
   buttons: {
     width: '100%',
@@ -59,6 +64,7 @@ const Balance = () => {
   } = useSelector(getBalance);
 
   const handleDateChange = date => dispatch(actions.balanceSetDate(date));
+  const allTime = () => dispatch(actions.balanceSetDate(null));
 
   const distancePrice = calcFuelCost(fuelConsumption, fuelPrice);
   const dateTitle = moment().isSame(currentDate, 'date') ? t('earn-today') : moment(currentDate).format('DD MMMM YYYY');
@@ -83,14 +89,19 @@ const Balance = () => {
             distanceName={t(distanceName)}
           />
           <Container spacing={4} justify="center">
-            <D11>
+            <D7>
               <DateInput
                 label={t('stat-for-month')}
                 className={classes.datepicker}
                 value={currentDate}
                 onChange={handleDateChange}
               />
-            </D11>
+            </D7>
+            <D4>
+              <Button className={classes.allTime} onClick={allTime} color="primary">
+                {t('all-time')}
+              </Button>
+            </D4>
           </Container>
           <div className={classes.buttons}>
             <Container spacing={1} justify="center">

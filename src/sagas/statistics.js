@@ -11,8 +11,8 @@ const query = date => row => moment(row.timestamp).isSame(date, 'month');
 
 function* getStatByDate({ payload: date }) {
   try {
-    const rides = yield ridesRead({ query: query(date) });
-    const expenses = yield expRead({ query: query(date) });
+    const rides = yield ridesRead({ query: date && query(date) });
+    const expenses = yield expRead({ query: date && query(date) });
     yield put(ridesActions.initSuccess(rides));
     yield put(expensesActions.initSuccess(expenses));
   } catch (err) {

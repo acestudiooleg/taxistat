@@ -9,6 +9,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 
 import Input from '../containers/Input';
 import DateInput from '../containers/Date';
@@ -26,6 +27,8 @@ import { goToBalance } from '../router';
 import { sortByDate } from '../utils';
 import { getStatisticts } from '../reducers/statistics';
 
+import { Container, D8, D4 } from '../MyHTML';
+
 import actions from '../actions/statistics';
 
 const filterRides = (rides, pattern) => rides.filter(({
@@ -41,6 +44,9 @@ const useStyles = makeStyles(() => ({
     padding: 5,
     overflow: 'auto',
     height: 'calc(100vh - 140px)',
+  },
+  allTime: {
+    marginTop: 10,
   },
 }));
 
@@ -58,6 +64,7 @@ const Statictics = () => {
   const onChangeFilter = ({ target: { value } }) => setFilter(value);
   const handleChange = (event, tabValue) => setTab(tabValue);
   const handleDateChange = date => dispatch(actions.balanceSetDate(date));
+  const allTime = () => dispatch(actions.balanceSetDate(null));
 
   const pattern = new RegExp(filterValue, 'ig');
 
@@ -76,12 +83,21 @@ const Statictics = () => {
         </AppBar>
         <Paper className={classes.list}>
           {tab !== 2 && <Input value={filterValue} onChange={onChangeFilter} placeholder={t('filter')} />}
-          <DateInput
-            label={t('stat-for-month')}
-            className={classes.datepicker}
-            value={currentDate}
-            onChange={handleDateChange}
-          />
+          <Container spacing={4} justify="center">
+            <D8>
+              <DateInput
+                label={t('stat-for-month')}
+                className={classes.datepicker}
+                value={currentDate}
+                onChange={handleDateChange}
+              />
+            </D8>
+            <D4>
+              <Button className={classes.allTime} onClick={allTime} color="primary">
+                {t('all-time')}
+              </Button>
+            </D4>
+          </Container>
           {tab === 0 && <RidesList rides={sortByDate(rides, true)} currency={currency} />}
           {tab === 1 && <ExpensesList expenses={sortByDate(expenses, true)} currency={currency} />}
           {tab === 2 && <Charts expenses={expensesList} rides={ridesList} currency={currency} />}
