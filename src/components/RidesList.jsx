@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import { useDispatch } from 'react-redux';
 
 import CashIcon from '@material-ui/icons/Money';
 import MoneyIcon from '@material-ui/icons/AttachMoney';
@@ -12,6 +13,8 @@ import ProfitIcon from '@material-ui/icons/ShowChart';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import DistanceIcon from '@material-ui/icons/Navigation';
 import Divider from '@material-ui/core/Divider';
+
+import router, { makeGoTo } from '../router';
 
 import Text from './Text';
 import { makeDayLine } from './DateLine';
@@ -42,6 +45,9 @@ const useStyles = makeStyles(() => ({
 const RidesList = ({ rides, currency }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const editRide = id => () => makeGoTo(`${router.editRide}/${id}`)(dispatch);
 
   const icons = {
     [PayTypes.Cash]: <CashIcon color="primary" />,
@@ -52,14 +58,13 @@ const RidesList = ({ rides, currency }) => {
   return (
     <List className={classes.list} component="nav" aria-label="main mailbox folders">
       {rides.map(({
-        timestamp, serviceName, payType, distance, money, profit,
+        timestamp, serviceName, payType, distance, money, profit, ID,
       }) => {
         const icon = icons[payType];
-
         return (
-          <div key={timestamp + money}>
+          <div key={ID}>
             {makeDayLine(timestamp)}
-            <ListItem className={classes.li}>
+            <ListItem onDoubleClick={editRide(ID)} className={classes.li}>
               <div className={classes.param}>
                 <ListItemIcon className={classes.listIcon}>{icon}</ListItemIcon>
                 <Text label={serviceName} />

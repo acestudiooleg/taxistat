@@ -7,9 +7,10 @@ const router = {
   statistics: '/statistics',
   earn: '/earn',
   spend: '/spend',
+  editRide: '/edit-ride',
 };
 
-const makeGoTo = path => dispatch => dispatch(push(path));
+export const makeGoTo = path => dispatch => dispatch(push(path));
 
 export const goToBalance = makeGoTo(router.balance);
 export const goToSettings = makeGoTo(router.settings);

@@ -14,6 +14,7 @@ import Settings from './routes/Settings';
 import Statistics from './routes/Statistics';
 import Earn from './routes/Earn';
 import Spend from './routes/Spend';
+import EditRide from './routes/EditRide';
 
 import actions from './actions/settings';
 
@@ -59,6 +60,8 @@ function App() {
         <RedirectRoute exact path={routes.balance} component={Balance} />
         <Route exact path={routes.settings} component={Settings} />
         <RedirectRoute exact path={routes.statistics} component={Statistics} />
+        <RedirectRoute exact path={routes.editRide} component={EditRide} />
+        <RedirectRoute exact path={`${routes.editRide}/:id`} component={EditRide} />
         <RedirectRoute exact path={routes.earn} component={Earn} />
         <RedirectRoute exact path={routes.spend} component={Spend} />
       </Switch>
