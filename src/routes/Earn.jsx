@@ -81,6 +81,7 @@ const Earn = () => {
   }
 
   const dispatch = useDispatch();
+  const { fuelConsumption, fuelPrice } = settings;
 
   const setData = key => ({ target: { value } }) => setState({ ...state, [key]: value });
   const handleDate = timestamp => setState({ ...state, timestamp });
@@ -109,12 +110,23 @@ const Earn = () => {
   if (percent < 20) {
     profitIcon = <BadProfitIcon color="error" />;
   }
-
   const save = () => {
-    if (state.money && state.distance) {
+    const {
+      money, distance, serviceId, timestamp, payType, rideTime, moneyCard, tips,
+    } = state;
+
+    if (money && distance) {
       dispatch(
         actions.add({
-          ...state,
+          serviceId,
+          timestamp,
+          payType,
+          rideTime,
+          moneyCard,
+          tips,
+          distance,
+          fuelConsumption,
+          fuelPrice,
           profit,
           money: total,
         }),

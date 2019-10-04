@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Settings = ({ steps }) => {
+const Settings = ({ steps, onChangeStep }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [activeTabNum, setTabNum] = useState(0);
@@ -43,24 +43,30 @@ const Settings = ({ steps }) => {
     }
   };
 
+  const changePage = (e, tabNum) => {
+    setTabNum(tabNum);
+    onChangeStep(steps[tabNum].name);
+  };
+
   return (
     <Swipe tolerance={100} onSwipeLeft={swipeLeft} onSwipeRight={swipeRight}>
       <Container>
         <D12>
-          <BottomNavigation value={activeTabNum} onChange={(e, name) => setTabNum(name)} className={classes.bottomNav}>
+          <BottomNavigation value={activeTabNum} onChange={changePage} className={classes.bottomNav}>
             {steps.map((el, index) => (
               <BottomNavigationAction key={el.name} label={el.label} value={index} icon={<el.icon />} />
             ))}
           </BottomNavigation>
         </D12>
 
-        <div className={classes.stepComponent}>{CurrentStepComponent && <CurrentStepComponent />}</div>
+        <div className={classes.stepComponent}>{CurrentStepComponent && <CurrentStepComponent key={new Date()} />}</div>
       </Container>
     </Swipe>
   );
 };
 
 Settings.propTypes = {
+  onChangeStep: PropTypes.func.isRequired,
   steps: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,

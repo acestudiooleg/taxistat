@@ -1,5 +1,7 @@
 import { createReducer } from '../helpers';
-import { SAVE, SAVE_SUCCESS, SAVE_FAILURE } from '../actions/backup';
+import {
+  GENERATE, GENERATE_SUCCESS, GENERATE_FAILURE, RESET,
+} from '../actions/backup';
 
 const initialState = {
   hasData: false,
@@ -11,7 +13,8 @@ const initialState = {
 export const getBackup = ({ backup }) => backup;
 
 export default createReducer(initialState, {
-  [SAVE]: () => ({ loading: true }),
-  [SAVE_SUCCESS]: ({ payload: database }) => ({ database, loading: false, hasData: true }),
-  [SAVE_FAILURE]: ({ payload: error }) => ({ error, loading: false, hasData: true }),
+  [RESET]: () => ({ hasData: false }),
+  [GENERATE]: () => ({ loading: true }),
+  [GENERATE_SUCCESS]: ({ payload: database }) => ({ database, loading: false, hasData: true }),
+  [GENERATE_FAILURE]: ({ payload: error }) => ({ error, loading: false, hasData: true }),
 });

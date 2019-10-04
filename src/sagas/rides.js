@@ -22,10 +22,10 @@ export function* save({ payload: ride }) {
 export function* add({ payload }) {
   try {
     const services = yield select(getTaxiServices);
-    const service = find(services.list, { ID: payload.serviceId });
+    const service = find(services.list, { ID: Number(payload.serviceId) });
     const data = yield db.rides.create({
       ...payload,
-      timestamp: payload.timestamp.toISOString(),
+      timestamp: payload.timestamp.toISOString(true),
       serviceName: service.name,
     });
 

@@ -19,6 +19,7 @@ import Settings from '../components/Settings';
 import Init from '../components/Init';
 
 import actions from '../actions/settings';
+import backupActions from '../actions/backup';
 
 import { getSettings } from '../reducers/settings';
 
@@ -73,12 +74,16 @@ const SettingsRoute = () => {
 
   const onBack = () => save({ activeStep: activeStep - 1 });
 
-  const setStep = (e, step) => save({ activeStep: step });
+  const onChangeStep = (componentName) => {
+    if (componentName === steps[1].name) {
+      dispatch(backupActions.generate());
+    }
+  };
 
   return (
     <Layout title={t('settings')} isShowNavigation={done}>
       {done ? (
-        <Settings activeStep={activeStep} setStep={setStep} steps={steps} />
+        <Settings onChangeStep={onChangeStep} steps={steps} />
       ) : (
         <Init activeStep={activeStep} onBack={onBack} onNext={onNext} steps={steps} />
       )}

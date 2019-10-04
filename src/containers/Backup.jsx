@@ -65,8 +65,6 @@ const Backup = () => {
         </Button>
       </D11>
     );
-  } else {
-    dispatch(actions.save());
   }
 
   return (

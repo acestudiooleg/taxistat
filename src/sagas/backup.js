@@ -1,17 +1,17 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import { goToBalance } from '../router';
 
-import actions, { SAVE, RESTORE, REMOVE_ALL } from '../actions/backup';
+import actions, { GENERATE, RESTORE, REMOVE_ALL } from '../actions/backup';
 import settingsActions from '../actions/settings';
 import db from '../db';
 
-export function* save() {
+export function* generate() {
   try {
     const data = yield db.db.serialize();
 
-    yield put(actions.saveSuccess(data));
+    yield put(actions.generateSuccess(data));
   } catch (error) {
-    yield put(actions.saveFailure({ error }));
+    yield put(actions.generateFailure({ error }));
   }
 }
 
@@ -38,7 +38,7 @@ export function* removeAll() {
 }
 
 export default function* backupSaga() {
-  yield takeEvery(SAVE, save);
+  yield takeEvery(GENERATE, generate);
   yield takeEvery(RESTORE, restore);
   yield takeEvery(REMOVE_ALL, removeAll);
 }
