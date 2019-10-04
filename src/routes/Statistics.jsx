@@ -11,6 +11,8 @@ import Tab from '@material-ui/core/Tab';
 import Paper from '@material-ui/core/Paper';
 
 import Input from '../containers/Input';
+import DateInput from '../containers/Date';
+
 import Layout from '../components/Layout';
 import RidesList from '../components/RidesList';
 import ExpensesList from '../components/ExpensesList';
@@ -22,6 +24,9 @@ import { getSettings } from '../reducers/settings';
 
 import { goToBalance } from '../router';
 import { sortByDate } from '../utils';
+import { getStatisticts } from '../reducers/statistics';
+
+import actions from '../actions/statistics';
 
 const filterRides = (rides, pattern) => rides.filter(({
   timestamp, serviceName, money, profit, distance,
@@ -46,11 +51,13 @@ const Statictics = () => {
   const { currency } = useSelector(getSettings, shallowEqual);
   const { list: ridesList } = useSelector(getRides, shallowEqual);
   const { list: expensesList } = useSelector(getExpenses, shallowEqual);
+  const { currentDate } = useSelector(getStatisticts, shallowEqual);
   const [tab, setTab] = useState(0);
   const [filterValue, setFilter] = useState('');
 
   const onChangeFilter = ({ target: { value } }) => setFilter(value);
   const handleChange = (event, tabValue) => setTab(tabValue);
+  const handleDateChange = date => dispatch(actions.balanceSetDate(date));
 
   const pattern = new RegExp(filterValue, 'ig');
 
@@ -69,6 +76,12 @@ const Statictics = () => {
         </AppBar>
         <Paper className={classes.list}>
           {tab !== 2 && <Input value={filterValue} onChange={onChangeFilter} placeholder={t('filter')} />}
+          <DateInput
+            label={t('stat-for-month')}
+            className={classes.datepicker}
+            value={currentDate}
+            onChange={handleDateChange}
+          />
           {tab === 0 && <RidesList rides={sortByDate(rides, true)} currency={currency} />}
           {tab === 1 && <ExpensesList expenses={sortByDate(expenses, true)} currency={currency} />}
           {tab === 2 && <Charts expenses={expensesList} rides={ridesList} currency={currency} />}
