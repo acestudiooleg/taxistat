@@ -4,7 +4,6 @@ import { History } from 'history';
 
 // inject import
 import keyboard from './keyboard';
-import init from './init';
 import taxiServices from './taxi-services';
 import statistics from './statistics';
 import settings from './settings';
@@ -18,7 +17,6 @@ export default (history: History): Reducer =>
     router: connectRouter(history),
     // inject usage
     keyboard,
-    init,
     taxiServices,
     statistics,
     settings,

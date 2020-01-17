@@ -47,7 +47,7 @@ export const calcProfit = ({
   return Number(profit).toFixed(2);
 };
 
-export const calcPercent = (a, b) => (a * 100) / b;
+export const calcPercent = (a: number, b: number): number => (a * 100) / b;
 
 export const sortByDate = (array, dir) =>
   array.sort((a, b) => {

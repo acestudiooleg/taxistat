@@ -1,3 +1,4 @@
+// @ts-ignore
 import LocalStorageDB from 'localstoragedb';
 import Model, { IDB } from './model';
 

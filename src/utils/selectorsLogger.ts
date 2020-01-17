@@ -24,7 +24,7 @@ const getTimeDiffColor = (timeDiff: number) =>
 /* eslint-enable */
 export default () => {
   const cache = {};
-  return (store: Store) => (next: (act: IAction) => any) => (action: IAction) => {
+  return (store: any) => (next: any) => (action: any) => {
     // eslint-disable-next-line callback-return
     const result = next(action);
     Object.keys(selectors).forEach(selectorName => {
