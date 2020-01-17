@@ -13,7 +13,7 @@ const Dashboard = (): React.ReactElement => {
 
   return (
     <div>
-      <h1 className={styles.Redbg}>Dashboard </h1>
+      <h1 className={styles.Redbg}>Dashboard</h1>
       <p>{message}</p>
       <pre>APP TREE:{JSON.stringify(tree, null, '\t')}</pre>
     </div>

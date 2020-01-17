@@ -1,7 +1,7 @@
 {
   "include": [
     "./src/*",
-    "index.d.ts"
+    "global.d.ts"
   ],
   "compilerOptions": {
     "lib": [
@@ -24,7 +24,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "rootDirs": [
-      "src",
+      "src/*",
       "stories"
     ],
     "noImplicitReturns": true,
