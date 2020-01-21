@@ -1,5 +1,6 @@
 const path = require('path');
 const _ = require('lodash');
+const { CheckerPlugin } = require('awesome-typescript-loader')
 
 const reactEnvsSource = _.pickBy(process.env, (val, key) => /REACT/.test(key));
 const reactEnvs = {};
@@ -44,6 +45,7 @@ module.exports = ({config}) => {
   config.module.rules.push(reactApp);
   config.module.rules.push(storysource);
   config.resolve.extensions.push(...extensions);
+  config.plugins.push(new CheckerPlugin());
   replaceEnv(config.plugins);
 
   return config;

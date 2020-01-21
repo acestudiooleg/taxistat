@@ -33,7 +33,7 @@ const Row = ({ icon, title, value, percent, ms, taxiDriver }: IRow) => {
   );
 };
 
-interface ITable {
+export interface ITable {
   rows: IRow[];
 }
 

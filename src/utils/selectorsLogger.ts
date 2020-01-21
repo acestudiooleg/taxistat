@@ -1,8 +1,6 @@
 /* eslint-disable import/namespace */
 import eq from 'lodash/eq';
 import * as selectors from '../selectors';
-import { Store } from 'redux';
-import { IAction } from './redux-create-reducer';
 
 const getTimeDiffColor = (timeDiff: number) =>
   /* eslint-disable */

@@ -26,6 +26,7 @@ const LangSwitch = () => {
     i18n.changeLanguage(lng);
     moment.locale(lng === Langs.UA ? 'uk' : lng);
     setAnchorEl(null);
+    console.log(anchorEl);
   };
 
   return (

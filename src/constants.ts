@@ -1,4 +1,5 @@
 export interface IService {
+  ID?: number;
   name: string;
   rideFee: number;
   weekFee: number;
@@ -24,7 +25,7 @@ export interface IExpense extends IRecord {
   comment: string;
 }
 
-export interface IRide  extends IRecord {
+export interface IRide extends IRecord {
   timestamp: number;
   serviceId: number;
   serviceName: string;

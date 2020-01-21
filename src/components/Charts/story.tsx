@@ -5,12 +5,16 @@ import React from 'react';
 // https://github.com/storybookjs/storybook/tree/master/addons/knobs
 // import { text, boolean, number, select, radios } from '@storybook/addon-knobs';
 
-import Table from './index';
+import Charts from './index';
 
 export default {
-  title: 'components/Table',
+  title: 'components/Charts',
 };
 
+const rides = [];
+const expenses = [];
+const currency = 'USD';
+
 export const Idle = () => {
-  return <Table rows={[]} />;
+  return <Charts rides={rides} expenses={expenses} currency={currency} />;
 };

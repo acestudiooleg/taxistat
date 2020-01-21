@@ -1,10 +1,29 @@
 import find from 'lodash/find';
 import moment from 'moment';
-import { PayTypes } from '../constants';
+import { PayTypes, IService, IRecord } from '../constants';
+import { ISettingsData } from '../actions/settings';
 
-export const calcTotal = ({ money, moneyCard, tips }) => Number(money) + Number(moneyCard) + Number(tips);
+interface ICalcTotal {
+  money: number | string;
+  moneyCard: number | string;
+  tips: number | string;
+}
 
-export const calcFuelCost = (fuelConsumption, fuelPrice) => (fuelConsumption / 100) * fuelPrice;
+interface ICalcProfit {
+  services: IService[];
+  settings: ISettingsData;
+  serviceId: number | string;
+  distance: number | string;
+  money: number | string;
+  moneyCard: number | string;
+  tips: number | string;
+  rideTime: number | string;
+  payType: number | string;
+}
+
+export const calcTotal = ({ money, moneyCard, tips }: ICalcTotal) => Number(money) + Number(moneyCard) + Number(tips);
+
+export const calcFuelCost = (fuelConsumption: number, fuelPrice: number) => (fuelConsumption / 100) * fuelPrice;
 
 export const calcProfit = ({
   services,
@@ -16,7 +35,7 @@ export const calcProfit = ({
   tips: t,
   rideTime: mn,
   payType,
-}) => {
+}: ICalcProfit) => {
   let profit = 0;
   const distance = Number(d);
   const money = Number(m);
@@ -49,8 +68,8 @@ export const calcProfit = ({
 
 export const calcPercent = (a: number, b: number): number => (a * 100) / b;
 
-export const sortByDate = (array, dir) =>
-  array.sort((a, b) => {
+export const sortByDate = (array: IRecord[], dir: boolean) =>
+  array.sort((a: IRecord, b: IRecord) => {
     if (moment(a.timestamp).isBefore(b.timestamp)) {
       return dir ? 1 : -1;
     }
