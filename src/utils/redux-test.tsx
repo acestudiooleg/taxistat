@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import { IAction } from './redux-create-reducer';
 import _ from 'lodash';
 import { createStore, Store } from 'redux';
-import Enzyme, { mount as mnt, ReactWrapper } from 'enzyme';
+import Enzyme, { mount as mnt, ReactWrapper, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { Routes } from '../constants';
+import Routes from '../router';
 import { push, ConnectedRouter, RouterState } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import createRootReducer from '../reducers';
@@ -44,8 +44,11 @@ const Adap = Adapter as any;
 
 Enzyme.configure({ adapter: new Adap() });
 
+export const EMount = mnt;
+export const EShallow = shallow;
+
 const _createStore = () => {
-  const history = createBrowserHistory({ basename: process.env.REACT_APP_BASENAME || Routes.Dashboard });
+  const history = createBrowserHistory({ basename: process.env.REACT_APP_BASENAME || Routes.Root });
   const store = createStore(createRootReducer(history));
   return { history, store };
 };
