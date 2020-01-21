@@ -1,29 +1,25 @@
-// @ts-nocheck
 // https://storybook.js.org/docs/basics/writing-stories/
 
-import React, { useState } from 'react';
+import React from 'react';
 // import { action } from '@storybook/addon-actions';
 // https://github.com/storybookjs/storybook/tree/master/addons/knobs
 // import { text, boolean, number, select, radios } from '@storybook/addon-knobs';
 
 import ChooseExpenseType from './index';
 import { predefinedExpenses } from '../../constants';
+import { withState } from '../../../.storybook/decorators';
 
 export default {
   title: 'components/ChooseExpenseType',
 };
 
-const expenses = predefinedExpenses.map((el, i) => ({ ...el, ID: i + 1 }));
+const expenses = predefinedExpenses.map((el, i) => ({ ...el, value: i + 1 }));
 
-export const Idle = () => {
-  const [state, setState] = useState({
-    expenseId: expenses[0].ID,
-  });
-  const setData = (key, type) => ({ target: { value } }) => setState({ ...state, [key]: type(value) });
+export const Idle = withState(expenses[0])((state, onChange) => {
   return (
     <div>
-      <ChooseExpenseType expenseId={state.expenseId} expenses={expenses} onChange={setData('expenseId', Number)} />
-      {state.expenseId} ID
+      <ChooseExpenseType expenseId={state.value} expenses={expenses} onChange={onChange} />
+      {state.value} ID
     </div>
   );
-};
+});

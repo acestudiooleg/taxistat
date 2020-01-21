@@ -1,48 +1,35 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PayTypes } from '../../constants';
-import { FormGroup, CustomInput } from 'reactstrap';
+import Radio from '../RadioGroup';
+
+interface IPayType {
+  value: PayTypes;
+  key: string;
+}
 
 interface IProps {
   selected: PayTypes;
-  onChange: (evt: React.ChangeEvent) => void;
+  onChange: (el: IPayType) => void;
 }
 
 const ChoosePayType = ({ selected, onChange }: IProps) => {
   const { t } = useTranslation();
-
-  return (
-    <FormGroup tag="fieldset">
-      <legend>{t('pay-type')}</legend>
-      <CustomInput
-        onChange={onChange}
-        type="radio"
-        id="cash"
-        name="payType"
-        value={PayTypes.Cash}
-        label={t('cash')}
-        checked={PayTypes.Cash == selected}
-      />
-      <CustomInput
-        onChange={onChange}
-        type="radio"
-        id="card"
-        name="payType"
-        value={PayTypes.Card}
-        label={t('card')}
-        checked={PayTypes.Card == selected}
-      />
-      <CustomInput
-        onChange={onChange}
-        type="radio"
-        id="card-and-cash"
-        name="payType"
-        value={PayTypes.CardAndCash}
-        label={t('card-and-cash')}
-        checked={PayTypes.CardAndCash == selected}
-      />
-    </FormGroup>
-  );
+  const list: IPayType[] = [
+    {
+      value: PayTypes.Cash,
+      key: t('cash'),
+    },
+    {
+      value: PayTypes.Card,
+      key: t('card'),
+    },
+    {
+      value: PayTypes.CardAndCash,
+      key: t('card-and-cash'),
+    },
+  ];
+  return <Radio list={list} selected={selected} name={t('pay-type')} onChange={onChange} />;
 };
 
 export default ChoosePayType;

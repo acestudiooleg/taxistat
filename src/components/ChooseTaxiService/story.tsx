@@ -6,19 +6,16 @@ import React from 'react';
 // https://github.com/storybookjs/storybook/tree/master/addons/knobs
 // import { text, boolean, number, select, radios } from '@storybook/addon-knobs';
 
-import ChoosePayType from './index';
-import { PayTypes } from '../../constants';
+import ChooseTaxiService from './index';
+import { predefinedServices } from '../../constants';
 import { withState } from '../../../.storybook/decorators';
 
 export default {
-  title: 'components/ChoosePayType',
+  title: 'components/ChooseTaxiService',
 };
 
-export const Idle = withState(PayTypes.Cash)(({ value }, onChange) => {
-  return (
-    <div>
-      <ChoosePayType selected={value} onChange={onChange} />
-      {value}
-    </div>
-  );
+const services = predefinedServices.map((el, i) => ({ ...el, value: i + 1 }));
+
+export const Idle = withState(services[0])((state, onChange) => {
+  return <ChooseTaxiService serviceId={state.value} services={services} onChange={onChange} />;
 });

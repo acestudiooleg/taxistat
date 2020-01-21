@@ -1,34 +1,17 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { IExpenseSetting } from '../../constants';
-import { FormGroup, CustomInput } from 'reactstrap';
-
+import RadioGroup, { toPair, IEl } from '../RadioGroup';
 interface IProps {
   expenses: IExpenseSetting[];
-  onChange: (evt: React.ChangeEvent) => void;
+  onChange: (el: IEl) => void;
   expenseId: number;
 }
 
 const ChooseExpenseType = ({ expenses, expenseId, onChange }: IProps) => {
   const { t } = useTranslation();
-
-  return (
-    <FormGroup tag="fieldset">
-      <legend>{t('expense')}</legend>
-      {expenses.map(el => (
-        <CustomInput
-          key={el.name}
-          onChange={onChange}
-          type="radio"
-          id={String(el.ID)}
-          name="expenseType"
-          label={el.name}
-          value={el.ID}
-          checked={expenseId === el.ID}
-        />
-      ))}
-    </FormGroup>
-  );
+  const list = expenses.map(toPair('name', 'ID'));
+  return <RadioGroup list={list} selected={expenseId} name={t('expense')} onChange={onChange} />;
 };
 
 export default ChooseExpenseType;
