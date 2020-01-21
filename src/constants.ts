@@ -9,12 +9,14 @@ export interface IService {
 }
 
 export interface IExpenseSetting {
+  ID?: number;
   name: string;
   commentsEnabled: boolean;
   isFuel: boolean;
 }
 
 export interface IRecord {
+  ID?: number;
   timestamp: number;
 }
 

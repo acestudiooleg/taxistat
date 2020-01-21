@@ -149,7 +149,7 @@ function createFilesList(naming, isModule, templates) {
   }
 
   if (templates.templateStyles) {
-    x.push(['style.module.scss', templates.templateStyles(naming)]);
+    x.push([naming.Name + '.module.scss', templates.templateStyles(naming)]);
   }
 
   return x;

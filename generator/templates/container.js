@@ -2,7 +2,7 @@ module.exports = ({ name, Name }) => `import React, { useState } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { setCounter, plus, minus } from '../../actions/counter';
 import { getCounter } from '../../reducers/counter';
-import styles from './styles.module.scss';
+import styles from './${Name}.module.scss';
 
 interface IProps {
   counter: number;

@@ -1,5 +1,5 @@
 module.exports = ({ name, Name }) => `import React, { useState } from 'react';
-import styles from './styles.module.scss';
+import styles from './${Name}.module.scss';
 
 interface IProps {
   counter: number;
