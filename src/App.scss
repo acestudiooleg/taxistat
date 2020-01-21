@@ -1,5 +1,14 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+$theme-colors: (
+  "primary": #009688,
+  "secondary": #197d73,
+);
+  
 .App {
   font-family: sans-serif;
   text-align: center;
 }
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+
 

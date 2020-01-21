@@ -38,7 +38,7 @@ const Charts = ({ expenses, rides, currency }: IProps) => {
     return `${name} (${percentage.toFixed(0)}%) - ${Number(value).toFixed(0)} ${currency}`;
   };
 
-  const labelStyle = { fontSize: '5px', fontFamily: 'sans-serif', fill: '#333333' };
+  const labelStyle = { fontSize: '4px', fontFamily: 'sans-serif', fill: '#333333' };
 
   return (
     <Container justify="center">

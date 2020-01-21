@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import cx from 'classnames';
-import styles from './styles.module.scss';
+import styles from './Table.module.scss';
+import { Table as TBL } from 'reactstrap';
 
 export interface IRow {
   title: string;
@@ -14,20 +15,20 @@ export interface IRow {
 const Row = ({ icon, title, value, percent, ms, taxiDriver }: IRow) => {
   return (
     <tr>
-      <td className={styles.tableCell}>
-        <div>
+      <td>
+        <div className={cx(styles.tableCell)}>
           {icon && <i className={styles.listIcon}>{icon}</i>}
-          <p className={styles.label}>
+          <span className={styles.label}>
             {title}
             {':'}
-          </p>
+          </span>
         </div>
       </td>
       <td align="right">
-        <p className={cx({ [styles.negativeValue]: taxiDriver && Number(value) < 0 })}>
+        <div className={cx({ [styles.negativeValue]: taxiDriver && Number(value) < 0 })}>
           {`${value} ${ms}`}
           {!taxiDriver && Boolean(percent) && <span>{` (${percent}%)`}</span>}
-        </p>
+        </div>
       </td>
     </tr>
   );
@@ -38,7 +39,7 @@ export interface ITable {
 }
 
 const Table = ({ rows }: ITable) => (
-  <table>
+  <TBL size="sm">
     <tbody>
       {rows.map(row => (
         <Row
@@ -52,7 +53,7 @@ const Table = ({ rows }: ITable) => (
         />
       ))}
     </tbody>
-  </table>
+  </TBL>
 );
 
 export default Table;

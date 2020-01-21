@@ -39,7 +39,7 @@ const BalanceTotal = ({
   const rows: IRow[] = [
     {
       title: t('earn'),
-      icon: <Icon name="AttachMoneyIcon" color="primary" />,
+      icon: <Icon name="attach_money" color="primary" />,
       value: earn.toFixed(2),
       taxiDriver,
       percent,
@@ -47,7 +47,7 @@ const BalanceTotal = ({
     },
     {
       title: t('balance'),
-      icon: <Icon name="AccountBalanceWalletIcon" color="primary" />,
+      icon: <Icon name="account_balance_wallet" color="primary" />,
       value: balance.toFixed(2),
       taxiDriver,
       percent: (100 - Number(percent)) * -1,
@@ -55,31 +55,31 @@ const BalanceTotal = ({
     },
     {
       title: t('expenses'),
-      icon: <Icon name="DirectionsCarIcon" color="primary" />,
+      icon: <Icon name="directions_car" color="primary" />,
       value: expenses.toFixed(2),
       ms: currency,
     },
     {
       title: dateTitle,
-      icon: <Icon name="CalendarTodayIcon" color="primary" />,
+      icon: <Icon name="calendar_today" color="primary" />,
       value: earnToday.toFixed(2),
       ms: currency,
     },
     {
       title: t('distance-price', { distanceName }),
-      icon: <Icon name="FuelConsumptionIcon" color="primary" />,
+      icon: <Icon name="local_gas_station" color="primary" />,
       value: distancePrice.toFixed(2),
       ms: currency,
     },
     {
       title: t('orders-qty'),
-      icon: <Icon name="PollIcon" color="primary" />,
+      icon: <Icon name="poll" color="primary" />,
       value: orders,
       ms: '',
     },
     {
       title: t('distance'),
-      icon: <Icon name="DistanceIcon" color="primary" />,
+      icon: <Icon name="navigation" color="primary" />,
       value: distance.toFixed(2),
       ms: distanceName,
     },

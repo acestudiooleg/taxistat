@@ -2,7 +2,6 @@ import { configure, addDecorator } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { withA11y } from '@storybook/addon-a11y';
 import { Router } from './decorators';
-import 'bootstrap/dist/css/bootstrap.css';
 import '../src/App.scss';
 
 

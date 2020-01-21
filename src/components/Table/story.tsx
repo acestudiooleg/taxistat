@@ -12,5 +12,18 @@ export default {
 };
 
 export const Idle = () => {
-  return <Table rows={[]} />;
+  return (
+    <Table
+      rows={[
+        {
+          title: 'title',
+          value: 22,
+          icon: 'cion',
+          taxiDriver: true,
+          percent: 20,
+          ms: '20',
+        },
+      ]}
+    />
+  );
 };

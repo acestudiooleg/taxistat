@@ -3,7 +3,11 @@
     "./src/*",
     "global.d.ts"
   ],
-  "exclude": ["node_modules", "build", "scripts"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts"
+  ],
   "compilerOptions": {
     "lib": [
       "es5",
@@ -24,32 +28,34 @@
       "src/**/*",
       "stories"
     ],
-    "types": ["node", "jest"],
+    "types": [
+      "node",
+      "jest"
+    ],
     "downlevelIteration": true,
     "noFallthroughCasesInSwitch": true,
     "noEmit": true,
     "outDir": "build/lib",
-
-  "sourceMap": true,
-  "allowJs": true,
-  "moduleResolution": "node",
-  "baseUrl": "src",
-  "forceConsistentCasingInFileNames": true,
-  "noImplicitReturns": true,
-  "noImplicitThis": true,
-  "noImplicitAny": false,
-  "strictNullChecks": true,
-  "suppressImplicitAnyIndexErrors": true,
-  "noUnusedLocals": true,
-  "allowSyntheticDefaultImports": true,
-  "experimentalDecorators": true,
-  "emitDecoratorMetadata": true
+    "sourceMap": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "awesomeTypescriptLoaderOptions": {
     "transpileOnly": true,
     "errorsAsWarnings ": true,
     "ignoreDiagnostics": [
-      7005, 6133
+      7005,
+      6133
     ]
   }
 }
