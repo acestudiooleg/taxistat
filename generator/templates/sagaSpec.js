@@ -1,4 +1,4 @@
-module.exports = ({ name, naMe, Name, NA_ME }) => `import { call, put, take } from 'redux-saga/effects';
+module.exports = ({ name, naMe, Name, NA_ME }) => `/*mport { call, put, take } from 'redux-saga/effects';
 import ${naMe}, { fetch } from './${name}';
 import { saga, does, ends, throws } from '../utils/saga';
 
@@ -28,5 +28,5 @@ describe(
     throws(does('should dispatch error', put(fetchFailure('some error')), 'some error')),
     ends(),
   ]),
-);
+);*/
 `;

@@ -13,6 +13,8 @@ export interface IExpenseSetting {
   name: string;
   commentsEnabled: boolean;
   isFuel: boolean;
+  isNew?: boolean;
+  newName?: string;
 }
 
 export interface IRecord {

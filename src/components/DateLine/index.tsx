@@ -28,8 +28,9 @@ const DateLine = ({ date }: IProps) => {
 
   return (
     <ListGroupItem color="secondary" key={date} className={styles.listItem}>
-      <Icon name="calendar_today" color="light" className={styles.icon} />
-      <span className={styles.label}>{isToday ? t('today') : d.format('DD MMMM HH:mm')}</span>
+      <Icon name="calendar_today" color="light" textColor="light">
+        {isToday ? t('today') : d.format('DD MMMM HH:mm')}{' '}
+      </Icon>
     </ListGroupItem>
   );
 };

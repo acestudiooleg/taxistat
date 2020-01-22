@@ -1,12 +1,13 @@
 import { configure, addDecorator } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { withA11y } from '@storybook/addon-a11y';
-import { Router } from './decorators';
+import { Router, ReduxState } from './decorators';
 import '../src/App.scss';
 
 
 addDecorator(withA11y);
 addDecorator(withKnobs);
+addDecorator(ReduxState);
 addDecorator(Router);
 
 // automatically import all files ending in *.stories.js

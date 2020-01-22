@@ -1,4 +1,9 @@
-module.exports = ({ name, Name, NA_ME, naMe }) => `import { actionSeq, act, hasFunc, hasType } from '../utils/actions';
+module.exports = ({
+  name,
+  Name,
+  NA_ME,
+  naMe,
+}) => `/*import { actionSeq, act, hasFunc, hasType } from '../utils/actions';
 import ${naMe}, {
   FETCH_${NA_ME},
   FETCH_${NA_ME}_SUCCESS,
@@ -18,5 +23,5 @@ describe(
     hasType(FETCH_${NA_ME}, FETCH_${NA_ME}_SUCCESS, FETCH_${NA_ME}_FAILURE),
     hasFunc(fetch, fetchSuccess, fetchFailure),
   ]),
-);
+);*/
 `;
