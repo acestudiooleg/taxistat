@@ -5,10 +5,11 @@ interface IProps {
   name: string;
   color?: string;
   size?: string;
+  className?: string;
 }
 
-const Icon = ({ name, color, size }: IProps) => (
-  <i className={cx('material-icons', color ? `text-${color}` : '', size)}>{name}</i>
+const Icon = ({ name, color, size, className }: IProps) => (
+  <i className={cx('material-icons', color ? `text-${color}` : '', size, className)}>{name}</i>
 );
 
 export default Icon;
