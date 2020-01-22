@@ -1,0 +1,27 @@
+.negativeValue {
+  span {
+    color: var(--danger);
+  }
+}
+
+.label {
+  color: var(--primary);
+  margin-right: 10px;
+}
+
+.labelService {
+  width: 45px;
+}
+
+.labelExpense {
+  width: 80px;
+}
+
+.labelDate {
+  color: var(--secondary);
+  width: 100%;
+}
+
+.labelSpan {
+  margin-right: 2px;
+}
